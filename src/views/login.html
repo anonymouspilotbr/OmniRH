@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Banco de Horas</title>
+        <script src="https://cdn.tailwindcss.com"></script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+        <style>
+            .bg-gradient-to-r.from-blue-900.to-blue-800.rounded-2xl.p-8.text-white.shadow-xl{
+                padding: 1rem;
+            }
+            .container.mx-auto.px-4.py-8{
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+            div.mb-12{
+                margin-bottom: 1rem;
+            }
+            .card-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2563eb; 
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            color: #fff;
+            max-width: 500px;
+            }
+
+            .login-container {
+            display: flex;
+            max-width: 1000px;
+            margin: 50px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            }
+            .card-login {
+            flex: 1;
+            background: #2563eb;
+            color: #fff;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            }
+
+            .card-content {
+            width: 100%;
+            }
+
+            .card-login h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            }
+
+            .card-login p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            }
+
+            .card-login label {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            }
+
+            .card-login input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            }
+
+            .card-login button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background: #fff;
+            color: #2563eb;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            }
+
+            .card-login button:hover {
+            background: #f1f1f1;
+            }
+            .card-image {
+            flex: 1;
+            background: #000;
+            }
+
+            .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 min-h-screen">
+        <header class="bg-blue-600 text-white shadow-lg"> 
+            <div class="container mx-auto px-4 py-6"> 
+                <div class="flex items-center justify-between"> 
+                    <div class="flex items-center space-x-4"> 
+                        <div> 
+                            <h1 class="text-2xl font-bold">OmniRH</h1> 
+                            <p class="text-blue-100 text-sm">Título da Página</p> 
+                        </div> 
+                    </div> 
+                    <div class="flex items-center space-x-4"> 
+                        <div class="text-right"> 
+                            <p class="font-semibold">João Silva</p> 
+                            <p class="text-blue-200 text-sm">Recursos Humanos</p> 
+                        </div> 
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center"> 
+                            <i class="fas fa-user text-white text-xl"></i> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+        </header>
+        <main class="container mx-auto px-4 py-8">
+            <!--CONTEÚDO DA PÁGINA-->
+                    <div class="login-container">
+                        <div class="card-login">
+                            <div class="card-content">
+                            <h2>Login</h2>
+                            <p>Entre com seu usuário e senha para acessar o sistema</p>
+                            <form>
+                                <label for="usuario">Usuário</label>
+                                <input type="text" id="usuario" placeholder="Digite seu usuário" required>
+
+                                <label for="senha">Senha</label>
+                                <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+                                <button type="submit">Entrar</button>
+                            </form>
+                            </div>
+                        </div>
+                    <div class="card-image">
+                        <img src="https://picsum.photos/600/600" alt="Imagem Login">
+                    </div>
+                    </div>
+        </main>
+        <footer class="bg-gray-800 text-white py-8 mt-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-4">OmniRH</h4>
+                        <p class="text-gray-400">Gestão eficiente de recursos humanos</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Contato</h4>
+                        <p class="text-gray-400">rh@empresa.com</p>
+                        <p class="text-gray-400">(11) 9999-9999</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Links Úteis</h4>
+                        <a href="#" class="block text-gray-400 hover:text-white mb-2">Política de Recessos</a>
+                        <a href="#" class="block text-gray-400 hover:text-white">Portal do Colaborador</a>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                    <p>© 2025 OmniRH. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
