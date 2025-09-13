@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>OmniRH - Licenças e Afastamentos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fafb;
+    }
+
+    header {
+      background-color: #2563eb;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .user-info {
+      text-align: right;
+    }
+
+    .user-info p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      border-radius: 50%;
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    main {
+      padding: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: #111827;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #1e40af;
+    }
+
+    footer {
+      background-color: #1f2937;
+      color: #9ca3af;
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .footer-section h4 {
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #9ca3af;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #374151;
+      padding-top: 10px;
+      text-align: center;
+      width: 100%;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>OmniRH</h1>
+      <p>Tela de Afastamentos</p>
+    </div>
+    <div class="user-info">
+      <p><strong>João Silva</strong></p>
+      <p>Recursos Humanos</p>
+      <div class="user-avatar"></div>
+    </div>
+  </header>
+
+  <main>
+    <h2>Registrar Afastamento / Licença</h2>
+    <form>
+      <label for="colaborador">Colaborador</label>
+      <input type="text" id="colaborador" name="colaborador" placeholder="Nome do colaborador">
+
+      <label for="tipo">Tipo de Afastamento</label>
+      <select id="tipo" name="tipo">
+        <option value="">Selecione</option>
+        <option value="medico">Licença Médica</option>
+        <option value="maternidade">Licença Maternidade</option>
+        <option value="paternidade">Licença Paternidade</option>
+        <option value="ferias">Férias</option>
+        <option value="outro">Outro</option>
+      </select>
+
+      <label for="inicio">Data de Início</label>
+      <input type="date" id="inicio" name="inicio">
+
+      <label for="fim">Data de Término</label>
+      <input type="date" id="fim" name="fim">
+
+      <label for="obs">Observações</label>
+      <textarea id="obs" name="obs" rows="4" placeholder="Informações adicionais (opcional)"></textarea>
+
+      <button type="submit">Registrar Afastamento</button>
+    </form>
+  </main>
+
+  <footer>
+    <div class="footer-section">
+      <h4>OmniRH</h4>
+      <p>Gestão eficiente de recursos humanos</p>
+    </div>
+    <div class="footer-section">
+      <h4>Contato</h4>
+      <p>rh@empresa.com</p>
+      <p>(11) 9999-9999</p>
+    </div>
+    <div class="footer-section">
+      <h4>Links Úteis</h4>
+      <a href="#">Política de Recessos</a>
+      <a href="#">Portal do Colaborador</a>
+    </div>
+    <div class="footer-bottom">
+      © 2025 OmniRH. Todos os direitos reservados.
+    </div>
+  </footer>
+
+</body>
+</html>
