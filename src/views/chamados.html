@@ -17,6 +17,20 @@
             div.mb-12{
                 margin-bottom: 1rem;
             }
+            .table-fixed { table-layout: fixed; }
+            .multiline-truncate {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+
+                line-height: 1.45;
+                max-height: calc(1.45em * 2);
+
+                white-space: normal;
+                overflow-wrap: break-word;
+            }
         </style>
     </head>
     <body class="bg-gray-50 min-h-screen">
@@ -44,14 +58,13 @@
         <main class="container mx-auto px-4 py-8">
             <div class="bg-gray-50 rounded-2xl shadow-lg p-6 space-y-4">
                 <div class="overflow-x-auto shadow-lg rounded-2xl">
-                    <table class="table-auto w-full border-collapse shadow-lg rounded-lg">
+                    <table class="table-auto table-fixed w-full border-collapse shadow-lg rounded-lg">
                         <thead class="bg-gray-100">
                             <tr class="text-center font-bold">
                                 <th class="px-4 py-2">Nº OS</th>
                                 <th class="px-4 py-2">Data e hora</th>
                                 <th class="px-4 py-2">Solicitante</th>
                                 <th class="px-4 py-2">Empresa</th>
-                                <th class="px-4 py-2">Departamento</th>
                                 <th class="px-4 py-2 w-2/5 text-center">Descrição</th>
                                 <th class="px-4 py-2">Técnico</th>
                                 <th class="px-4 py-2">Status</th>
@@ -63,14 +76,15 @@
                                 <td class="px-4 py-2">11/09/2025<br>15:23</td>
                                 <td class="px-4 py-2">João Silva</td>
                                 <td class="px-4 py-2">ABC Soluções LTDA</td>
-                                <td class="px-4 py-2">Recursos Humanos</td>
-                                <td class="px-4 py-2 text-justify">
-                                    Não estou conseguindo gerar a folha de ponto dos funcionários.
+                                <td class="px-4 py-2 align-top">
+                                    <div class="multiline-truncate text-left">
+                                        Não estou conseguindo gerar a folha de ponto dos funcionários.
                                     O sistema está dando erro.
+                                    </div>
                                 </td>
                                 <td class="px-4 py-2">Jaime Miranda</td>
-                                <td class="px-4 py-2">
-                                    <span class="bg-yellow-500 rounded-2xl px-2 py-1 inline-block">Em andamento</span>
+                                <td class="px-4 py-2 text-gray-500">
+                                    <i class="fa-solid fa-clock"></i> Em andamento
                                 </td>
                             </tr>
                             <tr class="bg-white text-center border-t">
@@ -78,13 +92,14 @@
                                 <td class="px-4 py-2">11/09/2025<br>12:15</td>
                                 <td class="px-4 py-2">Luís Pereira dos Santos</td>
                                 <td class="px-4 py-2">ABC Soluções LTDA</td>
-                                <td class="px-4 py-2">Financeiro</td>
-                                <td class="px-4 py-2 text-justify">
-                                    O sistema não está registrando as horas corretamente. Ontem fiz três horas extras e o sistema registrou apenas 2h. 
+                                <td class="px-4 py-2 align-top">
+                                    <div class="multiline-truncate text-left">
+                                        O sistema não está registrando as horas corretamente. Ontem fiz três horas extras e o sistema registrou apenas 2h. 
+                                    </div>
                                 </td>
                                 <td class="px-4 py-2">Jaime Miranda</td>
-                                <td class="px-4 py-2">
-                                    <span class="bg-green-500 text-white rounded-2xl px-2 py-1 inline-block">Concluído</span>
+                                <td class="px-4 py-2 text-green-600">
+                                    <i class="fa-solid fa-check"></i> Concluído
                                 </td>
                             </tr>
                             <tr class="bg-white text-center border-t">
@@ -92,13 +107,14 @@
                                 <td class="px-4 py-2">05/09/2025<br>09:14</td>
                                 <td class="px-4 py-2">Osmar Martins</td>
                                 <td class="px-4 py-2">DEF Holdings</td>
-                                <td class="px-4 py-2">Recursos Humanos</td>
-                                <td class="px-4 py-2 text-justify">
-                                    Bom dia, o funcionário Lorem Ipsum está sem acesso ao sistema desde ontem à noite. Quando tento visualizar no sistema, dá "Usuário não encontrado".
+                                <td class="px-4 py-2 align-top">
+                                    <div class="multiline-truncate text-left">
+                                        Bom dia, o funcionário Lorem Ipsum está sem acesso ao sistema desde ontem à noite. Quando tento visualizar no sistema, dá "Usuário não encontrado".
+                                    </div>
                                 </td>
                                 <td class="px-4 py-2">Mateus Bittencourt</td>
-                                <td class="px-4 py-2">
-                                    <span class="bg-gray-400 rounded-2xl px-2 py-1 inline-block">À disposição do técnico</span>
+                                <td class="px-4 py-2 text-gray-500">
+                                    <i class="fa-solid fa-clock"></i> Em andamento
                                 </td>
                             </tr>
                             <tr class="bg-white text-center border-t">
@@ -106,13 +122,14 @@
                                 <td class="px-4 py-2">26/08/2025<br>17:44</td>
                                 <td class="px-4 py-2">Carolina Maria dos Santos</td>
                                 <td class="px-4 py-2">GHI Produções</td>
-                                <td class="px-4 py-2">Recursos Humanos</td>
-                                <td class="px-4 py-2 text-justify">
-                                    O usuário Rodrigo Joaquim Lopes não está conseguindo resetar sua senha, porque o email de confirmação não chegou.
+                                <td class="px-4 py-2 align-top">
+                                    <div class="multiline-truncate text-left">
+                                        O usuário Rodrigo Joaquim Lopes não está conseguindo resetar sua senha, porque o email de confirmação não chegou.
+                                    </div>
                                 </td>
                                 <td class="px-4 py-2">Marcos Barragan</td>
-                                <td class="px-4 py-2">
-                                    <span class="bg-black text-white rounded-2xl px-2 py-1 inline-block">Concluído - Aguardando Retorno</span>
+                                <td class="px-4 py-2 text-green-600">
+                                    <i class="fa-solid fa-check"></i> Concluído
                                 </td>
                             </tr>
                             <tr class="bg-white text-center border-t">
@@ -120,13 +137,14 @@
                                 <td class="px-4 py-2">24/08/2025<br>11:16</td>
                                 <td class="px-4 py-2">João Silva</td>
                                 <td class="px-4 py-2">ABC Soluções LTDA</td>
-                                <td class="px-4 py-2">Recursos Humanos</td>
-                                <td class="px-4 py-2 text-justify">
-                                    Não estou conseguindo abrir as solicitações de férias dos funcionários, o sistema dá erro. 
+                                <td class="px-4 py-2 align-top">
+                                    <div class="multiline-truncate text-left">
+                                        Não estou conseguindo abrir as solicitações de férias dos funcionários, o sistema dá erro. 
+                                    </div>
                                 </td>
                                 <td class="px-4 py-2">-</td>
-                                <td class="px-4 py-2">
-                                    <span class="bg-red-500 text-white rounded-2xl px-2 py-1 inline-block">Aguardando triagem</span>
+                                <td class="px-4 py-2 text-yellow-600">
+                                    <i class="fa-solid fa-hourglass"></i> Aguardando Triagem
                                 </td>
                             </tr>
                             <tr class="bg-white text-center border-t">
@@ -134,13 +152,14 @@
                                 <td class="px-4 py-2">21/08/2025<br>10:45</td>
                                 <td class="px-4 py-2">Lais Martins</td>
                                 <td class="px-4 py-2">JKL Empresarial</td>
-                                <td class="px-4 py-2">Recursos Humanos</td>
-                                <td class="px-4 py-2 text-justify">
-                                    A funcionária Karine Teixeira está sem acesso ao sistema. Está dando erro "Usuário não autorizado"
+                                <td class="px-4 py-2 align-top">
+                                    <div class="multiline-truncate text-left">
+                                        A funcionária Karine Teixeira está sem acesso ao sistema. Está dando erro "Usuário não autorizado"
+                                    </div>
                                 </td>
                                 <td class="px-4 py-2">Jaime Miranda</td>
-                                <td class="px-4 py-2">
-                                    <span class="bg-green-500 text-white rounded-2xl px-2 py-1 inline-block">Concluído</span>
+                                <td class="px-4 py-2 text-green-600">
+                                    <i class="fa-solid fa-check"></i> Concluído
                                 </td>
                             </tr>
                         </tbody>
