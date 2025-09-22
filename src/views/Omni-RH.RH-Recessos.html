@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Solicitações de Recesso - RH</title>
+    <style>
+        /* Fonte e cores base */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #2c3e50;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #34495e;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Tabela estilizada */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead tr {
+            background-color: #2980b9;
+            color: white;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        thead th {
+            padding: 12px 15px;
+        }
+
+        tbody tr {
+            background-color: #ecf0f1;
+            transition: background-color 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #d0d7de;
+        }
+
+        tbody td {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+
+        /* Botões */
+        button {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: white;
+            margin-right: 6px;
+        }
+
+        .btn-approve {
+            background-color: #27ae60;
+        }
+        .btn-approve:hover {
+            background-color: #219150;
+        }
+
+        .btn-reject {
+            background-color: #c0392b;
+        }
+        .btn-reject:hover {
+            background-color: #992d22;
+        }
+
+        /* Status */
+        .status {
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            color: white;
+            font-size: 0.9em;
+        }
+        .status.Pendente {
+            background-color: #f39c12;
+        }
+        .status.Aprovado {
+            background-color: #27ae60;
+        }
+        .status.Rejeitado {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Solicitações de Recesso</h1>
+    <table id="recessosTable">
+        <thead>
+            <tr>
+                <th>Funcionário</th>
+                <th>Tipo Recesso</th>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+                <th>Dias</th>
+                <th>Motivo</th>
+                <th>Solicitado Em</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Linhas serão inseridas via JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Carrega os dados de recessos do localStorage
+        let recessos = JSON.parse(localStorage.getItem('recessosRH')) || [];
+
+        const tbody = document.querySelector("#recessosTable tbody");
+
+        // Função para formatar a data para exibição
+        function formatDate(dateString) {
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('pt-BR', options);
+        }
+
+        function renderRecessos() {
+            tbody.innerHTML = ""; // limpa tabela
+            if (recessos.length === 0) {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td colspan="9" style="text-align: center; padding: 20px;">Nenhuma solicitação de recesso pendente.</td>`;
+                tbody.appendChild(tr);
+                return;
+            }
+
+            recessos.forEach((recesso, index) => {
+                const tr = document.createElement("tr");
+
+                tr.innerHTML = `
+                    <td>${recesso.funcionario}</td>
+                    <td>${recesso.tipoRecesso}</td>
+                    <td>${formatDate(recesso.dataInicio)}</td>
+                    <td>${formatDate(recesso.dataFim)}</td>
+                    <td>${recesso.quantidadeDias}</td>
+                    <td>${recesso.motivo}</td>
+                    <td>${formatDate(recesso.dataSolicitacao)}</td>
+                    <td><span class="status ${recesso.status}">${recesso.status}</span></td>
+                    <td>
+                        ${recesso.status === "Pendente" ? `
+                            <button class="btn-approve" onclick="aprovar(${index})">Aprovar</button>
+                            <button class="btn-reject" onclick="rejeitar(${index})">Rejeitar</button>
+                        ` : '-'}
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        function aprovar(index) {
+            recessos[index].status = "Aprovado";
+            localStorage.setItem('recessosRH', JSON.stringify(recessos)); // Salva a alteração
+            renderRecessos();
+            alert(`Solicitação de ${recessos[index].funcionario} aprovada.`);
+        }
+
+        function rejeitar(index) {
+            recessos[index].status = "Rejeitado";
+            localStorage.setItem('recessosRH', JSON.stringify(recessos)); // Salva a alteração
+            renderRecessos();
+            alert(`Solicitação de ${recessos[index].funcionario} rejeitada.`);
+        }
+
+        // Inicializa a tabela
+        renderRecessos();
+    </script>
+</body>
+</html>

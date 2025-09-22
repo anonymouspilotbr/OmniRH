@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Perfil do Colaborador - OmniRH</title>
+        <script src="https://cdn.tailwindcss.com"></script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+        <style>
+            .bg-gradient-to-r.from-blue-900.to-blue-800.rounded-2xl.p-8.text-white.shadow-xl{
+                padding: 1rem;
+            }
+            .container.mx-auto.px-4.py-8{
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+            div.mb-12{
+                margin-bottom: 1rem;
+            }
+            .progress-bar {
+                transition: width 0.5s ease-in-out;
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 min-h-screen">
+        <header class="bg-blue-600 text-white shadow-lg"> 
+            <div class="container mx-auto px-4 py-6"> 
+                <div class="flex items-center justify-between"> 
+                    <div class="flex items-center space-x-4"> 
+                        <div> 
+                            <h1 class="text-2xl font-bold">OmniRH</h1> 
+                            <p class="text-blue-100 text-sm">Perfil do Colaborador</p> 
+                        </div> 
+                    </div> 
+                    <div class="flex items-center space-x-4"> 
+                        <div class="text-right"> 
+                            <p class="font-semibold">Maria Oliveira Silva Costa</p> 
+                            <p class="text-blue-200 text-sm">Recursos Humanos</p> 
+                        </div> 
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white text-xl"></i>
+                        </div>
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+        </header>
+        <main class="container mx-auto px-4 py-8">
+            <!--CONTEÚDO DA PÁGINA-->
+            <div class="flex justify-end mb-4">
+                <button id="edit-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                    <i class="fas fa-pencil-alt mr-2"></i>Editar Perfil
+                </button>
+                <div id="edit-actions" class="hidden">
+                    <button id="save-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 mr-2">
+                        <i class="fas fa-save mr-2"></i>Salvar
+                    </button>
+                    <button id="cancel-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                        <i class="fas fa-times mr-2"></i>Cancelar
+                    </button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Coluna esquerda: Informações pessoais e foto -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <div class="flex flex-col items-center">
+                            <div class="w-32 h-32 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-user text-blue-500 text-5xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-800 view-mode">Maria Oliveira Silva Costa</h2>
+                            <input type="text" class="edit-mode hidden form-input w-full text-2xl font-bold border-gray-300 rounded-md shadow-sm text-center" value="Maria Oliveira Silva Costa">
+                            <p class="text-blue-600 font-medium">Analista de Recursos Humanos</p>
+                            <p class="text-gray-500 mt-2">ID: 12345</p>
+                            
+                            <div class="w-full mt-6 border-t pt-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-600">Status</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">Ativo</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-600">Data de Admissão</span>
+                                    <span class="text-gray-800 font-medium">15/03/2020</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Tempo de Empresa</span>
+                                    <span class="text-gray-800 font-medium">4 anos, 6 meses</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Contato</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-blue-500 w-6"></i>
+                                <span class="text-gray-600 view-mode">maria.oliveira@empresa.com</span>
+                                <input type="email" class="edit-mode hidden form-input w-full ml-2 border-gray-300 rounded-md shadow-sm" value="maria.oliveira@gmail.com">
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-blue-500 w-6"></i>
+                                <span class="text-gray-600 view-mode">(61) 98765-4321</span>
+                                <input type="text" class="edit-mode hidden form-input w-full ml-2 border-gray-300 rounded-md shadow-sm" value="(11) 98765-4321">
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-building text-blue-500 w-6"></i>
+                                <span class="text-gray-600">3ª Andar - Sala 08</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-blue-500 w-6"></i>
+                                <span class="text-gray-600">Departamento: RH</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Coluna direita: Informações profissionais -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Informações Profissionais</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-gray-500 text-sm">Cargo</p>
+                                <p class="text-gray-800 font-medium">Analista de Recursos Humanos</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Departamento</p>
+                                <p class="text-gray-800 font-medium">Recursos Humanos</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Gestor</p>
+                                <p class="text-gray-800 font-medium">Carlos Mendonça de Almeida</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Jornada de Trabalho</p>
+                                <p class="text-gray-800 font-medium">9h - 18h (40h semanais)</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Regime de Trabalho</p>
+                                <p class="text-gray-800 font-medium">CLT</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Salário</p>
+                                <p class="text-gray-800 font-medium">R$ 5.800,00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Seção de Segurança / Alterar Senha -->
+                    <div id="security-section" class="bg-white rounded-xl shadow-md p-6 mb-6 hidden">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Alterar Senha</h3>
+                        <div class="relative">
+                            <input type="password" id="password-input" class="form-input w-full pr-10 border-gray-300 rounded-md shadow-sm" placeholder="Digite a nova senha">
+                            <button id="toggle-password" type="button" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700">
+                                <i id="password-icon" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Benefícios</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full border border-blue-300">Vale-Alimentação</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full border border-blue-300">Plano de Saúde</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full border border-blue-300">Plano Odontológico</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full border border-blue-300">Gympass</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Férias e Licenças</h3>
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-600">Dias de férias disponíveis</span>
+                                <span class="text-gray-800 font-medium">15 dias</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-600">Licenças médicas este ano</span>
+                                <span class="text-gray-800 font-medium">3 dias</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full">
+                                <i class="fas fa-calendar-alt mr-2"></i>Solicitar Recessos
+                            </button>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full">
+                                <i class="fas fa-file-alt mr-2"></i>Abrir Processo de Licença
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="bg-gray-800 text-white py-8 mt-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-4">OmniRH</h4>
+                        <p class="text-gray-400">Gestão eficiente de recursos humanos</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Contato</h4>
+                        <p class="text-gray-400">omnirh@gmail.com</p>
+                        <p class="text-gray-400">(61) 9876-5432</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Links Úteis</h4>
+                        <a href="#" class="block text-gray-400 hover:text-white mb-2">Política de Recessos</a>
+                        <a href="#" class="block text-gray-400 hover:text-white">Portal do Colaborador</a>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                    <p>© 2025 OmniRH. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+        <script>
+            const editBtn = document.getElementById('edit-btn');
+            const saveBtn = document.getElementById('save-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const editActions = document.getElementById('edit-actions');
+            const securitySection = document.getElementById('security-section');
+            const togglePasswordBtn = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('password-input');
+            const passwordIcon = document.getElementById('password-icon');
+
+            const viewModeElements = document.querySelectorAll('.view-mode');
+            const editModeElements = document.querySelectorAll('.edit-mode');
+
+            function toggleEditMode(isEditing) {
+                editBtn.classList.toggle('hidden', isEditing);
+                editActions.classList.toggle('hidden', !isEditing);
+                securitySection.classList.toggle('hidden', !isEditing);
+
+                viewModeElements.forEach(el => el.classList.toggle('hidden', isEditing));
+                editModeElements.forEach(el => el.classList.toggle('hidden', !isEditing));
+            }
+
+            editBtn.addEventListener('click', () => {
+                // Preenche os inputs com os valores atuais antes de mostrar
+                viewModeElements.forEach((viewEl) => {
+                    // Encontra o input correspondente
+                    const editEl = viewEl.nextElementSibling;
+                    if (editEl && editEl.classList.contains('edit-mode')) {
+                        editEl.value = viewEl.innerText;
+                    }
+                });
+                toggleEditMode(true);
+            });
+
+            saveBtn.addEventListener('click', () => {
+                // Salva os valores dos inputs nos spans
+                editModeElements.forEach((editEl) => {
+                     // Encontra o span correspondente
+                    const viewEl = editEl.previousElementSibling;
+                    if (viewEl && viewEl.classList.contains('view-mode')) {
+                        viewEl.innerText = editEl.value;
+                    }
+                });
+                toggleEditMode(false);
+                // Aqui você poderia adicionar uma chamada para uma API para salvar os dados no backend
+                // Ex: if (passwordInput.value) { /* Lógica para salvar nova senha */ }
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                toggleEditMode(false);
+                // Opcional: resetar o campo de senha ao cancelar
+                passwordInput.value = '';
+                if (passwordInput.type === 'text') {
+                    togglePasswordBtn.click();
+                }
+            });
+
+            togglePasswordBtn.addEventListener('click', () => {
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
+                passwordIcon.classList.toggle('fa-eye', !isPassword);
+                passwordIcon.classList.toggle('fa-eye-slash', isPassword);
+            });
+        </script>
+    </body>
+</html>
