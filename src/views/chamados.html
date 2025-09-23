@@ -56,7 +56,7 @@
             </div> 
         </header>
         <main class="container mx-auto px-4 py-8">
-            <div class="bg-gray-50 rounded-2xl shadow-lg p-6 space-y-4">
+            <div id="lista-chamados" class="bg-gray-50 rounded-2xl shadow-lg p-6 space-y-4">
                 <div class="overflow-x-auto shadow-lg rounded-2xl">
                     <table class="table-auto table-fixed w-full border-collapse shadow-lg rounded-lg">
                         <colgroup>
@@ -81,7 +81,11 @@
                         </thead>
                         <tbody>
                             <tr class="bg-white text-center border-t">
-                                <td class="px-4 py-2">106.094</td>
+                                <td class="px-4 py-2">
+                                    <span onclick="mostrarDetalhes('106.094')" class="text-blue-600 hover:underline cursor-pointer">
+                                        106.094
+                                    </span>
+                                </td>
                                 <td class="px-4 py-2">11/09/2025<br>15:23</td>
                                 <td class="px-4 py-2">João Silva</td>
                                 <td class="px-4 py-2">ABC Soluções LTDA</td>
@@ -175,6 +179,15 @@
                     </table>
                 </div>
             </div>
+            <div id="detalhes-os" class="hidden bg-white rounded-2xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4">Detalhes da OS</h2>
+                <div id="conteudo-detalhes">
+                    <!-- Aqui o JS vai preencher os detalhes -->
+                </div>
+                <button onclick="voltarLista()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">
+                    Voltar para lista
+                </button>
+            </div>
         </main>
         <footer class="bg-gray-800 text-white py-8 mt-12">
             <div class="container mx-auto px-4">
@@ -199,5 +212,37 @@
                 </div>
             </div>
         </footer>
+        <script>
+            function mostrarDetalhes(numeroOS){
+                const detalhes = {
+                    "106.094": {
+                        solicitante: "João Silva",
+                        empresa: "ABC Soluções LTDA",
+                        descricao: "Não estou conseguindo gerar a folha de ponto dos funcionários. O sistema está dando erro.",
+                        tecnico: "Jaime Miranda",
+                        status: "Em andamento"
+                    }
+                };
+
+                let dados = detalhes[numeroOS];
+
+                document.getElementById("conteudo-detalhes").innerHTML = `
+                    <p><b>Nº OS:</b> ${numeroOS}</p>
+                    <p><b>Solicitante:</b> ${dados.solicitante}</p>
+                    <p><b>Empresa:</b> ${dados.empresa}</p>
+                    <p><b>Descrição:</b> ${dados.descricao}</p>
+                    <p><b>Técnico:</b> ${dados.tecnico}</p>
+                    <p><b>Status:</b> ${dados.status}</p>
+                `;
+
+                document.getElementById("lista-chamados").classList.add("hidden");
+                document.getElementById("detalhes-os").classList.remove("hidden");
+            }
+
+            function voltarLista() {
+                document.getElementById("detalhes-os").classList.add("hidden");
+                document.getElementById("lista-chamados").classList.remove("hidden");
+            }
+        </script>
     </body>
 </html>
