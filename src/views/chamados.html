@@ -179,10 +179,16 @@
                     </table>
                 </div>
             </div>
-            <div id="detalhes-os" class="hidden bg-white rounded-2xl shadow-lg p-6">
-                <h2 class="text-xl font-bold mb-4">Detalhes da OS</h2>
-                <div id="conteudo-detalhes">
+            <div id="detalhes-os" class="hidden bg-gray-50 rounded-2xl shadow-lg p-6 space-y-4">
+                <h2 class="text-xl font-bold mb-4">
+                    <i class="fas fa-file-alt text-blue-500 mr-3"></i>
+                    Detalhes da OS
+                </h2>
+                <div id="conteudo-detalhes" class="bg-white shadow-md px-4 py-2 grid grid-cols-3 gap-2">
                     <!-- Aqui o JS vai preencher os detalhes -->
+                </div>
+                <div id="descricao">
+                    <!-- DESCRIÇÃO DA OS -->
                 </div>
                 <button onclick="voltarLista()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">
                     Voltar para lista
@@ -216,6 +222,7 @@
             function mostrarDetalhes(numeroOS){
                 const detalhes = {
                     "106.094": {
+                        dataHora: "11/09/2025 11:23",
                         solicitante: "João Silva",
                         empresa: "ABC Soluções LTDA",
                         descricao: "Não estou conseguindo gerar a folha de ponto dos funcionários. O sistema está dando erro.",
@@ -227,12 +234,19 @@
                 let dados = detalhes[numeroOS];
 
                 document.getElementById("conteudo-detalhes").innerHTML = `
-                    <p><b>Nº OS:</b> ${numeroOS}</p>
-                    <p><b>Solicitante:</b> ${dados.solicitante}</p>
-                    <p><b>Empresa:</b> ${dados.empresa}</p>
+                    <div>
+                        <p><b>Nº OS:</b> ${numeroOS}</p>
+                        <p><b>Data e Hora:</b> ${dados.dataHora}</p>
+                    </div>
+                    <div>
+                        <p><b>Solicitante:</b> ${dados.solicitante}</p>
+                        <p><b>Empresa:</b> ${dados.empresa}</p>
+                    </div>
+                    <div>
+                        <p><b>Técnico:</b> ${dados.tecnico}</p>
+                        <p><b>Status: </b> <span class="text-gray-500"> <i class="fa-solid fa-clock"></i> ${dados.status}</span></p>
+                    </div>
                     <p><b>Descrição:</b> ${dados.descricao}</p>
-                    <p><b>Técnico:</b> ${dados.tecnico}</p>
-                    <p><b>Status:</b> ${dados.status}</p>
                 `;
 
                 document.getElementById("lista-chamados").classList.add("hidden");
