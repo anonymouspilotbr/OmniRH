@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Ocorrências - OmniRH</title>
+    <style>
+        /* Estilos originais: Layout em dashboard com cards e sidebar simples */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        /* Header - Cor alterada para azul #2980b9 (consistente com outras telas) */
+        header {
+            grid-column: 1 / -1;
+            background: #2980b9;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            font-weight: bold;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            opacity: 0.9;
+        }
+
+        /* Sidebar para estatísticas rápidas */
+        .sidebar {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
+
+        .sidebar h2 {
+            color: #2980b9;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .stat-item:hover {
+            background: #d5dbdb;
+        }
+
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2980b9;
+        }
+
+        /* Área principal com cards de ocorrências */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .occurrence-card {
+            background: white;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .occurrence-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .occurrence-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .occurrence-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .occurrence-meta {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin: 5px 0;
+        }
+
+        .occurrence-description {
+            color: #555;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        /* Status e Severidade - Usando cores semelhantes às anteriores */
+        .status-badge, .severity-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+            display: inline-block;
+            margin-right: 8px;
+            margin-bottom: 5px;
+        }
+
+        .status-badge.Registrada {
+            background: #f39c12;
+            color: white;
+        }
+
+        .status-badge.EmAnálise {
+            background: #3498db;
+            color: white;
+        }
+
+        .status-badge.Resolvida {
+            background: #27ae60;
+            color: white;
+        }
+
+        .status-badge.Grave {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .severity-badge.Baixa {
+            background: #bdc3c7;
+            color: #2c3e50;
+        }
+
+        .severity-badge.Média {
+            background: #f39c12;
+            color: white;
+        }
+
+        .severity-badge.Alta {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Botões de ação */
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-analisar {
+            background: #3498db;
+        }
+
+        .btn-analisar:hover {
+            background: #2980b9;
+        }
+
+        .btn-resolver {
+            background: #27ae60;
+        }
+
+        .btn-resolver:hover {
+            background: #219150;
+        }
+
+        .btn-grave {
+            background: #e74c3c;
+        }
+
+        .btn-grave:hover {
+            background: #c0392b;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .occurrence-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Sistema de Ocorrências</h1>
+            <p>Gerencie registros manuais, automáticos e acompanhe o status de todas as ocorrências</p>
+        </header>
+
+        <!-- Sidebar com Estatísticas -->
+        <aside class="sidebar">
+            <h2>Estatísticas Rápidas</h2>
+            <div class="stat-item">
+                <span>Total de Ocorrências</span>
+                <span class="stat-number" id="totalOcorrencias">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Em Análise</span>
+                <span class="stat-number" id="emAnalise">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Graves</span>
+                <span class="stat-number" id="ocorrenciasGraves">0</span>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <div id="ocorrenciasContainer">
+                <!-- Cards das ocorrências serão inseridos aqui -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Carrega os dados de ocorrências do localStorage
+        let ocorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
+
+        const container = document.getElementById('ocorrenciasContainer');
+
+        // Função para formatar a data para exibição
+        function formatDate(dateString) {
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('pt-BR', options);
+        }
+
+        // Função para formatar hora
+        function formatTime(timeString) {
+            return timeString || 'Não informada';
+        }
+
+        // Função para atualizar estatísticas
+        function updateStats() {
+            const total = ocorrencias.length;
+            const emAnalise = ocorrencias.filter(o => o.status === 'EmAnálise').length;
+            const graves = ocorrencias.filter(o => o.status === 'Grave' || o.severidade === 'Alta').length;
+
+            document.getElementById('totalOcorrencias').textContent = total;
+            document.getElementById('emAnalise').textContent = emAnalise;
+            document.getElementById('ocorrenciasGraves').textContent = graves;
+        }
+
+        function renderOcorrencias() {
+            container.innerHTML = '';
+            updateStats();
+
+            if (ocorrencias.length === 0) {
+                container.innerHTML = '<div class="no-data">Nenhuma ocorrência registrada no momento.</div>';
+                return;
+            }
+
+            ocorrencias.forEach((ocorrencia, index) => {
+                const card = document.createElement('div');
+                card.className = 'occurrence-card';
+
+                // Limita a descrição para legibilidade
+                const descricaoCurta = ocorrencia.descricao.length > 100 ? ocorrencia.descricao.substring(0, 100) + '...' : ocorrencia.descricao;
+
+                let acoesHtml = '<div class="actions">-</div>';
+                if (ocorrencia.status === 'Registrada') {
+                    acoesHtml = `
+                        <div class="actions">
+                            <button class="btn-analisar" onclick="iniciarAnalise(${index})">Iniciar Análise</button>
+                            <button class="btn-resolver" onclick="resolver(${index})">Resolver</button>
+                            <button class="btn-grave" onclick="marcarGrave(${index})">Marcar como Grave</button>
+                        </div>
+                    `;
+                } else if (ocorrencia.status === 'EmAnálise') {
+                    acoesHtml = `
+                        <div class="actions">
+                            <button class="btn-resolver" onclick="resolver(${index})">Resolver</button>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="occurrence-header">
+                        <h3 class="occurrence-title">${ocorrencia.categoria} - ${ocorrencia.funcionario}</h3>
+                        <div>
+                            <span class="status-badge ${ocorrencia.status}">${ocorrencia.status}</span>
+                            <span class="severity-badge ${ocorrencia.severidade}">${ocorrencia.severidade}</span>
+                        </div>
+                    </div>
+                    <p class="occurrence-meta">Data: ${formatDate(ocorrencia.dataOcorrencia)} | Hora: ${formatTime(ocorrencia.horaInicio)}</p>
+                    <p class="occurrence-description">${descricaoCurta}</p>
+                    <p class="occurrence-meta">Registrado em: ${formatDate(ocorrencia.dataRegistro || ocorrencia.dataOcorrencia)}</p>
+                    ${acoesHtml}
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function iniciarAnalise(index) {
+            ocorrencias[index].status = 'EmAnálise';
+            localStorage.setItem('ocorrenciasRH', JSON.stringify(ocorrencias));
+            renderOcorrencias();
+            alert(`Análise iniciada para a ocorrência de ${ocorrencias[index].funcionario}.`);
+        }
+
+        function resolver(index) {
+            ocorrencias[index].status = 'Resolvida';
+            localStorage.setItem('ocorrenciasRH', JSON.stringify(ocorrencias));
+            renderOcorrencias();
+            alert(`Ocorrência de ${ocorrencias[index].funcionario} resolvida com sucesso.`);
+        }
+
+        function marcarGrave(index) {
+            ocorrencias[index].status = 'Grave';
+            ocorrencias[index].severidade = 'Alta';
+            localStorage.setItem('ocorrenciasRH', JSON.stringify(ocorrencias));
+            renderOcorrencias();
+            alert(`Ocorrência de ${ocorrencias[index].funcionario} marcada como grave. Ação prioritária recomendada.`);
+        }
+
+        // Inicializa a renderização
+        renderOcorrencias();
+    </script>
+</body>
+</html>
