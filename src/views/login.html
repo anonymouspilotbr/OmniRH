@@ -6,20 +6,20 @@
         <title>Fazer Login</title>
         <script src="https://cdn.tailwindcss.com"></script> 
         <script>
-        function validarLogin(event) {
-        event.preventDefault(); 
+            function validarLogin(event) {
+                event.preventDefault(); 
 
-        const usuario = document.getElementById("usuario").value;
-        const senha = document.getElementById("senha").value;
+                const usuario = document.getElementById("usuario").value;
+                const senha = document.getElementById("senha").value;
 
-        if (usuario !== "admin" || senha !== "123") {
-            document.getElementById("erro-login").style.display = "block";
-            return false;
-        }
+                if (usuario !== "admin" || senha !== "123") {
+                    document.getElementById("erro-login").style.display = "block";
+                    return false;
+                }
 
-        window.location.href = "home";
-        return true;
-        }
+                window.location.href = "home";
+                return true;
+            }
         </script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 

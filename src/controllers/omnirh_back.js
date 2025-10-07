@@ -38,6 +38,10 @@ function ocorrenciasView(req,res){
     res.render('Omni-RH(Ocorrências).html');
 }
 
+function ocorrenciasFuncView(req,res){
+    res.render('ocorrencias.html');
+}
+
 module.exports = {
     loginView,
     homeView,
@@ -49,4 +53,5 @@ module.exports = {
     recessosView,
     bancoHorasView,
     ocorrenciasView,
+    ocorrenciasFuncView,
 }
