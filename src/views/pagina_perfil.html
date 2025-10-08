@@ -38,7 +38,13 @@
                             <p class="text-blue-200 text-sm">Recursos Humanos</p> 
                         </div> 
                         <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-user text-white text-xl"></i>
+                           <button id="usericon">
+                                <i class="fas fa-user text-white text-xl"></i> 
+                            </button>
+                            <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40">
+                                <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
+                                <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Ajuda</button>
+                            </div>
                         </div>
                         </div> 
                     </div> 
@@ -115,7 +121,6 @@
                     </div>
                 </div>
                 
-                <!-- Coluna direita: Informações profissionais -->
                 <div class="lg:col-span-2">
                     <div class="bg-white rounded-xl shadow-md p-6 mb-6">
                         <h3 class="text-lg font-semibold text-gray-800 mb-4">Informações Profissionais</h3>
@@ -280,6 +285,23 @@
                 passwordIcon.classList.toggle('fa-eye', !isPassword);
                 passwordIcon.classList.toggle('fa-eye-slash', isPassword);
             });
+            
+            const userIcon = document.getElementById('usericon');
+            const userMenu = document.getElementById('usermenu');
+
+            userIcon.addEventListener('click', () => {
+                userMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!userIcon.contains(e.target) && !userMenu.contains(e.target)) {
+                    userMenu.classList.add('hidden');
+                }
+            });
+
+            function accessPerfil(){
+                window.location.href = "perfil";
+            }
         </script>
     </body>
 </html>
