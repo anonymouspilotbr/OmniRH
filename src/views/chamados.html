@@ -38,6 +38,9 @@
             <div class="container mx-auto px-4 py-6"> 
                 <div class="flex items-center justify-between"> 
                     <div class="flex items-center space-x-4"> 
+                        <button id="menuButton">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
                         <div> 
                             <h1 class="text-2xl font-bold">OmniRH</h1> 
                             <p class="text-sky-100 text-sm">Sistema de Ordens de Serviço</p> 
@@ -62,6 +65,18 @@
                 </div> 
             </div> 
         </header>
+        <aside id="sidebar" class="fixed top-0 left-0 h-full w-56 bg-sky-600 text-white p-4 space-y-2 transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="flex items-center justify-between py-2">
+                <h2 class="text-xl font-semibold">OmniRH</h2>
+                <button id="closeButton">
+                    <i class="fa-solid fa-rectangle-xmark"></i>
+                </button>
+            </div>
+            <button id="menu-inicial" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-house"></i> Painel principal</button>
+            <button id="menu-chamados" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-bell"></i> Sistema de Chamados</button>
+            <button id="menu-empresas" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-briefcase"></i> Gerenciar Empresas</button>
+        </aside>
+        <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
         <main class="container mx-auto px-4 py-8">
             <div id="lista-chamados" class="bg-gray-50 rounded-2xl shadow-lg p-6 space-y-4">
                 <div class="overflow-x-auto shadow-lg rounded-2xl">
@@ -285,5 +300,6 @@
                 window.location.href = "/";
             }
         </script>
+        <script src="/js/front.js"></script>
     </body>
 </html>

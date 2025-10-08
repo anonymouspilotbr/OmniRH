@@ -33,17 +33,22 @@ function paginaMenuLicencas(){
 function paginaMenuHoras(){
   window.location.href = "horas";
 }
+function paginaMenuChamados(){
+  window.location.href = "chamados";
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const menuHome = document.getElementById('menu-home');
   const menuREC = document.getElementById('menu-recesso');
   const menuLIC = document.getElementById('menu-licencas');
   const menuHoras = document.getElementById('menu-horas');
+  const menuChamados = document.getElementById('menu-chamados');
 
   if (menuHome) menuHome.addEventListener('click', paginaMenuHome);
   if (menuREC) menuREC.addEventListener('click', paginaMenuRecessos);
   if (menuLIC) menuLIC.addEventListener('click', paginaMenuLicencas);
   if (menuHoras) menuHoras.addEventListener('click', paginaMenuHoras);
+  if (menuChamados) menuChamados.addEventListener('click', paginaMenuChamados);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
