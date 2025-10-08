@@ -51,7 +51,12 @@
             </div> 
         </header>
         <aside id="sidebar" class="fixed top-0 left-0 h-full w-56 bg-blue-600 text-white p-4 space-y-2 transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
-            <h2 class="text-xl font-semibold mb-4">OmniRH</h2>
+            <div class="flex items-center justify-between py-2">
+                <h2 class="text-xl font-semibold">OmniRH</h2>
+                <button id="closeButton">
+                    <i class="fa-solid fa-rectangle-xmark"></i>
+                </button>
+            </div>
             <button class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-file"></i> Folha de Ponto</button>
             <button class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-umbrella-beach"></i> Solicitar Recessos</button>
             <button class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-file-signature"></i> Licenças</button>
