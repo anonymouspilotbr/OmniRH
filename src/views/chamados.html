@@ -207,11 +207,11 @@
                     Detalhes da OS
                 </h2>
                 <div class="bg-white shadow-md rounded-2xl">
-                    <div id="conteudo-detalhes" class="grid grid-cols-3 gap-4 p-4">
+                    <div id="conteudo-detalhes" class="grid grid-cols-3 w-full gap-x-30 px-6 py-4">
                         <!-- Aqui o JS vai preencher os detalhes -->
                     </div>
                     <!-- ### botões ### -->
-                    <div id="descricao" class="w-full p-4 mt-4 overflow-x-auto">
+                    <div id="descricao" class="w-full p-6 mt-2 overflow-x-auto">
                         <!-- DESCRIÇÃO DA OS -->
                     </div>
                 </div>
@@ -271,9 +271,12 @@
                         <p><b>Técnico:</b> ${dados.tecnico}</p>
                         <p><b>Status: </b> <span class="text-gray-500"> <i class="fa-solid fa-clock"></i> ${dados.status}</span></p>
                     </div>
-                    <p><b>Descrição:</b> 
-                        <span class="inline-block whitespace-nowrap">${dados.descricao}</span>
-                    </p>
+                `;
+
+                document.getElementById("descricao").innerHTML = `
+                    <div>    
+                        <p><b>Descrição:</b> ${dados.descricao}</p>
+                    </div>
                 `;
 
                 document.getElementById("lista-chamados").classList.add("hidden");
