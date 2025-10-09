@@ -90,6 +90,10 @@
                             </select>
                         </div>
                         <div>
+                            <label for="dataOcorrencia" class="block text-sm font-medium text-gray-700 mb-2">Data da Ocorrência</label>
+                            <input type="date" id="dataOcorrencia" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        </div>
+                        <div>
                             <label for="detalhes" class="block text-sm font-medium text-gray-700 mb-2">Mais detalhes</label>
                             <textarea id="detalhes" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Digite mais informações se necessário..." required></textarea>
                         </div>
@@ -178,15 +182,16 @@
         }
 
         //FUNÇÕES DO FORMULÁRIO
+
         function mostrarOcorrencias(){
             const ocorrenciasList = document.getElementById('ocorrenciasList');
             const noFlag = document.getElementById('noflagMSG');
-            const nomeUser = document.getElementById('nomeFuncionario');
+            const nomeUser = document.getElementById('nomeFuncionario').textContent.trim();
             
-            const allOcorrencias = JSON.parse(localStorage.getItem('ocorrencias')) || [];
+            const allOcorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
             
             // Filtra apenas as solicitações deste funcionário
-            const myOcorrencias = allOcorrencias.filter(ocorrencia => ocorrencia.funcionario === nomeUSer);
+            const myOcorrencias = allOcorrencias.filter(ocorrencia => ocorrencia.funcionario === nomeUser);
 
             ocorrenciasList.innerHTML = ''; // Limpa a lista existente
 
@@ -209,9 +214,9 @@
                             statusClass = 'status-aprovado';
                             statusIcon = 'fas fa-check';
                             break;
-                        case 'Justificativa Rejeitada':
-                            statusClass = 'status-rejeitado';
-                            statusIcon = 'fas fa-times';
+                        case 'Grave':
+                            statusClass = 'status-grave';
+                            statusIcon = 'fa-solid fa-triangle-exclamation';
                             break;
                         case 'Concluido': 
                             statusClass = 'status-concluido';
@@ -221,13 +226,13 @@
                             statusClass = 'status-pendente';
                             statusIcon = 'fas fa-clock';
                     }
-                    requestCard.innerHTML = `
+                    ocorrenciaCard.innerHTML = `
                         <div class="flex justify-between items-start mb-3">
                             <div>
                                 <h4 class="font-semibold text-gray-800">${ocorrencia.tipoOcorrencia}</h4>
                             </div>
                             <span class="${statusClass} px-3 py-1 rounded-full text-xs font-medium">
-                                <i class="${statusIcon} mr-1"></i>${recesso.status}
+                                <i class="${statusIcon} mr-1"></i>${ocorrencia.status}
                             </span>
                         </div>
                         <p class="text-gray-700 mb-3">${ocorrencia.detalhes}</p>
@@ -244,19 +249,24 @@
             const tipoOcorrencia = document.getElementById('tipoOcorrencia').value;
             const motivoOcorrencia = document.getElementById('motivoOcorrencia').value;
             const detalhes = document.getElementById('detalhes').value;
+            const dataOcorrencia = document.getElementById('dataOcorrencia').value;
+            const dataRegistro = Date.now();
 
             const novaOcorrencia = {
                 funcionario: nomeUser,
                 tipoOcorrencia: tipoOcorrencia,
                 motivoOcorrencia: motivoOcorrencia,
                 detalhes: detalhes,
-                status: "Em análise" 
+                status: "Registrada",
+                severidade: "Baixa",
+                dataOcorrencia: dataOcorrencia,
+                dataRegistro: dataRegistro,
             };
 
-            let allOcorrencias = JSON.parse(localStorage.getItem('ocorrencias')) || [];
+            let allOcorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
             allOcorrencias.push(novaOcorrencia);
 
-            localStorage.setItem('ocorrencias', JSON.stringify(allOcorrencias));
+            localStorage.setItem('ocorrenciasRH', JSON.stringify(allOcorrencias));
 
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;

@@ -318,7 +318,7 @@
                 card.className = 'occurrence-card';
 
                 // Limita a descrição para legibilidade
-                const descricaoCurta = ocorrencia.descricao.length > 100 ? ocorrencia.descricao.substring(0, 100) + '...' : ocorrencia.descricao;
+                const descricaoCurta = ocorrencia.detalhes.length > 100 ? ocorrencia.detalhes.substring(0, 100) + '...' : ocorrencia.detalhes;
 
                 let acoesHtml = '<div class="actions">-</div>';
                 if (ocorrencia.status === 'Registrada') {
@@ -339,7 +339,7 @@
 
                 card.innerHTML = `
                     <div class="occurrence-header">
-                        <h3 class="occurrence-title">${ocorrencia.categoria} - ${ocorrencia.funcionario}</h3>
+                        <h3 class="occurrence-title">${ocorrencia.tipoOcorrencia} - ${ocorrencia.funcionario}</h3>
                         <div>
                             <span class="status-badge ${ocorrencia.status}">${ocorrencia.status}</span>
                             <span class="severity-badge ${ocorrencia.severidade}">${ocorrencia.severidade}</span>
