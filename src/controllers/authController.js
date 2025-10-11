@@ -1,52 +1,20 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
 const SECRET = 'omniRH_secret_key';
-const users = [];
 
-function loginView(req, res){
-    res.render('login.html');
-}
+const users = [
+    { email: 'admin@empresa.com', senha: bcrypt.hashSync('123', 8) } // usuário padrão
+];
 
-function homeView(req,res){
-    res.render('index.html');
-}
-
-function chamadosView(req,res){
-    res.render('chamados.html');
-}
-
-function cadFuncionariosView(req,res){
-    res.render('novos_funcionarios.html');
-}
-
-function perfilView(req,res){
-    res.render('pagina_perfil.html');
-}
-
-function licencasView(req,res){
-    res.render('TelaLicencasAfast.html');
-}
-
-function recessosView(req,res){
-    res.render('Omni-RH.Recessos.html');
-}
-
-function recessosRHView(req,res){
-    res.render('Omni-RH.RH-Recessos.html');
-}
-
-function bancoHorasView(req,res){
-    res.render('bancohoras.html');
-}
-
-function ocorrenciasView(req,res){
-    res.render('Omni-RH(Ocorrências).html');
-}
-
-function ocorrenciasFuncView(req,res){
-    res.render('ocorrencias.html');
-}
+exports.configurarCors = (app) => {
+    app.use(cors({
+        origin: 'http://localhost:8080', 
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    }));
+};
 
 exports.register = (req, res) => {
     const { email, senha } = req.body;
@@ -76,17 +44,3 @@ exports.login = (req, res) => {
     const token = jwt.sign({ email: user.email }, SECRET, { expiresIn: '1h' });
     res.json({ msg: 'Login realizado com sucesso', token });
 };
-
-module.exports = {
-    loginView,
-    homeView,
-    chamadosView,
-    cadFuncionariosView,
-    perfilView,
-    licencasView,
-    recessosRHView,
-    recessosView,
-    bancoHorasView,
-    ocorrenciasView,
-    ocorrenciasFuncView,
-}

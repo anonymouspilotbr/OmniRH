@@ -6,19 +6,38 @@
         <title>Fazer Login</title>
         <script src="https://cdn.tailwindcss.com"></script> 
         <script>
-            function validarLogin(event) {
-                event.preventDefault(); 
+            async function validarLogin(event) {
+                event.preventDefault();
 
-                const usuario = document.getElementById("usuario").value;
+                const email = document.getElementById("email").value;
                 const senha = document.getElementById("senha").value;
 
-                if (usuario !== "admin" || senha !== "123") {
-                    document.getElementById("erro-login").style.display = "block";
-                    return false;
-                }
+                try {
+                const response = await fetch("http://localhost:8080/auth/login", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email, senha }),
+                });
 
-                window.location.href = "home";
-                return true;
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Login realizado com sucesso!");
+                    localStorage.setItem("token", data.token);
+                    window.location.href = "/home"; 
+                } else {
+                    document.getElementById("erro-login").textContent =
+                    data.msg || "Usuário ou senha incorretos.";
+                    document.getElementById("erro-login").style.display = "block";
+                }
+                } catch (error) {
+                console.error("Erro ao conectar ao servidor:", error);
+                document.getElementById("erro-login").textContent =
+                    "Erro ao conectar ao servidor.";
+                document.getElementById("erro-login").style.display = "block";
+                }
             }
         </script>
 
@@ -162,36 +181,29 @@
             </div> 
         </header>
         <main class="container mx-auto px-4 py-8">
-            <!--CONTEÚDO DA PÁGINA-->
-                    <div class="login-container">
-                        <!-- Lado esquerdo: Login -->
-                        <div class="card-login">
-                            <div class="card-content">
-                            <h2>Login</h2>
-                            <p>Entre com seu usuário e senha para acessar o sistema</p>
-                            <form onsubmit="return validarLogin(event)">
-                                
-                                <label for="usuario">Usuário</label>
-                                <input type="text" id="usuario" placeholder="Digite seu usuário" required>
+            <div class="login-container">
+                <div class="card-login">
+                    <div class="card-content">
+                    <h2>Login</h2>
+                    <p>Entre com seu usuário e senha para acessar o sistema</p>
+                    <form onsubmit="return validarLogin(event)">  
+                        <label for="usuario">Usuário</label>
+                        <input type="text" id="usuario" placeholder="Digite seu usuário" required>
 
-                                <label for="senha">Senha</label>
-                                <input type="password" id="senha" placeholder="Digite sua senha" required>
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" placeholder="Digite sua senha" required>
 
-                                <!-- Mensagem de erro (inicialmente escondida) -->
-                                <div id="erro-login" class="error-box" style="display: none;">
-                                Usuário ou senha incorreto.
-                                </div>
-
-                                <button type="submit">Entrar</button>
-                            </form>
-                            </div>
+                        <div id="erro-login" class="error-box" style="display: none;">
+                        Usuário ou senha incorreto.
                         </div>
-
-                        <!-- Lado direito: Imagem -->
-                        <div class="card-image">
-                            <img src="https://picsum.photos/600/600" alt="Imagem Login">
-                        </div>
-                        </div>
+                        <button type="submit">Entrar</button>
+                    </form>
+                    </div>
+                </div>
+                <div class="card-image">
+                    <img src="https://picsum.photos/600/600" alt="Imagem Login">
+                </div>
+            </div>
         </main>
         <footer class="bg-gray-800 text-white py-8 mt-12">
             <div class="container mx-auto px-4">
