@@ -1,5 +1,5 @@
-const express = require('express')
-const mustacheExpress = require('mustache-express')
+const express = require('express');
+const mustacheExpress = require('mustache-express');
 const cors = require('cors');
 
 const { configurarCors } = require('./src/controllers/authController');

@@ -5,7 +5,8 @@ const cors = require('cors');
 const SECRET = 'omniRH_secret_key';
 
 const users = [
-    { email: 'admin@empresa.com', senha: bcrypt.hashSync('123', 8) } // usuário padrão
+    { email: 'admin@empresa.com', senha: bcrypt.hashSync('123', 8) },
+    { email: 'playerdois@backup.net', senha: bcrypt.hashSync('12345', 8)}
 ];
 
 exports.configurarCors = (app) => {
