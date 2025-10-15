@@ -17,6 +17,7 @@ configurarCors(app);
 
 app.use('/auth', require('./src/routes/authRotas'));
 app.use('/', require('./src/routes/omnirh_rotas'));
+app.use('/api', require('./src/routes/funcionarioRotas'));
 
 const PORT = 8080
 app.listen(PORT, function () {

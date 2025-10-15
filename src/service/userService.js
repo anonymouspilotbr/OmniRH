@@ -1,14 +1,9 @@
-const repositorio = require('../repositorie/repositorio.js');
+const bcrypt = require('bcryptjs');
+const { inserirFuncionario } = require('../repositorie/repositorio.js');
 
-const getAllUsers = async () => {
-  return await userRepository.findAll();
-};
+async function registrarFuncionario(dados) {
+    const senhaCriptografada = await bcrypt.hash(dados.senha, 10);
+    return await inserirFuncionario({ ...dados, senha: senhaCriptografada });
+}
 
-const createUser = async (userData) => {
-  if (!userData.name || !userData.email) {
-    throw new Error('Name and email are required');
-  }
-  return await userRepository.save(userData);
-};
-
-module.exports = { getAllUsers, createUser };
+module.exports = { registrarFuncionario };

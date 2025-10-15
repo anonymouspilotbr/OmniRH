@@ -1,8 +1,9 @@
+const pool = require('../model/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
-const SECRET = 'omniRH_secret_key';
+const JWT_SECRET = 'omniRH_secret_key';
 
 const users = [
     { email: 'admin@empresa.com', senha: bcrypt.hashSync('123', 8) },
@@ -33,15 +34,30 @@ exports.register = (req, res) => {
     res.json({ msg: 'Usuário registrado com sucesso!' });
 };
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
-    const user = users.find(u => u.email === email);
-    if (!user) return res.status(404).json({ msg: 'Usuário não encontrado' });
+    try{
+        const result = await pool.query("SELECT * FROM funcionario WHERE email = $1", [email]);
 
-    const senhaValida = bcrypt.compareSync(senha, user.senha);
-    if (!senhaValida) return res.status(401).json({ msg: 'Senha incorreta' });
+        if (result.rows.length === 0) {
+        return res.status(401).json({ msg: "Usuário não encontrado." });
+        }
 
-    const token = jwt.sign({ email: user.email }, SECRET, { expiresIn: '1h' });
-    res.json({ msg: 'Login realizado com sucesso', token });
+        const user = result.rows[0];
+
+        const senhaCorreta = await bcrypt.compare(senha, user.senha);
+        if (!senhaCorreta) {
+        return res.status(401).json({ msg: "Senha incorreta." });
+        }
+
+        const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "2h" });
+
+        return res.json({ msg: "Login realizado com sucesso!", token });
+    
+    } catch (error) {
+    console.error("Erro no login:", error);
+    res.status(500).json({ msg: "Erro interno do servidor." });
+  }
 };
+

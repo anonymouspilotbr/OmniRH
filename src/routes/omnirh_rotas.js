@@ -3,6 +3,7 @@ const router = express.Router();
 
 const OmniRH_Controllers = require('../controllers/omnirh_back');
 
+
 router.get('/', OmniRH_Controllers.loginView);
 router.get('/horas', OmniRH_Controllers.bancoHorasView);
 router.get('/home', OmniRH_Controllers.homeView);
