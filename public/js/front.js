@@ -59,35 +59,71 @@ document.addEventListener('DOMContentLoaded', () => {
   if (botaoLIC) botaoLIC.addEventListener('click', paginaMenuLicencas);
 });
 
-document.getElementById('cadastro-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
+//NOME USUARIO
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("token");
+  console.log("Token carregado");
 
-    const funcionario = {
-        nome: document.getElementById('nome').value,
-        cpf: document.getElementById('cpf').value,
-        email: document.getElementById('email').value,
-        cargo: document.getElementById('cargo').value,
-        senha: document.getElementById('senha').value
-    };
+  if (token) {
+    fetch("http://localhost:8080/me", {
+      headers: { "Authorization": `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Dados recebidos: ", data);
+      if (!data || !data.nome) return console.warn("Usuário não encontrado.");
 
-    try {
-        const response = await fetch('/api/funcionarios', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(funcionario)
-        });
+      //CABEÇALHO
+      const nomeHeader = document.querySelector("header p.font-semibold");
+      const cargoHeader = document.querySelector("header p.text-blue-200");
+      if (nomeHeader) nomeHeader.textContent = data.nome;
+      if (cargoHeader) cargoHeader.textContent = data.cargo;
 
-        const data = await response.json();
+      //PERFIL USUÁRIO
+      const nomePerfil = document.querySelector(".view-mode.text-2xl");
+      const cargoPerfil = document.querySelector(".text-blue-600.font-medium");
+      const emailPerfil = document.querySelector(".fa-envelope + span");
+      const telefonePerfil = document.querySelector(".fa-phone + span");
+      const infoCargo = document.querySelector('.info-cargo');
+      const infoDepartamento = document.querySelector('.info-departamento');
+      const infoGestor = document.querySelector('.info-gestor');
+      const dataAdmissao = document.querySelector('.data-admissao');
+      const tempoServico = document.querySelector('.tempo-servico');
 
-        if (response.ok) {
-            alert('Funcionário cadastrado com sucesso!');
-            document.getElementById('cadastro-form').reset();
-        } else {
-            alert(`Erro: ${data.error}`);
+      //FUNÇÕES DE DATA
+      const dataSelect = new Date(data.data_admissao);
+      const dataFormat = dataSelect.toLocaleDateString('pt-BR');
+      function diferencaData(data) {
+        const dataAtual = new Date();
+        const dataAlvo = data;
+
+        let anos = dataAtual.getFullYear() - dataAlvo.getFullYear();
+        let meses = dataAtual.getMonth() - dataAlvo.getMonth();
+
+        if (meses < 0) {
+            anos--;
+            meses += 12;
         }
 
-    } catch (error) {
-        console.error('Erro ao enviar dados:', error);
-        alert('Erro ao conectar com o servidor');
+        return `${anos} anos, ${meses} meses`;
     }
+
+      if (nomePerfil) nomePerfil.textContent = data.nome;
+      if (cargoPerfil) cargoPerfil.textContent = data.cargo;
+      if (emailPerfil) emailPerfil.textContent = data.email;
+      if (telefonePerfil) telefonePerfil.textContent = data.telefone || "(não informado)";
+      if (infoCargo) infoCargo.textContent = data.cargo;
+      if (infoDepartamento) infoDepartamento.textContent = data.departamento;
+      if (infoGestor) infoGestor.textContent = data.gestor || "-";
+      if (dataAdmissao) dataAdmissao.textContent = dataFormat;
+      if (tempoServico) tempoServico.textContent = diferencaData(dataAdmissao);
+
+      const idPerfil = document.querySelector(".text-gray-500.mt-2");
+      if (idPerfil) idPerfil.textContent = `ID: ${data.id}`;
+    })
+    .catch(err => console.error("Erro ao buscar usuário:", err));
+  } else {
+    console.warn("Nenhum token encontrado no localStorage");
+  }
 });
+

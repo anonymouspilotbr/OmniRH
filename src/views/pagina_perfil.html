@@ -92,8 +92,8 @@
                             </div>
                             <h2 class="text-2xl font-bold text-gray-800 view-mode">Maria Oliveira Silva Costa</h2>
                             <input type="text" class="edit-mode hidden form-input w-full text-2xl font-bold border-gray-300 rounded-md shadow-sm text-center" value="Maria Oliveira Silva Costa">
-                            <p class="text-blue-600 font-medium">Analista de Recursos Humanos</p>
-                            <p class="text-gray-500 mt-2">ID: 12345</p>
+                            <p id="cargoUser" class="text-blue-600 font-medium">Analista de Recursos Humanos</p>
+                            <p id="idUser" class="text-gray-500 mt-2">ID: 12345</p>
                             
                             <div class="w-full mt-6 border-t pt-4">
                                 <div class="flex justify-between mb-2">
@@ -102,11 +102,11 @@
                                 </div>
                                 <div class="flex justify-between mb-2">
                                     <span class="text-gray-600">Data de Admissão</span>
-                                    <span class="text-gray-800 font-medium">15/03/2020</span>
+                                    <span class="text-gray-800 font-medium"><span class="data-admissao">15/03/2020</span></span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-gray-600">Tempo de Empresa</span>
-                                    <span class="text-gray-800 font-medium">4 anos, 6 meses</span>
+                                    <span class="text-gray-800 font-medium"><span class="tempo-servico">4 anos, 6 meses</span></span>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-users text-blue-500 w-6"></i>
-                                <span class="text-gray-600">Departamento: RH</span>
+                                <span class="text-gray-600">Departamento: <span class="info-departamento">RH</span></span>
                             </div>
                         </div>
                     </div>
@@ -143,15 +143,15 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <p class="text-gray-500 text-sm">Cargo</p>
-                                <p class="text-gray-800 font-medium">Analista de Recursos Humanos</p>
+                                <p id="cargoUser" class="text-gray-800 font-medium"><span class="info-cargo">Analista de Recursos Humanos</span></p>
                             </div>
                             <div>
                                 <p class="text-gray-500 text-sm">Departamento</p>
-                                <p class="text-gray-800 font-medium">Recursos Humanos</p>
+                                <p class="text-gray-800 font-medium"><span class="info-departamento">Recursos Humanos</span></p>
                             </div>
                             <div>
                                 <p class="text-gray-500 text-sm">Gestor</p>
-                                <p class="text-gray-800 font-medium">Carlos Mendonça de Almeida</p>
+                                <p class="text-gray-800 font-medium"><span class="info-gestor">Carlos Mendonça de Almeida</span></p>
                             </div>
                             <div>
                                 <p class="text-gray-500 text-sm">Jornada de Trabalho</p>

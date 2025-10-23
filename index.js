@@ -1,8 +1,10 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const cors = require('cors');
+const pool = require('./src/model/db');
 
 const { configurarCors } = require('./src/controllers/authController');
+const { autenticarToken } = require('./src/controllers/authController');
 const app = express();
 
 app.engine('html', mustacheExpress())
@@ -19,7 +21,23 @@ app.use('/auth', require('./src/routes/authRotas'));
 app.use('/', require('./src/routes/omnirh_rotas'));
 app.use('/api', require('./src/routes/funcionarioRotas'));
 
-const PORT = 8080
+app.get('/ping', (req, res) => {
+  res.json({ success: true, message: 'Servidor ativo!' });
+});
+
+app.get('/me', autenticarToken, async (req,res) => {
+    try{
+        const result = await pool.query(
+            "SELECT id, nome, cargo, email, telefone, departamento, gestor, data_admissao FROM funcionario WHERE id = $1",
+            [req.user.id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ msg: 'Erro ao obter dados do usuário.' });
+    }
+});
+
+const PORT = 8080;
 app.listen(PORT, function () {
     console.log('app rodando na porta ' + PORT)
 })

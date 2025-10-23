@@ -5,11 +5,6 @@ const cors = require('cors');
 
 const JWT_SECRET = 'omniRH_secret_key';
 
-const users = [
-    { email: 'admin@empresa.com', senha: bcrypt.hashSync('123', 8) },
-    { email: 'playerdois@backup.net', senha: bcrypt.hashSync('12345', 8)}
-];
-
 exports.configurarCors = (app) => {
     app.use(cors({
         origin: 'http://localhost:8080', 
@@ -51,13 +46,31 @@ exports.login = async (req, res) => {
         return res.status(401).json({ msg: "Senha incorreta." });
         }
 
-        const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "2h" });
+        const token = jwt.sign({ id: user.id, email: user.email, nome: user.nome, cargo: user.cargo, departamento: user.departamento, telefone: user.telefone }, JWT_SECRET, { expiresIn: "2h" });
 
-        return res.json({ msg: "Login realizado com sucesso!", token });
-    
+        return res.json({ msg: "Login realizado com sucesso!", token});
     } catch (error) {
     console.error("Erro no login:", error);
     res.status(500).json({ msg: "Erro interno do servidor." });
   }
 };
 
+function autenticarToken(req, res, next){
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) return res.status(401).json({ msg: 'Token não fornecido.' });
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) return res.status(403).json({ msg: 'Token inválido.' });
+        req.user = user;
+        next();
+    });
+}
+
+module.exports = { 
+    autenticarToken,
+    configurarCors: exports.configurarCors,
+    register: exports.register,
+    login: exports.login
+};
