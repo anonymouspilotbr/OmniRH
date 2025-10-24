@@ -5,6 +5,7 @@ const pool = require('./src/model/db');
 
 const { configurarCors } = require('./src/controllers/authController');
 const { autenticarToken } = require('./src/controllers/authController');
+const uploadRoutes = require('./src/routes/uploadRotas');
 const app = express();
 
 app.engine('html', mustacheExpress())
@@ -20,6 +21,8 @@ configurarCors(app);
 app.use('/auth', require('./src/routes/authRotas'));
 app.use('/', require('./src/routes/omnirh_rotas'));
 app.use('/api', require('./src/routes/funcionarioRotas'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use(uploadRoutes);
 
 app.get('/ping', (req, res) => {
   res.json({ success: true, message: 'Servidor ativo!' });
@@ -28,7 +31,7 @@ app.get('/ping', (req, res) => {
 app.get('/me', autenticarToken, async (req,res) => {
     try{
         const result = await pool.query(
-            "SELECT id, nome, cargo, email, telefone, departamento, gestor, data_admissao FROM funcionario WHERE id = $1",
+            "SELECT id, nome, cargo, email, telefone, departamento, gestor, data_admissao, foto_perfil FROM funcionario WHERE id = $1",
             [req.user.id]
         );
         res.json(result.rows[0]);

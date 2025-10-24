@@ -6,4 +6,8 @@ async function registrarFuncionario(dados) {
     return await inserirFuncionario({ ...dados, senha: senhaCriptografada });
 }
 
-module.exports = { registrarFuncionario };
+async function atualizarFoto(userId, caminho) {
+  return await userRepository.atualizarFoto(userId, caminho);
+}
+
+module.exports = { registrarFuncionario, atualizarFoto };

@@ -11,4 +11,15 @@ async function inserirFuncionario({ nome, cpf, email, cargo, senha, telefone, de
     return result.rows[0];
 }
 
-module.exports = { inserirFuncionario };
+async function atualizarFoto(userId, caminho) {
+  const query = `
+    UPDATE usuarios
+    SET foto_perfil = $1
+    WHERE id = $2
+    RETURNING id, foto_perfil;
+  `;
+  const result = await pool.query(query, [caminho, userId]);
+  return result.rows[0];
+}
+
+module.exports = { inserirFuncionario, atualizarFoto };

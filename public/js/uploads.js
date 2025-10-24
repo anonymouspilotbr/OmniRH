@@ -1,0 +1,69 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("token");
+  console.log("Token carregado");
+
+  if (token) {
+    fetch("http://localhost:8080/me", {
+      headers: { "Authorization": `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Dados recebidos: ", data);
+        if (!data || !data.nome) return console.warn("Usuário não encontrado.");
+        
+        const userID = data.id;
+        inicializarUpload(userID);
+    })
+    .catch(err => console.error("Erro ao buscar usuário:", err));
+  } else {
+    console.warn("Nenhum token encontrado no localStorage");
+  }
+});
+
+function inicializarUpload(userID){
+    const fotoInput = document.getElementById('fotoPerfil');
+    const fotoUsuario = document.getElementById('fotoUser');
+    const placeholder = document.getElementById('placeholder');
+    const overlay = document.querySelector('.group');
+
+    overlay.addEventListener('click', () => {
+        fotoInput.click();
+    });
+
+    fotoInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            fotoUsuario.src = event.target.result;
+            fotoUsuario.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+        };
+        reader.readAsDataURL(file);
+
+        const formData = new FormData();
+        formData.append('fotoPerfil', file);
+        formData.append('userID', userID);
+
+        try {
+            const response = await fetch('http://localhost:3000/upload', {
+            method: 'POST',
+            body: formData
+            });
+
+            const data = await response.json();
+            if (data.sucesso) {
+            console.log('Upload concluído:', data.caminho);
+            fotoUsuario.src = data.caminho; 
+            } else {
+            alert('Erro ao enviar a imagem.');
+            }
+        } catch (err) {
+            console.error('Erro no upload:', err);
+        }
+    });
+}
+
+
+
