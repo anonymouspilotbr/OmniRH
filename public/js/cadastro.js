@@ -14,7 +14,7 @@ document.getElementById('cadastro-form').addEventListener('submit', async (e) =>
     };
 
     try {
-        const response = await fetch('/api/funcionarios', {
+        const response = await fetch('/funcionarios', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(funcionario)
