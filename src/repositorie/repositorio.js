@@ -32,4 +32,15 @@ async function atualizarFoto(userId, caminho) {
   return result.rows[0];
 }
 
-module.exports = { buscarFuncionario, inserirFuncionario, atualizarFoto };
+async function atualizarContato(userId, email, telefone) {
+  const query = `
+    UPDATE funcionario
+    SET email = $1, telefone = $2
+    WHERE id = $3
+    RETURNING id, email, telefone
+  `;
+  const result = await pool.query(query, [email, telefone, userId]);
+  return result.rows[0];
+}
+
+module.exports = { buscarFuncionario, inserirFuncionario, atualizarFoto, atualizarContato };

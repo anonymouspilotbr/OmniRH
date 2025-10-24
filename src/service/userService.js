@@ -14,4 +14,9 @@ async function atualizarFoto(userId, caminho) {
   return await userRepository.atualizarFoto(userId, caminho);
 }
 
-module.exports = { getFuncionario, registrarFuncionario, atualizarFoto };
+async function atualizarContato(userId, dados) {
+  const { email, telefone } = dados
+  return await userRepository.atualizarContato(userId, email, telefone);
+}
+
+module.exports = { getFuncionario, registrarFuncionario, atualizarFoto, atualizarContato };

@@ -123,13 +123,13 @@
                         <div class="space-y-3">
                             <div class="flex items-center">
                                 <i class="fas fa-envelope text-blue-500 w-6"></i>
-                                <span class="text-gray-600 view-mode">maria.oliveira@empresa.com</span>
-                                <input type="email" class="edit-mode hidden form-input w-full ml-2 border-gray-300 rounded-md shadow-sm" value="maria.oliveira@gmail.com">
+                                <span id="view-email" class="text-gray-600 view-mode">maria.oliveira@empresa.com</span>
+                                <input type="email" id="edit-email" class="edit-mode hidden form-input w-full ml-2 border-gray-300 rounded-md shadow-sm" value="">
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-phone text-blue-500 w-6"></i>
-                                <span class="text-gray-600 view-mode">(61) 98765-4321</span>
-                                <input type="text" class="edit-mode hidden form-input w-full ml-2 border-gray-300 rounded-md shadow-sm" value="(11) 98765-4321">
+                                <span id="view-telefone" class="text-gray-600 view-mode">(61) 98765-4321</span>
+                                <input type="text" id="edit-telefone" class="edit-mode hidden form-input w-full ml-2 border-gray-300 rounded-md shadow-sm" value="">
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-users text-blue-500 w-6"></i>
@@ -170,15 +170,14 @@
                         </div>
                     </div>
                     
-                    <!-- Seção de Segurança / Alterar Senha -->
-                    <div id="security-section" class="bg-white rounded-xl shadow-md p-6 mb-6 hidden">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Alterar Senha</h3>
+                    <div id="security-section" class="hidden">
+                        <!-- <h3 class="text-lg font-semibold text-gray-800 mb-4">Alterar Senha</h3>
                         <div class="relative">
                             <input type="password" id="password-input" class="form-input w-full pr-10 border-gray-300 rounded-md shadow-sm" placeholder="Digite a nova senha">
                             <button id="toggle-password" type="button" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-700">
                                 <i id="password-icon" class="fas fa-eye"></i>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md p-6 mb-6">
@@ -245,77 +244,65 @@
             const saveBtn = document.getElementById('save-btn');
             const cancelBtn = document.getElementById('cancel-btn');
             const editActions = document.getElementById('edit-actions');
-            const securitySection = document.getElementById('security-section');
-            const togglePasswordBtn = document.getElementById('toggle-password');
-            const passwordInput = document.getElementById('password-input');
-            const passwordIcon = document.getElementById('password-icon');
 
-            const viewModeElements = document.querySelectorAll('.view-mode');
-            const editModeElements = document.querySelectorAll('.edit-mode');
+            const viewEmail = document.getElementById('view-email');
+            const editEmail = document.getElementById('edit-email');
+            const viewTelefone = document.getElementById('view-telefone');
+            const editTelefone = document.getElementById('edit-telefone');
 
             function toggleEditMode(isEditing) {
                 editBtn.classList.toggle('hidden', isEditing);
                 editActions.classList.toggle('hidden', !isEditing);
-                securitySection.classList.toggle('hidden', !isEditing);
 
-                viewModeElements.forEach(el => el.classList.toggle('hidden', isEditing));
-                editModeElements.forEach(el => el.classList.toggle('hidden', !isEditing));
+                editEmail.classList.toggle('hidden', !isEditing);
+                viewEmail.classList.toggle('hidden', isEditing);
+
+                editTelefone.classList.toggle('hidden', !isEditing);
+                viewTelefone.classList.toggle('hidden', isEditing);
             }
 
             editBtn.addEventListener('click', () => {
-                // Preenche os inputs com os valores atuais antes de mostrar
-                viewModeElements.forEach((viewEl) => {
-                    // Encontra o input correspondente
-                    const editEl = viewEl.nextElementSibling;
-                    if (editEl && editEl.classList.contains('edit-mode')) {
-                        editEl.value = viewEl.innerText;
-                    }
-                });
+                editEmail.value = viewEmail.innerText.trim();
+                editTelefone.value = viewTelefone.innerText.trim();
                 toggleEditMode(true);
             });
 
-            saveBtn.addEventListener('click', () => {
-                // Salva os valores dos inputs nos spans
-                editModeElements.forEach((editEl) => {
-                     // Encontra o span correspondente
-                    const viewEl = editEl.previousElementSibling;
-                    if (viewEl && viewEl.classList.contains('view-mode')) {
-                        viewEl.innerText = editEl.value;
-                    }
-                });
+            saveBtn.addEventListener('click', async () => {
+                const novoEmail = editEmail.value.trim();
+                const novoTelefone = editTelefone.value.trim();
+
+                viewEmail.innerText = novoEmail;
+                viewTelefone.innerText = novoTelefone;
                 toggleEditMode(false);
-                // Aqui você poderia adicionar uma chamada para uma API para salvar os dados no backend
-                // Ex: if (passwordInput.value) { /* Lógica para salvar nova senha */ }
+
+                try{
+                    const token = localStorage.getItem('token');
+
+                    const response = await fetch('/me/contato', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ email: novoEmail, telefone: novoTelefone })
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        alert('Erro ao atualizar contato: ' + data.msg);
+                    } else {
+                        console.log('Contato atualizado:', data.usuario);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Erro de rede ao atualizar contato.');
+                }
             });
 
             cancelBtn.addEventListener('click', () => {
                 toggleEditMode(false);
-                // Opcional: resetar o campo de senha ao cancelar
-                passwordInput.value = '';
-                if (passwordInput.type === 'text') {
-                    togglePasswordBtn.click();
-                }
             });
-
-            togglePasswordBtn.addEventListener('click', () => {
-                const isPassword = passwordInput.type === 'password';
-                passwordInput.type = isPassword ? 'text' : 'password';
-                passwordIcon.classList.toggle('fa-eye', !isPassword);
-                passwordIcon.classList.toggle('fa-eye-slash', isPassword);
-            });
-            
-            //const userIcon = document.getElementById('usericon');
-            /*const userMenu = document.getElementById('usermenu');
-
-            userIcon.addEventListener('click', () => {
-                userMenu.classList.toggle('hidden');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!userIcon.contains(e.target) && !userMenu.contains(e.target)) {
-                    userMenu.classList.add('hidden');
-                }
-            });*/
 
             function accessPerfil(){
                 window.location.href = "perfil";
