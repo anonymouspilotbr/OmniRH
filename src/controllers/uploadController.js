@@ -1,9 +1,16 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const userService = require('../service/userService');
 
+const uploadDir = path.join(__dirname, '../../public/uploads');
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
+  destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
 });
 
@@ -16,7 +23,7 @@ const uploadImagem = async (req, res) => {
     }
 
     const caminho = `/uploads/${req.file.filename}`;
-    const userId = req.body.userId; 
+    const userId = req.body.userID; 
 
     await userService.atualizarFoto(userId, caminho);
 

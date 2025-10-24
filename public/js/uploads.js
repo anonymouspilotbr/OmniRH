@@ -13,6 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const userID = data.id;
         inicializarUpload(userID);
+
+        const fotoUsuario = document.getElementById('fotoUser');
+        const placeholder = document.getElementById('placeholder');
+
+        if (data.foto_perfil) {
+          fotoUsuario.src = data.foto_perfil;
+          fotoUsuario.classList.remove('hidden');
+          placeholder.classList.add('hidden');
+        } else {
+          fotoUsuario.classList.add('hidden');
+          placeholder.classList.remove('hidden');
+        }
     })
     .catch(err => console.error("Erro ao buscar usuário:", err));
   } else {
@@ -47,17 +59,17 @@ function inicializarUpload(userID){
         formData.append('userID', userID);
 
         try {
-            const response = await fetch('http://localhost:3000/upload', {
-            method: 'POST',
-            body: formData
+            const response = await fetch('http://localhost:8080/upload', {
+              method: 'POST',
+              body: formData
             });
 
             const data = await response.json();
             if (data.sucesso) {
-            console.log('Upload concluído:', data.caminho);
-            fotoUsuario.src = data.caminho; 
+              console.log('Upload concluído:', data.caminho);
+              fotoUsuario.src = data.caminho; 
             } else {
-            alert('Erro ao enviar a imagem.');
+              alert('Erro ao enviar a imagem.');
             }
         } catch (err) {
             console.error('Erro no upload:', err);

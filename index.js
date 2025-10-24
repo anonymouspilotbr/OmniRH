@@ -2,11 +2,19 @@ const express = require('express');
 const mustacheExpress = require('mustache-express');
 const cors = require('cors');
 const pool = require('./src/model/db');
+const fs = require('fs');
+const path = require('path');
 
 const { configurarCors } = require('./src/controllers/authController');
 const { autenticarToken } = require('./src/controllers/authController');
 const uploadRoutes = require('./src/routes/uploadRotas');
 const app = express();
+
+const uploadDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log('📁 Pasta "uploads" criada automaticamente.');
+}
 
 app.engine('html', mustacheExpress())
 app.set('view engine', 'html')
@@ -21,7 +29,7 @@ configurarCors(app);
 app.use('/auth', require('./src/routes/authRotas'));
 app.use('/', require('./src/routes/omnirh_rotas'));
 app.use('/api', require('./src/routes/funcionarioRotas'));
-app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use(uploadRoutes);
 
 app.get('/ping', (req, res) => {

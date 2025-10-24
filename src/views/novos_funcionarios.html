@@ -109,16 +109,16 @@
                             <p class="font-semibold">João Silva</p> 
                             <p class="text-blue-200 text-sm">Recursos Humanos</p> 
                         </div> 
-                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center"> 
-                            <button id="usericon">
-                                <i class="fas fa-user text-white text-xl"></i> 
-                            </button>
-                            <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40">
-                                <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
-                                <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Ajuda</button>
-                                <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="sair()">Sair</button>
-                            </div>
-                        </div> 
+                        <div class="relative w-12 h-12 bg-blue-500 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">
+                            <i id="headerIcon" class="fas fa-user text-white text-xl"></i>
+                            <img id="headerFoto" class="hidden w-full h-full object-cover" alt="Foto do usuário">
+                            <button id="usericon" class="absolute inset-0 z-10 w-full h-full bg-transparent cursor-pointer"></button>
+                        </div>
+                        <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40 z-50">
+                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
+                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Ajuda</button>
+                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="sair()">Sair</button>
+                        </div>
                     </div> 
                 </div> 
             </div> 
@@ -191,19 +191,6 @@
         </footer>
     </body>
     <script>
-        const userIcon = document.getElementById('usericon');
-        const userMenu = document.getElementById('usermenu');
-
-        userIcon.addEventListener('click', () => {
-            userMenu.classList.toggle('hidden');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!userIcon.contains(e.target) && !userMenu.contains(e.target)) {
-                userMenu.classList.add('hidden');
-            }
-        });
-
         function accessPerfil(){
             window.location.href = "perfil";
         }

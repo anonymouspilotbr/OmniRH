@@ -13,7 +13,7 @@ async function inserirFuncionario({ nome, cpf, email, cargo, senha, telefone, de
 
 async function atualizarFoto(userId, caminho) {
   const query = `
-    UPDATE usuarios
+    UPDATE funcionario
     SET foto_perfil = $1
     WHERE id = $2
     RETURNING id, foto_perfil;

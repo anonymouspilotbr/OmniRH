@@ -79,6 +79,38 @@ document.addEventListener("DOMContentLoaded", () => {
       if (nomeHeader) nomeHeader.textContent = data.nome;
       if (cargoHeader) cargoHeader.textContent = data.cargo;
 
+      //FOTO PERFIL
+      const headerFoto = document.getElementById('headerFoto');
+      const headerIcon = document.getElementById('headerIcon');
+
+      if (headerFoto && headerIcon) {
+        if (data.foto_perfil) {
+          headerFoto.src = data.foto_perfil;
+          headerFoto.classList.remove('hidden');
+          headerIcon.classList.add('hidden');
+        } else {
+          headerFoto.classList.add('hidden');
+          headerIcon.classList.remove('hidden');
+        }
+      }
+
+      //MENU LADO DIREITO
+      const userIcon = document.getElementById("usericon");
+      const userMenu = document.getElementById("usermenu");
+
+      if (userIcon && userMenu) {
+        userIcon.addEventListener("click", (e) => {
+          e.stopPropagation();
+          userMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!userMenu.classList.contains("hidden") && !userMenu.contains(e.target) && e.target !== userIcon) {
+            userMenu.classList.add("hidden");
+          }
+        });
+      }
+
       //CABEÇALHO FOLHA DE PONTO
       const nomeFolha = document.querySelector(".folha-nome");
       const gestorFolha = document.querySelector(".folha-gestor");
