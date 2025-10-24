@@ -5,8 +5,9 @@ const pool = require('./src/model/db');
 const fs = require('fs');
 const path = require('path');
 
-const { configurarCors } = require('./src/controllers/authController');
-const { autenticarToken } = require('./src/controllers/authController');
+const auth = require('./src/controllers/authController');
+const configurarCors = auth.configurarCors;
+
 const uploadRoutes = require('./src/routes/uploadRotas');
 const app = express();
 
@@ -28,25 +29,9 @@ configurarCors(app);
 
 app.use('/auth', require('./src/routes/authRotas'));
 app.use('/', require('./src/routes/omnirh_rotas'));
-app.use('/api', require('./src/routes/funcionarioRotas'));
+app.use('/', require('./src/routes/funcionarioRotas'));
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use(uploadRoutes);
-
-app.get('/ping', (req, res) => {
-  res.json({ success: true, message: 'Servidor ativo!' });
-});
-
-app.get('/me', autenticarToken, async (req,res) => {
-    try{
-        const result = await pool.query(
-            "SELECT id, nome, cargo, email, telefone, departamento, gestor, data_admissao, foto_perfil FROM funcionario WHERE id = $1",
-            [req.user.id]
-        );
-        res.json(result.rows[0]);
-    } catch (err) {
-        res.status(500).json({ msg: 'Erro ao obter dados do usuário.' });
-    }
-});
 
 const PORT = 8080;
 app.listen(PORT, function () {

@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router();
 
-const { criarFuncionario } = require('../controllers/funcionarioController.js');
+const funcionario = require('../controllers/funcionarioController.js');
+const auth = require('../controllers/authController.js');
 
-router.post('/funcionarios', criarFuncionario);
+router.post('/funcionarios', funcionario.criarFuncionario);
+router.get('/me', auth.autenticarToken, funcionario.getMe);
 
 module.exports = router;

@@ -1,5 +1,15 @@
 const pool = require('../model/db.js');
 
+async function buscarFuncionario(id) {
+  const query = `
+        SELECT id, nome, cargo, email, telefone, departamento, gestor, data_admissao, foto_perfil 
+        FROM funcionario 
+        WHERE id = $1
+    `;
+    const result = await pool.query(query, [id]);
+    return result.rows[0];
+}
+
 async function inserirFuncionario({ nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao }) {
     const query = `
         INSERT INTO funcionario (nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao)
@@ -22,4 +32,4 @@ async function atualizarFoto(userId, caminho) {
   return result.rows[0];
 }
 
-module.exports = { inserirFuncionario, atualizarFoto };
+module.exports = { buscarFuncionario, inserirFuncionario, atualizarFoto };
