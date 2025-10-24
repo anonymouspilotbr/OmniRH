@@ -79,6 +79,16 @@ document.addEventListener("DOMContentLoaded", () => {
       if (nomeHeader) nomeHeader.textContent = data.nome;
       if (cargoHeader) cargoHeader.textContent = data.cargo;
 
+      //CABEÇALHO FOLHA DE PONTO
+      const nomeFolha = document.querySelector(".folha-nome");
+      const gestorFolha = document.querySelector(".folha-gestor");
+      const departFolha = document.querySelector(".folha-departamento");
+      const codFolha = document.querySelector(".folha-codigo");
+      if (nomeFolha) nomeFolha.textContent = data.nome;
+      if (gestorFolha) gestorFolha.textContent = data.gestor || "-";
+      if (departFolha) departFolha.textContent = data.departamento;
+      if (codFolha) codFolha.textContent = data.id;
+
       //PERFIL USUÁRIO
       const nomePerfil = document.querySelector(".view-mode.text-2xl");
       const cargoPerfil = document.querySelector(".text-blue-600.font-medium");
@@ -86,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const telefonePerfil = document.querySelector(".fa-phone + span");
       const infoCargo = document.querySelector('.info-cargo');
       const infoDepartamento = document.querySelector('.info-departamento');
+      const infoDepartamento2 = document.querySelector('.info-departamento2');
       const infoGestor = document.querySelector('.info-gestor');
       const dataAdmissao = document.querySelector('.data-admissao');
       const tempoServico = document.querySelector('.tempo-servico');
@@ -114,9 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (telefonePerfil) telefonePerfil.textContent = data.telefone || "(não informado)";
       if (infoCargo) infoCargo.textContent = data.cargo;
       if (infoDepartamento) infoDepartamento.textContent = data.departamento;
+      if (infoDepartamento2) infoDepartamento2.textContent = data.departamento;
       if (infoGestor) infoGestor.textContent = data.gestor || "-";
       if (dataAdmissao) dataAdmissao.textContent = dataFormat;
-      if (tempoServico) tempoServico.textContent = diferencaData(dataAdmissao);
+      if (tempoServico) tempoServico.textContent = diferencaData(dataSelect);
 
       const idPerfil = document.querySelector(".text-gray-500.mt-2");
       if (idPerfil) idPerfil.textContent = `ID: ${data.id}`;
