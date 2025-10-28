@@ -1,0 +1,120 @@
+Changelog
+
+[0.16.0] Cadastro do funcionário - 28 OUT 2025
+- Refatoração do formulário de cadastro do funcionário.
+- Mais informações aparecem de maneira dinâmica na tela de perfil.
+
+[0.15.0] Informações de Contato - 24 OUT 2025
+- Segunda fase de implementação do backend da tela de perfil. Agora é
+  possível editar as informações de contato.
+
+[0.14.2] Atualização de Segurança - 24 OUT 2025
+
+[0.14.1] Foto de Perfil II - 24 OUT 2025
+- A foto de perfil é exibida em todas as páginas, e pode ser alterada na
+  página de perfil.
+- Criação do arquivo JS do BackEnd do banco de horas.
+
+[0.14.0] Foto de Perfil - 23 OUT 2025
+
+[0.13.1] Informações do Usuário - 23 OUT 2025
+- Mais informações do usuário agora são mostradas dinamicamente nas páginas
+  de perfil e do ponto eletrônico.
+
+[0.13.0] Backend do Perfil - 23 OUT 2025
+- Início da Implementação do Backend da tela de Perfil.
+- Novos campos no formulário de cadastro de usuários.
+
+[0.12.2] Atualização de segurança - 16 OUT 2025
+- Mudanças na conexão com o banco de dados para melhorar a segurança
+  do projeto.
+
+[0.12.1] NeonTech - 15 OUT 2025
+- O banco de dados foi hospedado em uma plataforma com nuvem AWS, 
+  para facilitar a portabilidade da aplicação.
+
+[0.12.0] Banco de Dados - 15 OUT 2025
+- Implementação do banco de dados PostgreSQL 
+- Nova organização de pastas do projeto.
+
+[0.11.0] (DELETADA) - 14 OUT 2025
+- Implementação inicial da nova organização de pastas do projeto.
+  ESTA VERSÃO FOI CANCELADA DEVIDO A FALHAS TÉCNICAS.
+
+[0.10.0] Autenticação II - 10 OUT 2025
+- Implementado o Backend da tela de login (Autenticação).
+
+[0.9.1] Autenticação - 09 OUT 2025
+- Criado o arquivo JavaScript para a autenticação.
+
+[0.9.0] Ocorrências do funcionário - 09 OUT 2025
+- Tela de ocorrencias funcionando e integrada com a tela do RH.
+
+[0.8.2] Ocorrências do funcionário - 08 OUT 2025
+- Implementada parcialmente a tela de Ocorrências (Visão do funcionário)
+
+[0.8.1] Menu do ADMIN - 08 OUT 2025
+- Adicionado o menu para as páginas do administrador. 
+
+[0.8.0] Menu de navegação (Definitivo) - 08 OUT 2025
+- Menu lateral foi aplicado a todas as páginas do funcionário. 
+- Adicionada opção de Sair (logout) para o menu do perfil.
+
+[0.7.3] Menu de navegação - 07 OUT 2025
+- Primeira versão do menu lateral.
+
+[0.7.2] Menu do perfil - 07 OUT 2025
+- Adicionado um menu para acesso ao perfil e futuramente dará acesso 
+  aos chamados (visão do funcionário)
+
+[0.7.1] Rotas e Organização do código - 07 OUT 2025
+
+[0.7.0] Rotas da aplicação - 07 OUT 2025
+- Início da implementação do Backend e das rotas da aplicação. 
+
+[0.6.2] Verificação do Login - 28 SET 2025
+- Adicionada uma validação básica para a tela de login, permitindo
+  a navegação entre as telas até a implementação da autenticação e
+  banco de dados.
+
+[0.6.1] Ocorrências (RH) - 26 SET 2025
+- Criada a tela de Ocorrências (Visão do RH).
+
+[0.6.0] Atualização de Conteúdo - 23 SET 2025
+- Correções na tela de Login.
+- Refatoração da tela de Licenças e Afastamentos.
+- Início do detalhamento dos chamados e algumas melhorias.
+
+[0.5.1] Correções - 22 SET 2025
+- Correções nas páginas do Banco de Horas e dos Chamados.
+
+[0.5.0] Solicitações de Recessos - 13 SET 2025
+- Adicionada tela de Solicitações de Recessos (Visão do RH).
+
+[0.4.2] Página de Licenças e afastamentos - 12 SET 2025
+
+[0.4.1] Página de perfil - 12 SET 2025
+
+[0.4.0] Novas telas - 11 SET 2025
+- Criada a tela de chamados (Visão do Administrador)
+- Criado o template das telas de administrador
+- Esboço da tela de ocorrências
+- Criada a tela de cadastro dos funcionários (RH)
+
+[0.3.1] Atualização Recessos - 08 SET 2025
+- Mudanças na tela de solicitação de recessos, para o uso do JavaScript.
+
+[0.3.0] Banco de Horas - 03 SET 2025
+- Adicionada a tela do banco de horas.
+- Adicionado um template para as telas HTML.
+- Criada a tela de login.
+
+[0.2.1] Alterações de design - 30 AGO 2025
+- Atualização do design da tela do Ponto Eletrônico.
+
+[0.2.0] Tela de Recessos - 29 AGO 2025
+- Criação da tela de Solicitação de Recessos.
+- Desenvolvimento da tela do ponto eletrônico.
+
+[0.1.0] Versão Inicial - 13 AGO 2025
+- Estrutura básica e página inicial.

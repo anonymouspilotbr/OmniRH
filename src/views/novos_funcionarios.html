@@ -19,7 +19,7 @@
             }
             .register-container {
             display: flex;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 50px auto;
             border-radius: 16px;
             overflow: hidden;
@@ -92,6 +92,38 @@
             height: 100%;
             object-fit: cover;
             }
+            .form-step {
+                display: none;
+                animation: fade 0.3s ease;
+            }
+
+            .form-step.active {
+                display: block;
+            }
+
+            .form-buttons {
+                margin-top: 20px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            button {
+                background-color: #007bff;
+                border: none;
+                color: white;
+                padding: 10px 18px;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+            @keyframes fade {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
         </style>
     </head>
     <body class="bg-gray-50 min-h-screen">
@@ -128,36 +160,100 @@
                 <div class="card-register">
                     <div class="card-content">
                         <h2>Registrar Funcionário</h2>
-                        <p>Preencha os dados para adicionar um novo funcionário ao sistema</p>
                         <form id="cadastro-form" onsubmit="">
-                            <label for="nome">Nome Completo*</label>
-                            <input type="text" id="nome" placeholder="Digite o nome" required>
+                            <div class="form-step active" id="step-1">
+                                <h3>Informações Pessoais</h3>
+                                <label for="nome">Nome Completo*</label>
+                                <input type="text" id="nome" placeholder="Digite o nome" required>
 
-                            <label for="cpf">CPF*</label>
-                            <input type="text" id="cpf" placeholder="Digite o CPF" required>
+                                <label for="cpf">CPF*</label>
+                                <input type="text" id="cpf" placeholder="Digite o CPF" required>
 
-                            <label for="email">E-mail*</label>
-                            <input type="email" id="email" placeholder="Digite o e-mail" required>
+                                <label for="email">E-mail*</label>
+                                <input type="email" id="email" placeholder="Digite o e-mail" required>
 
-                            <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone" placeholder="Digite o telefone">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" id="telefone" placeholder="Digite o telefone">
 
-                            <label for="cargo">Cargo*</label>
-                            <input type="text" id="cargo" placeholder="Digite o cargo" required>
+                                <div class="form-buttons">
+                                    <button type="button" id="next-1">Próximo</button>
+                                </div>
+                            </div>
 
-                            <label for="departamento">Departamento*</label>
-                            <input type="text" id="departamento" placeholder="Digite o departamento" required>
+                            <div class="form-step" id="step-2">
+                                <h3>Informações Profissionais</h3>
+                                <label for="cargo">Cargo*</label>
+                                <input type="text" id="cargo" placeholder="Digite o cargo" required>
 
-                            <label for="gestor">Gestor</label>
-                            <input type="text" id="gestor" placeholder="Digite o nome do gestor">
+                                <label for="departamento">Departamento*</label>
+                                <input type="text" id="departamento" placeholder="Digite o departamento" required>
 
-                            <label for="data_admissao">Data de admissão</label>
-                            <input type="date" id="data_admissao">
+                                <label for="gestor">Gestor</label>
+                                <input type="text" id="gestor" placeholder="Digite o nome do gestor">
+                                
+                                <div class="flex flex-col md:flex-row md:items-center md:gap-4">
+                                    <div class="flex-1">
+                                        <label for="regime">Regime de Trabalho*</label>
+                                        <select id="regime" class="w-full text-gray-700 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                                            <option>CLT</option>
+                                            <option>Concursado</option>
+                                            <option>Função de Confiança</option>
+                                            <option>Estágio</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex-1">
+                                        <label for="salario">Salário</label>
+                                        <input type="number" id="salario" placeholder="Digite o salário">
+                                    </div>
+                                    <div class="flex-1">
+                                        <label for="data_admissao">Data de admissão*</label>
+                                        <input type="date" id="data_admissao" required>
+                                    </div>
+                                </div>
 
-                            <label for="senha">Senha*</label>
-                            <input type="password" id="senha" placeholder="Crie uma senha" required>
+                                <div class="flex flex-col md:flex-row md:items-center md:gap-4">
+                                    <div class="flex-1">
+                                        <label for="entrada-hora" class="block mb-1">Horário de Entrada*</label>
+                                        <div class="flex items-center gap-2">
+                                            <select id="entrada-hora" class="w-1/2 text-gray-700 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required></select>:
+                                            <select id="entrada-min" class="w-1/2 text-gray-700 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                                                <option value="00">00</option>
+                                                <option value="15">15</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <label for="saida-hora">Horário de Saída*</label>
+                                        <div class="flex items-center gap-2">
+                                            <select id="saida-hora" class="w-1/2 text-gray-700 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required></select>:
+                                            <select id="saida-min" class="w-1/2 text-gray-700 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                                                <option value="00">00</option>
+                                                <option value="15">15</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-buttons">
+                                    <button type="button" id="back-2">Voltar</button>
+                                    <button type="button" id="next-2">Próximo</button>
+                                </div>
+                            </div>
+                            <div class="form-step" id="step-3">
+                                <h3>Criação da Senha</h3>
+                                <label for="senha">Senha*</label>
+                                <input type="password" id="senha" placeholder="Crie uma senha" required>
 
-                            <button type="submit">Registrar</button>
+                                <label for="confirmar-senha">Confirmar Senha*</label>
+                                <input type="password" id="confirmar-senha" placeholder="Digite novamente" required>
+                                <div class="form-buttons">
+                                    <button type="button" id="back-3">Voltar</button>
+                                    <button type="submit">Registrar</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

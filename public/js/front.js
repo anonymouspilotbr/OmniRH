@@ -132,6 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const infoGestor = document.querySelector('.info-gestor');
       const dataAdmissao = document.querySelector('.data-admissao');
       const tempoServico = document.querySelector('.tempo-servico');
+      const regimePerfil = document.querySelector('.info-regime');
+      const salarioPerfil = document.querySelector('.info-salario');
+      const horarioEntradaPerfil = document.querySelector('.info-horario-entrada');
+      const horarioSaidaPerfil = document.querySelector('.info-horario-saida');
 
       //FUNÇÕES DE DATA
       const dataSelect = new Date(data.data_admissao);
@@ -161,6 +165,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (infoGestor) infoGestor.textContent = data.gestor || "-";
       if (dataAdmissao) dataAdmissao.textContent = dataFormat;
       if (tempoServico) tempoServico.textContent = diferencaData(dataSelect);
+      if (regimePerfil) regimePerfil.textContent = data.regime;
+      if (salarioPerfil) salarioPerfil.textContent = data.salario;
+      if (horarioEntradaPerfil) horarioEntradaPerfil.textContent = data.horario_entrada;
+      if (horarioSaidaPerfil) horarioSaidaPerfil.textContent = data.horario_saida;
 
       const idPerfil = document.querySelector(".text-gray-500.mt-2");
       if (idPerfil) idPerfil.textContent = `ID: ${data.id}`;

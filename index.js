@@ -1,7 +1,5 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
-const cors = require('cors');
-const pool = require('./src/model/db');
 const fs = require('fs');
 const path = require('path');
 
