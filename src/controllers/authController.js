@@ -2,6 +2,7 @@ const pool = require('../model/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const authService = require('../service/authService');
 
 const JWT_SECRET = 'omniRH_secret_key';
 
@@ -68,9 +69,31 @@ function autenticarToken(req, res, next){
     });
 }
 
+async function forgotPassword(req, res) {
+    try{
+        const { email } = req.body;
+        const link = await authService.solicitarResetDeSenha(email);
+        res.json({ message: 'E-mail de recuperação enviado.', link });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+async function resetPassword(req, res) {
+    try{
+        const { token, novaSenha } = req.body;
+        const msg = await authService.redefinirSenha(token, novaSenha);
+        res.json({ message: msg });
+    } catch (error) {
+    res.status(400).json({ error: error.message });
+    }
+}
+
 module.exports = { 
     autenticarToken,
     configurarCors: exports.configurarCors,
     register: exports.register,
-    login: exports.login
+    login: exports.login,
+    forgotPassword,
+    resetPassword,
 };

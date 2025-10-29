@@ -3,7 +3,6 @@ const router = express.Router();
 
 const OmniRH_Controllers = require('../controllers/omnirh_back');
 
-
 router.get('/', OmniRH_Controllers.loginView);
 router.get('/horas', OmniRH_Controllers.bancoHorasView);
 router.get('/home', OmniRH_Controllers.homeView);
@@ -15,5 +14,7 @@ router.get('/ocorrencias-RH', OmniRH_Controllers.ocorrenciasView);
 router.get('/ocorrencias', OmniRH_Controllers.ocorrenciasFuncView);
 router.get('/recessos-funcionario', OmniRH_Controllers.recessosView);
 router.get('/recessos-RH', OmniRH_Controllers.recessosRHView);
+router.get('/esqueci-senha', OmniRH_Controllers.esqueciSenhaView);
+router.get('/reset-senha', OmniRH_Controllers.resetarSenhaView);
 
 module.exports = router;

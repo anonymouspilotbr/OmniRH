@@ -22,6 +22,36 @@ async function inserirFuncionario({ nome, cpf, email, cargo, senha, telefone, de
     return result.rows[0];
 }
 
+async function buscarFuncionarioPorEmail(email){
+  const query = `
+    SELECT * FROM funcionario WHERE email = $1
+  `
+  const result = await pool.query(query, [email]);
+    return result.rows[0];
+}
+
+async function criarToken(id_funcionario, token, expires) {
+  const query = `INSERT INTO reset_tokens (id_funcionario, token, expires_at) VALUES ($1, $2, $3)`
+  const values = [id_funcionario, token, expires]
+  await pool.query(query, values);
+}
+
+async function buscarPorToken(token) {
+  const query = `SELECT * FROM reset_tokens WHERE token = $1 AND used = false`
+  const result = await pool.query(query, token);
+  return result.rows[0];
+}
+
+async function marcarComoUsado(IDtoken) {
+  const query = `UPDATE reset_tokens SET used = true WHERE id = $1`
+  await pool.query(query, IDtoken);
+}
+
+async function atualizarSenha(id, senhaHash) {
+  const query = `UPDATE funcionario SET senha = $1 WHERE id = $2`
+  await pool.query(query, [senhaHash, id])
+}
+
 //Tela de Perfil
 async function atualizarFoto(userId, caminho) {
   const query = `
@@ -45,4 +75,14 @@ async function atualizarContato(userId, email, telefone) {
   return result.rows[0];
 }
 
-module.exports = { buscarFuncionario, inserirFuncionario, atualizarFoto, atualizarContato };
+module.exports = { 
+  buscarFuncionario, 
+  inserirFuncionario, 
+  buscarFuncionarioPorEmail, 
+  criarToken,
+  buscarPorToken,
+  marcarComoUsado,
+  atualizarSenha,
+  atualizarFoto, 
+  atualizarContato,
+};

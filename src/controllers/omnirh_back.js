@@ -48,6 +48,14 @@ function ocorrenciasFuncView(req,res){
     res.render('ocorrencias.html');
 }
 
+function esqueciSenhaView(req,res){
+    res.render('esqueci_senha.html');
+}
+
+function resetarSenhaView(req, res){
+    res.render('resetar_senha.html');
+}
+
 exports.register = (req, res) => {
     const { email, senha } = req.body;
 
@@ -89,4 +97,6 @@ module.exports = {
     bancoHorasView,
     ocorrenciasView,
     ocorrenciasFuncView,
+    esqueciSenhaView,
+    resetarSenhaView,
 }
