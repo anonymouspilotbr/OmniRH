@@ -1,5 +1,12 @@
 Changelog
 
+[0.16.1] Backend do Banco de Horas  - 29 OUT 2025
+- Criação dos arquivos relacionados ao banco de horas (repositório, service, controllers, etc)
+  seguindo a estrutura nova de pastas do projeto. A integração com o front end ficará para uma
+  próxima atualização.
+- Novas tabelas no banco de dados para o banco de horas e o ponto eletrônico.
+- Mais informações dinâmicas na tela do ponto eletrônico.
+
 [0.16.0] Cadastro do funcionário - 28 OUT 2025
 - Refatoração do formulário de cadastro do funcionário.
 - Mais informações aparecem de maneira dinâmica na tela de perfil.

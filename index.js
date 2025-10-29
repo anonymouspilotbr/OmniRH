@@ -6,6 +6,8 @@ const path = require('path');
 const auth = require('./src/controllers/authController');
 const configurarCors = auth.configurarCors;
 
+const registroRoutes = require('./src/routes/registroRotas');
+const bancoRoutes = require('./src/routes/bancoRotas');
 const uploadRoutes = require('./src/routes/uploadRotas');
 const app = express();
 
@@ -30,6 +32,8 @@ app.use('/', require('./src/routes/omnirh_rotas'));
 app.use('/', require('./src/routes/funcionarioRotas'));
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use(uploadRoutes);
+app.use('/registro', registroRoutes);
+app.use('/banco-horas', bancoRoutes);
 
 const PORT = 8080;
 app.listen(PORT, function () {

@@ -1,9 +1,43 @@
-const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const bh_service = require('../service/bancoHorasService');
 
-const app = express();
+async function consultar(req, res) {
+  const { usuario_id } = req.params;
+  const mes = parseInt(req.query.mes) || new Date().getMonth() + 1;
+  const ano = parseInt(req.query.ano) || new Date().getFullYear();
+
+  try {
+    const saldo = await bancoHorasService.consultarSaldo(usuario_id, mes, ano);
+    res.json(saldo);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao consultar saldo' });
+  }
+}
+
+async function ajustar(req, res) {
+  const { usuario_id, ajuste, mes, ano } = req.body;
+
+  if (!usuario_id || ajuste === undefined) {
+    return res.status(400).json({ error: 'Dados incompletos' });
+  }
+
+  try {
+    const resultado = await bancoHorasService.ajustarSaldo(
+      usuario_id,
+      ajuste,
+      mes || new Date().getMonth() + 1,
+      ano || new Date().getFullYear()
+    );
+    res.json({ message: 'Ajuste realizado', ...resultado });
+  } catch (err) {
+    console.error(err);
+    res.status(403).json({ error: err.message });
+  }
+}
+
+module.exports = { consultar, ajustar };
+
+/*const app = express();
 const PORT = 3000;
 
 // Configurações globais
@@ -244,4 +278,4 @@ app.get('/registros/:usuario_id', (req, res) => {
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
+});*/

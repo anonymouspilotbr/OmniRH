@@ -1,5 +1,6 @@
 const pool = require('../model/db.js');
 
+//Funcionários
 async function buscarFuncionario(id) {
   const query = `
         SELECT id, nome, cargo, email, telefone, departamento, gestor, data_admissao, foto_perfil, regime, salario, horario_entrada, horario_saida 
@@ -21,6 +22,7 @@ async function inserirFuncionario({ nome, cpf, email, cargo, senha, telefone, de
     return result.rows[0];
 }
 
+//Tela de Perfil
 async function atualizarFoto(userId, caminho) {
   const query = `
     UPDATE funcionario

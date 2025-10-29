@@ -115,10 +115,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const nomeFolha = document.querySelector(".folha-nome");
       const gestorFolha = document.querySelector(".folha-gestor");
       const departFolha = document.querySelector(".folha-departamento");
+      const horarioEntradaFolha = document.querySelector(".folha-horario-entrada");
+      const horarioSaidaFolha = document.querySelector(".folha-horario-saida");
+      const regimeFolha = document.querySelector(".folha-regime");
       const codFolha = document.querySelector(".folha-codigo");
       if (nomeFolha) nomeFolha.textContent = data.nome;
       if (gestorFolha) gestorFolha.textContent = data.gestor || "-";
       if (departFolha) departFolha.textContent = data.departamento;
+      if (horarioEntradaFolha) horarioEntradaFolha.textContent = data.horario_entrada;
+      if (horarioSaidaFolha) horarioSaidaFolha.textContent = data.horario_saida;
+      if (regimeFolha) regimeFolha.textContent = data.regime;
       if (codFolha) codFolha.textContent = data.id;
 
       //PERFIL USUÁRIO
