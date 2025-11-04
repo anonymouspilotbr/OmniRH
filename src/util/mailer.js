@@ -1,43 +1,28 @@
 const nodemailer = require('nodemailer');
+require("dotenv").config();
 
-let transporter;
-
-async function createTransporter() {
-    if (!transporter) {
-        const testAccount = await nodemailer.createTestAccount();
-
-        transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
-            port: 587,
-            secure: false,
-            auth: {
-                user: testAccount.user,
-                pass: testAccount.pass
-            },
-            tls: {
-                rejectUnauthorized: false
-            }
-        });
-
-        console.log("ETHEREAL EMAIL LOGIN:");
-        console.log("User:", testAccount.user);
-        console.log("Pass:", testAccount.pass);
-        console.log("Webmail:", "https://ethereal.email/login");
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT),
+    secure: false,
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
+    },
+    tls: {
+        rejectUnauthorized: false  
     }
-    return transporter;
-}
+});
 
-async function enviarEmail({para, assunto, texto}) {
-    const mailer = await createTransporter();
-
-    const info = await mailer.sendMail({
-        from: '"OmniRH" <no-reply@omnirh.com>',
+async function enviarEmail({ para, assunto, texto }) {
+    const info = await transporter.sendMail({
+        from: `"OmniRH" <${process.env.EMAIL_FROM}>`,
         to: para,
         subject: assunto,
-        text: texto
+        text: texto,
     });
 
-    console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
+    console.log("✅ Email enviado:", info.messageId);
 }
 
 module.exports = {

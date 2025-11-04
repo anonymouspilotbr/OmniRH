@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
 //NOME USUARIO
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
-  console.log("Token carregado");
 
   if (token) {
     fetch("http://localhost:8080/me", {
@@ -70,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(res => res.json())
     .then(data => {
-      console.log("Dados recebidos: ", data);
       if (!data || !data.nome) return console.warn("Usuário não encontrado.");
 
       //CABEÇALHO
