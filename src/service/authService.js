@@ -12,7 +12,7 @@ async function solicitarResetDeSenha(email){
 
     await repository.criarToken(funcionario.id, token, expiresAt)
 
-    const link = `https://localhost:8080/reset-senha?token=${token}`;
+    const link = `http://localhost:8080/reset-senha?token=${token}`;
     await mailer.enviarEmail({
         para: email,
         assunto: 'Redefinição de Senha - OmniRH',
@@ -27,7 +27,7 @@ async function redefinirSenha(token, novaSenha) {
     if (!tokenData) throw new Error('Token inválido ou expirado');
 
     const senhaHash = await bcrypt.hash(novaSenha, 10);
-    await repository.atualizarSenha(tokenData.funcionario_id, senhaHash);
+    await repository.atualizarSenha(tokenData.id_funcionario, senhaHash);
     await repository.marcarComoUsado(tokenData.id);
 
     return 'Senha alterada com sucesso!';

@@ -80,6 +80,7 @@ async function forgotPassword(req, res) {
 }
 
 async function resetPassword(req, res) {
+    console.log("CHEGOU NO CONTROLLER!", req.body);
     try{
         const { token, novaSenha } = req.body;
         const msg = await authService.redefinirSenha(token, novaSenha);

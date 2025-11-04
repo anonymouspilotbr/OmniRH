@@ -1,4 +1,10 @@
 Changelog
+ 
+[0.16.3] Reset de Senha II - 04 NOV 2025
+- Implementado o sistema de reset de senha usando Etheral Email. Falta implementar usando email real. 
+
+[0.16.2] Sistema de reset de senha - 29 OUT 2025
+- Início da implementação do sistema de reset de senha.
 
 [0.16.1] Backend do Banco de Horas  - 29 OUT 2025
 - Criação dos arquivos relacionados ao banco de horas (repositório, service, controllers, etc)

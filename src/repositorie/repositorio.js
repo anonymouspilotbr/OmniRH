@@ -38,17 +38,17 @@ async function criarToken(id_funcionario, token, expires) {
 
 async function buscarPorToken(token) {
   const query = `SELECT * FROM reset_tokens WHERE token = $1 AND used = false`
-  const result = await pool.query(query, token);
+  const result = await pool.query(query, [token]);
   return result.rows[0];
 }
 
 async function marcarComoUsado(IDtoken) {
   const query = `UPDATE reset_tokens SET used = true WHERE id = $1`
-  await pool.query(query, IDtoken);
+  await pool.query(query, [IDtoken]);
 }
 
 async function atualizarSenha(id, senhaHash) {
-  const query = `UPDATE funcionario SET senha = $1 WHERE id = $2`
+  const query = `UPDATE funcionario SET senha = $1 WHERE id = $2  RETURNING *`
   await pool.query(query, [senhaHash, id])
 }
 
