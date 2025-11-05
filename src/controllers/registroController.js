@@ -42,4 +42,27 @@ async function listar(req, res) {
   }
 }
 
-module.exports = { registrarEntrada, registrarSaida, listar };
+async function listarSemana(req, res) {
+  try{
+    const id_funcionario = parseInt(req.params.id_funcionario, 10);
+    const dataInicio = req.params.data_inicio;
+
+    if (!id_funcionario || !dataInicio) {
+      return res.status(400).json({ error: 'Parâmetros inválidos' });
+    }
+
+    const registros = await registroService.listarSemana(id_funcionario, dataInicio);
+
+    return res.json(registros);
+  } catch (err) {
+    console.error('Erro listarSemana:', err);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}
+
+module.exports = { 
+  registrarEntrada, 
+  registrarSaida, 
+  listar,
+  listarSemana,
+ };

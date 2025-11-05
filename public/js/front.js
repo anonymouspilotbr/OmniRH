@@ -176,10 +176,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const idPerfil = document.querySelector(".text-gray-500.mt-2");
       if (idPerfil) idPerfil.textContent = `ID: ${data.id}`;
+
     })
     .catch(err => console.error("Erro ao buscar usuário:", err));
   } else {
     console.warn("Nenhum token encontrado no localStorage");
   }
 });
+
 

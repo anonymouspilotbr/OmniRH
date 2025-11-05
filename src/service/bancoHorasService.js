@@ -1,4 +1,4 @@
-const BHREP = require('../repositorie/bancoHoras');
+const BHREP = require('../repositorie/bancoRepository');
 
 const MAX_HORAS_EXTRAS_MES = 40;
 

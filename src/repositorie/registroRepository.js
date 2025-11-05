@@ -26,14 +26,37 @@ async function buscarRegistroPorId(id) {
   return result.rows[0];
 }
 
+async function buscarPorPeriodo(id_funcionario, inicioISO, fimISO) {
+  const query = `
+    SELECT
+      to_char(data, 'YYYY-MM-DD') as data,
+      to_char(entrada, 'HH24:MI:SS') as entrada,
+      to_char(saida, 'HH24:MI:SS') as saida
+    FROM registros_horas
+    WHERE id_funcionario = $1
+      AND data BETWEEN $2::date AND $3::date
+    ORDER BY data ASC
+  `;
+  const res = await pool.query(query, [id_funcionario, inicioISO, fimISO]);
+  return res.rows;
+}
+
 async function listarPorUsuario(usuarioId) {
   const result = await pool.query('SELECT * FROM registros_horas WHERE id_funcionario = $1', [usuarioId]);
   return result.rows;
+}
+
+async function buscarDataAdmissao(id_funcionario) {
+  const q = `SELECT to_char(data_admissao, 'YYYY-MM-DD') as data_admissao FROM funcionario WHERE id = $1`;
+  const res = await pool.query(q, [id_funcionario]);
+  return res.rows[0] ? res.rows[0].data_admissao : null;
 }
 
 module.exports = {
     inserirEntrada,
     atualizarSaida,
     buscarRegistroPorId,
+    buscarPorPeriodo,
     listarPorUsuario,
+    buscarDataAdmissao,
 }
