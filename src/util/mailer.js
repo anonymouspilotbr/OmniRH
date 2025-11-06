@@ -18,6 +18,7 @@ async function enviarEmail({ para, assunto, texto, html }) {
             htmlContent: html || texto
         });
 
+        console.log("📨 Enviando email com payload:", email);
         const result = await apiInstance.sendTransacEmail(email);
         console.log("✅ Email enviado via Brevo API:", result);
         return result;
