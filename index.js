@@ -2,6 +2,7 @@ const express = require('express');
 const mustacheExpress = require('mustache-express');
 const fs = require('fs');
 const path = require('path');
+require("dotenv").config();
 
 const auth = require('./src/controllers/authController');
 const configurarCors = auth.configurarCors;
@@ -35,7 +36,7 @@ app.use(uploadRoutes);
 app.use('/registro', registroRoutes);
 app.use('/banco-horas', bancoRoutes);
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, function () {
     console.log('app rodando na porta ' + PORT)
 })

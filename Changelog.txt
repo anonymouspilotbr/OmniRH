@@ -1,6 +1,6 @@
 Changelog
  
-[0.17.1] Integração Folha de Ponto - 05 NOV 2025
+[0.17.1] Integração Folha de Ponto I - 05 NOV 2025
 - Início da integração da folha de ponto com back end e banco de dados.
 
 [0.17.0] Reset de Senha III - 04 NOV 2025
