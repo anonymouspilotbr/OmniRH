@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Token carregado");
 
   if (token) {
-    fetch("http://localhost:8080/me", {
+    fetch("https://omnirh.onrender.com/me", {
       headers: { "Authorization": `Bearer ${token}` }
     })
     .then(res => res.json())
@@ -59,7 +59,7 @@ function inicializarUpload(userID){
         formData.append('userID', userID);
 
         try {
-            const response = await fetch('http://localhost:8080/upload', {
+            const response = await fetch('https://omnirh.onrender.com/upload', {
               method: 'POST',
               body: formData
             });

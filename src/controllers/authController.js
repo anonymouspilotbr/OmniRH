@@ -8,7 +8,7 @@ const JWT_SECRET = 'omniRH_secret_key';
 
 exports.configurarCors = (app) => {
     app.use(cors({
-        origin: 'http://localhost:8080', 
+        origin: 'https://omnirh.onrender.com/', 
         methods: ['GET', 'POST'],
         allowedHeaders: ['Content-Type', 'Authorization']
     }));

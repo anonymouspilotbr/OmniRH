@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
 
     if (token) {
-        fetch("http://localhost:8080/me", {
+        fetch("https://omnirh.onrender.com/me", {
             headers: { "Authorization": `Bearer ${token}` }
         })
         .then(res => res.json())

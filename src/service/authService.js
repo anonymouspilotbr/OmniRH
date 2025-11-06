@@ -12,7 +12,7 @@ async function solicitarResetDeSenha(email){
 
     await repository.criarToken(funcionario.id, token, expiresAt)
 
-    const link = `http://localhost:8080/reset-senha?token=${token}`;
+    const link = `https://omnirh.onrender.com/reset-senha?token=${token}`;
     await mailer.enviarEmail({
         para: email,
         assunto: 'Redefinição de Senha - OmniRH',
