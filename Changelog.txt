@@ -1,5 +1,9 @@
 Changelog
  
+[0.17.3] Migração da Imagem de Perfil - 06 NOV 2025
+- A imagem de perfil agora é salva no Cloudinary, em vez de ser salva localmente, já que isso
+  não estava funcionando com o Render. 
+  
 [0.17.2] Migração do Back End - 06 NOV 2025
 - Deploy do back end na plataforma Render, para corrigir os erros de conexão. 
 
