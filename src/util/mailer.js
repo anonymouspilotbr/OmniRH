@@ -1,26 +1,25 @@
 const Brevo = require("@getbrevo/brevo");
 require("dotenv").config();
 
-const apiInstance = new Brevo.TransactionalEmailsApi();
-apiInstance.setApiKey(
-    Brevo.TransactionalEmailsApiApiKeys.apiKey,
-    process.env.BREVO_API_KEY
-);
+const client = new Brevo.TransactionalEmailsApi();
+client.authentications['apiKey'].apiKey = process.env.BREVO_API_KEY;
 
 async function enviarEmail({ para, assunto, texto, html }) {
     try {
-        await apiInstance.sendTransacEmail({
-            sender: { email: process.env.EMAIL_FROM, name: "OmniRH" },
+        const email = new Brevo.SendSmtpEmail({
+            sender: { name: "OmniRH", email: process.env.EMAIL_FROM },
             to: [{ email: para }],
             subject: assunto,
-            textContent: texto || undefined,
-            htmlContent: html || undefined
+            textContent: texto,
+            htmlContent: html || texto
         });
 
-        console.log("✅ Email enviado via Brevo API");
+        const result = await client.sendTransacEmail(email);
+        console.log("✅ Email enviado via Brevo API:", result.messageId);
+        return result;
     } catch (error) {
         console.error("❌ Erro ao enviar email:", error.response?.body || error);
-        throw new Error("Falha ao enviar e-mail.");
+        throw error;
     }
 }
 
