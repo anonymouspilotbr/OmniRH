@@ -11,7 +11,7 @@ apiInstance.setApiKey(
 async function enviarEmail({ para, assunto, texto, html }) {
     try {
         const email = new Brevo.SendSmtpEmail();
-        email.sender = { name: "OmniRH", email: process.env.EMAIL_FROM };
+        email.sender = { name: "OmniRH", email: "no-reply@brevo-mail.com" };
         email.to = [{ email: para }];
         email.subject = assunto;
         email.textContent = texto;
