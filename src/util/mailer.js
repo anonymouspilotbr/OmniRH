@@ -10,13 +10,12 @@ apiInstance.setApiKey(
 
 async function enviarEmail({ para, assunto, texto, html }) {
     try {
-        const email = new Brevo.SendSmtpEmail({
-            sender: { name: "OmniRH", email: process.env.EMAIL_FROM },
-            to: [{ email: para }],
-            subject: assunto,
-            textContent: texto,
-            htmlContent: html || texto
-        });
+        const email = new Brevo.SendSmtpEmail();
+        email.sender = { name: "OmniRH", email: process.env.EMAIL_FROM };
+        email.to = [{ email: para }];
+        email.subject = assunto;
+        email.textContent = texto;
+        email.htmlContent = html || texto;
 
         console.log("📨 Enviando email com payload:", email);
         const result = await apiInstance.sendTransacEmail(email);
