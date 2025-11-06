@@ -13,10 +13,36 @@ async function solicitarResetDeSenha(email){
     await repository.criarToken(funcionario.id, token, expiresAt)
 
     const link = `https://omnirh.onrender.com/reset-senha?token=${token}`;
+
     await mailer.enviarEmail({
         para: email,
         assunto: 'Redefinição de Senha - OmniRH',
-        texto: `Você solicitou uma redefinição de senha. Clique no link para continuar: ${link}`,
+        texto: `Você solicitou uma redefinição de senha. Acesse o link para continuar: ${link}`,
+        html: `
+        <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+            <h2 style="color: #1e88e5; text-align: center;">Redefinição de Senha</h2>
+            <p>Olá <strong>${funcionario.nome}</strong>,</p>
+            <p>Recebemos uma solicitação para redefinir a senha da sua conta no <strong>OmniRH</strong>.</p>
+            <p>Caso tenha sido você, clique no botão abaixo:</p>
+
+            <p style="text-align: center; margin: 30px 0;">
+                <a href="${link}" style="background: #1e88e5; color: #fff; padding: 14px 22px; text-decoration: none; border-radius: 6px; font-size: 16px;">
+                    Redefinir Senha
+                </a>
+            </p>
+
+            <p>Se o botão não funcionar, copie e cole o link abaixo no seu navegador:</p>
+            <p style="word-break: break-all; color: #555;">${link}</p>
+
+            <p style="margin-top: 25px; font-size: 13px; color: #888;">
+                Caso você não tenha solicitado esta ação, apenas ignore este e-mail.
+            </p>
+
+            <p style="margin-top: 10px; font-size: 13px; color: #999; text-align: center;">
+                Este link expira em 1 hora.
+            </p>
+        </div>
+        `
     });
 
     return link;

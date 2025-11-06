@@ -1,28 +1,27 @@
-const nodemailer = require('nodemailer');
+const Brevo = require("@getbrevo/brevo");
 require("dotenv").config();
 
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: false,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-    },
-    tls: {
-        rejectUnauthorized: false  
+const apiInstance = new Brevo.TransactionalEmailsApi();
+apiInstance.setApiKey(
+    Brevo.TransactionalEmailsApiApiKeys.apiKey,
+    process.env.BREVO_API_KEY
+);
+
+async function enviarEmail({ para, assunto, texto, html }) {
+    try {
+        await apiInstance.sendTransacEmail({
+            sender: { email: process.env.EMAIL_FROM, name: "OmniRH" },
+            to: [{ email: para }],
+            subject: assunto,
+            textContent: texto || undefined,
+            htmlContent: html || undefined
+        });
+
+        console.log("✅ Email enviado via Brevo API");
+    } catch (error) {
+        console.error("❌ Erro ao enviar email:", error.response?.body || error);
+        throw new Error("Falha ao enviar e-mail.");
     }
-});
-
-async function enviarEmail({ para, assunto, texto }) {
-    const info = await transporter.sendMail({
-        from: `"OmniRH" <${process.env.EMAIL_FROM}>`,
-        to: para,
-        subject: assunto,
-        text: texto,
-    });
-
-    console.log("✅ Email enviado:", info.messageId);
 }
 
 module.exports = {

@@ -1,5 +1,8 @@
 Changelog
  
+[0.17.2] Migração do Back End - 06 NOV 2025
+- Deploy do back end na plataforma Render, para corrigir os erros de conexão. 
+
 [0.17.1] Integração Folha de Ponto I - 05 NOV 2025
 - Início da integração da folha de ponto com back end e banco de dados.
 
