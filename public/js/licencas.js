@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             : "bg-yellow-500";
 
                         tr.innerHTML = `
-                        <td class="p-3 border-b">${l.tipo || "-"}</td>
+                        <td class="p-3 border-b">${l.tipo_licenca || "-"}</td>
                         <td class="p-3 border-b">${new Date(l.data_inicio).toLocaleDateString("pt-BR")}</td>
                         <td class="p-3 border-b">${new Date(l.data_fim).toLocaleDateString("pt-BR")}</td>
                         <td class="p-3 border-b">
