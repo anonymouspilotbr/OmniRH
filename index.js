@@ -10,6 +10,7 @@ const configurarCors = auth.configurarCors;
 const registroRoutes = require('./src/routes/registroRotas');
 const bancoRoutes = require('./src/routes/bancoRotas');
 const uploadRoutes = require('./src/routes/uploadRotas');
+const licencaRoutes = require('./src/routes/licencaRotas');
 const app = express();
 
 const uploadDir = path.join(__dirname, 'public', 'uploads');
@@ -35,6 +36,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use(uploadRoutes);
 app.use('/registro', registroRoutes);
 app.use('/banco-horas', bancoRoutes);
+app.use('/licencas', licencaRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, function () {
