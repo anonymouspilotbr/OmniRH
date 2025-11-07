@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
-            window.addEventListener("DOMContentLoaded", mostrarLista);
+            mostrarLista();
 
         })
     }
