@@ -79,15 +79,15 @@ document.addEventListener("DOMContentLoaded", () => {
             form.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
-                const tipo = document.getElementById("tipoLicenca").value;
-                const dataInicio = document.getElementById("dataInicio").value;
-                const dataFim = document.getElementById("dataFim").value;
+                const tipo_licenca = document.getElementById("tipoLicenca").value;
+                const data_inicio = document.getElementById("dataInicio").value;
+                const data_fim = document.getElementById("dataFim").value;
                 const observacoes = document.getElementById("desc").value;
-                const arquivoInput = document.getElementById("fileInput");
+                const arquivos = document.getElementById("fileInput");
 
                 let anexos = null;
-                if (arquivoInput.files.length > 0) {
-                    anexos = arquivoInput.files[0].name; 
+                if (arquivos.files.length > 0) {
+                    anexos = arquivos.files[0].name; 
                 }
 
                 const payload = {
