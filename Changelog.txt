@@ -1,5 +1,9 @@
 Changelog
  
+ [0.17.5] Integração Sistema de Licenças - 07 NOV 2025
+ - Integração entre front e back end do Registro de Licenças.
+ - Alterações no HTML para mostrar uma lista de Licenças.
+
  [0.17.4] Backend Sistema de Licenças - 07 NOV 2025
  - Criado o back end e comunicação com o banco de dados para o sistema de Registro de Licenças.
 

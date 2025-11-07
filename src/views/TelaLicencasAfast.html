@@ -66,51 +66,82 @@
     <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
     <main class="container mx-auto px-4 py-8">
       <div class="bg-white rounded-2xl shadow-lg p-6" id="formSection">
-        <h3 class="text-2xl font-bold text-gray-800 mb-6">
+        <div id="listaLicencas">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-2xl font-bold text-gray-800">
+              <i class="fas fa-list text-blue-500 mr-3"></i>
+              Minhas Licenças
+            </h3>
+            <button id="novaLicencaBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+              <i class="fas fa-plus mr-2"></i>Registrar Nova Licença
+            </button>
+          </div>
+          <table id="tabelaLicencas" class="w-full border border-gray-300 rounded-lg text-center">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="p-3">Tipo</th>
+                <th class="p-3">Início</th>
+                <th class="p-3">Término</th>
+                <th class="p-3">Status</th>
+              </tr>
+            </thead>
+            <tbody id="corpoTabelaLicencas">
+              <!-- LICENÇAS -->
+            </tbody>
+          </table>
+        </div>
+        <div id="formLicenca" class="hidden">
+          <h3 class="text-2xl font-bold text-gray-800 mb-6">
             <i class="fas fa-file-alt text-blue-500 mr-3"></i>
             Registrar Licença
-        </h3>
-        <form id="licenca_form" class="space-y-6">
-          <div>
-            <label for="tipoLicenca" class="block text-sm font-medium text-gray-700 mb-2">Tipo de Licença</label>
-            <select id="tipoLicenca" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <option>Licença Capacitação</option>
-                <option>Licença não Remunerada</option>
-                <option>Licença Maternidade ou Paternidade</option>
-                <option>Licença Médica</option>
-                <option>Licença por Atividade Eleitoral</option>
-                <option>Outro</option>
-            </select>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          </h3>
+          <form id="licenca_form" class="space-y-6">
             <div>
-              <label for="dataInicio" class="block text-sm font-medium text-gray-700 mb-2">Data Início</label>
-              <input type="date" id="dataInicio" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+              <label for="tipoLicenca" class="block text-sm font-medium text-gray-700 mb-2">Tipo de Licença</label>
+              <select id="tipoLicenca" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option>Licença Capacitação</option>
+                  <option>Licença não Remunerada</option>
+                  <option>Licença Maternidade ou Paternidade</option>
+                  <option>Licença Médica</option>
+                  <option>Licença por Atividade Eleitoral</option>
+                  <option>Outro</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="dataInicio" class="block text-sm font-medium text-gray-700 mb-2">Data Início</label>
+                <input type="date" id="dataInicio" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+              </div>
+              <div>
+                <label for="dataFim" class="block text-sm font-medium text-gray-700 mb-2">Data Término</label>
+                <input type="date" id="dataFim" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+              </div>
             </div>
             <div>
-              <label for="dataFim" class="block text-sm font-medium text-gray-700 mb-2">Data Término</label>
-              <input type="date" id="dataFim" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+              <label for="desc" class="block text-sm font-medium text-gray-700 mb-2">Observações</label>
+              <textarea id="desc" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Informações Adicionais (Opcional)" required></textarea>
             </div>
-          </div>
-          <div>
-            <label for="desc" class="block text-sm font-medium text-gray-700 mb-2">Observações</label>
-            <textarea id="desc" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Informações Adicionais (Opcional)" required></textarea>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Anexos (Opcional)</label>
-            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-              <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-2"></i>
-              <p class="text-gray-500">Arraste arquivos aqui ou clique para selecionar</p>
-              <input type="file" class="hidden" id="fileInput">
-              <button type="button" onclick="document.getElementById('fileInput').click()" class="mt-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
-                  Selecionar Arquivos
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Anexos (Opcional)</label>
+              <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-2"></i>
+                <p class="text-gray-500">Arraste arquivos aqui ou clique para selecionar</p>
+                <input type="file" class="hidden" id="fileInput">
+                <button type="button" onclick="document.getElementById('fileInput').click()" class="mt-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                    Selecionar Arquivos
+                </button>
+              </div>
+            </div>
+            <div class="flex justify-between items-center">
+              <button type="button" id="voltarListaBtn" class="text-gray-600 hover:text-gray-800">
+                <i class="fas fa-arrow-left mr-2"></i>Voltar
+              </button>
+              <button type="submit" class="bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
+                <i class="fas fa-paper-plane mr-2"></i>Registrar Licença
               </button>
             </div>
-          </div>
-          <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
-            <i class="fas fa-paper-plane mr-2"></i>Registrar Licença
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     </main>
     <footer class="bg-gray-800 text-white py-8 mt-12">
@@ -146,4 +177,5 @@
         }
     </script>
     <script src="/js/front.js"></script>
+    <script src="/js/licencas.js"></script>
 </html>
