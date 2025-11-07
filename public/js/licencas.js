@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const formLicenca = document.getElementById("formLicenca");
             const novaLicencaBtn = document.getElementById("novaLicencaBtn");
             const voltarListaBtn = document.getElementById("voltarListaBtn");
-            const tabela = document.getElementById("tabelaLicencas");
+            const corpoTabela = document.getElementById("corpoTabelaLicencas");
             const form = document.getElementById("licenca_form");
 
             window.addEventListener("DOMContentLoaded", () => {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             voltarListaBtn.addEventListener("click", mostrarLista);
 
             async function carregarLicencas() {
-                tabela.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-gray-500">Carregando...</td></tr>`;
+                corpoTabela.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-gray-500">Carregando...</td></tr>`;
 
                 try {
                     const response = await fetch(`/licencas/funcionario/${id_funcionario}`);
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const licencas = await response.json();
 
                     if (!licencas || licencas.length === 0) {
-                        tabela.innerHTML = `
+                        corpoTabela.innerHTML = `
                             <tr>
                             <td colspan="4" class="text-center p-6 text-gray-400 italic">
                                 Nenhuma licença registrada até o momento.
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
-                    tabela.innerHTML = "";
+                    corpoTabela.innerHTML = "";
 
                     licencas.forEach(l => {
                         const tr = document.createElement("tr");
@@ -74,11 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             ${l.status || "Pendente"}
                             </span>
                         </td>`;
-                        tabela.appendChild(tr);
+                        corpoTabela.appendChild(tr);
                     });
                 } catch (err) {
                     console.error(err);
-                    tabela.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-red-500">Erro ao carregar licenças</td></tr>`;
+                    corpoTabela.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-red-500">Erro ao carregar licenças</td></tr>`;
                 }
             }
 
