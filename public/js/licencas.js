@@ -17,10 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const corpoTabela = document.getElementById("corpoTabelaLicencas");
             const form = document.getElementById("licenca_form");
 
-            window.addEventListener("DOMContentLoaded", () => {
-                mostrarLista();
-            });
-
             function mostrarLista() {
                 listaLicencas.classList.remove("hidden");
                 formLicenca.classList.add("hidden");
