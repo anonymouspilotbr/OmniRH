@@ -30,3 +30,5 @@ async function enviarEmail({ para, assunto, texto, html }) {
 module.exports = {
     enviarEmail,
 }
+
+//GMAIL

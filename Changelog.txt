@@ -1,6 +1,9 @@
 Changelog
  
-[0.17.3] Migração da Imagem de Perfil - 06 NOV 2025
+ [0.17.4] Backend Sistema de Licenças - 07 NOV 2025
+ - Criado o back end e comunicação com o banco de dados para o sistema de Registro de Licenças.
+
+ [0.17.3] Migração da Imagem de Perfil - 06 NOV 2025
 - A imagem de perfil agora é salva no Cloudinary, em vez de ser salva localmente, já que isso
   não estava funcionando com o Render. 
   
