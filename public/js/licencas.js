@@ -44,12 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const licencas = await response.json();
 
-                    if (!licencas.length) {
-                        tabela.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-gray-500">Nenhuma licença registrada</td></tr>`;
+                    if (!licencas || licencas.length === 0) {
+                        tabela.innerHTML = `
+                            <tr>
+                            <td colspan="4" class="text-center p-6 text-gray-400 italic">
+                                Nenhuma licença registrada até o momento.
+                            </td>
+                            </tr>`;
                         return;
                     }
 
                     tabela.innerHTML = "";
+
                     licencas.forEach(l => {
                         const tr = document.createElement("tr");
                         const statusClass =
