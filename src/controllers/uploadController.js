@@ -39,18 +39,18 @@ const uploadImagem = async (req, res) => {
 const uploadAnexoLicenca = async (req,res) => {
   try {
     const { idLicenca } = req.params.id;
-    if (!req.file) {
-      return res.status(400).json({ erro: 'Nenhum arquivo enviado.' });
+    const urls = [];
+
+    for(const file of req.files){
+      const result = await cloudinary.uploader.upload(file.path, {
+        folder: 'anexos_licencas',
+        resource_type: 'auto'
+      });
+
+      urls.push(result.secure_url);
+      await licencaService.atualizarAnexo(idLicenca, result.secure_url);
     }
-
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'anexos_licencas',
-      resource_type: 'auto'
-    });
-
-    const licencaAtualizada = await licencaService.atualizarAnexo(idLicenca, result.secure_url);
-
-    res.json({ sucesso: true, url: result.secure_url, licenca: licencaAtualizada });
+    res.json({ sucesso: true, urls, licenca: licencaAtualizada });
   } catch (err) {
     console.error('Erro ao salvar o arquivo:', err);
     res.status(500).json({ erro: 'Erro ao salvar o arquivo no banco.' });

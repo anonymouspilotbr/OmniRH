@@ -16,7 +16,47 @@ document.addEventListener("DOMContentLoaded", () => {
             const voltarListaBtn = document.getElementById("voltarListaBtn");
             const corpoTabela = document.getElementById("corpoTabelaLicencas");
             const form = document.getElementById("licenca_form");
-            const fileInput = document.getElementById("fileInput");
+            const fileInput = document.getElementById("fileInput").files;
+            const previewContainer = document.getElementById("previewContainer");
+
+            fileInput.addEventListener("change", () => {
+                previewContainer.innerHTML = "";
+                const files = fileInput.files;
+
+                if (!files.length) {
+                    previewContainer.innerHTML = "<p class='text-gray-400 italic'>Nenhum arquivo selecionado</p>";
+                    return;
+                }
+
+                Array.from(files).forEach(file => {
+                    const fileReader = new FileReader();
+                    const fileItem = document.createElement("div");
+                    fileItem.classList.add("p-2", "rounded", "border", "border-gray-200", "flex", "items-center", "gap-2", "mb-2");
+
+                    const fileName = document.createElement("span");
+                    fileName.textContent = file.name;
+                    fileName.classList.add("text-sm", "text-gray-700", "truncate", "max-w-xs");
+
+                    if (file.type.startsWith("image/")) {
+                        // Mostra imagem
+                        fileReader.onload = (e) => {
+                            const img = document.createElement("img");
+                            img.src = e.target.result;
+                            img.classList.add("w-16", "h-16", "object-cover", "rounded");
+                            fileItem.prepend(img);
+                        };
+                        fileReader.readAsDataURL(file);
+                    } else {
+                        // Mostra ícone genérico (PDF, DOC etc)
+                        const icon = document.createElement("i");
+                        icon.classList.add("fa", "fa-file", "text-gray-500", "text-xl");
+                        fileItem.prepend(icon);
+                    }
+
+                    fileItem.appendChild(fileName);
+                    previewContainer.appendChild(fileItem);
+                });
+            });
 
             function mostrarLista() {
                 listaLicencas.classList.remove("hidden");
@@ -111,8 +151,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if(arquivo){
                         const formData = new FormData();
-                        formData.append("anexo", arquivo);
 
+                        for(const file of fileInput){
+                            formData.append('anexos', file);
+                        }
+                        
                         const uploadRes = await fetch(`/licencas/${idLicenca}/upload`, {
                             method: "POST",
                             body: formData,
