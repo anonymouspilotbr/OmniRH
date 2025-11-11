@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const voltarListaBtn = document.getElementById("voltarListaBtn");
             const corpoTabela = document.getElementById("corpoTabelaLicencas");
             const form = document.getElementById("licenca_form");
+            const fileInput = document.getElementById("fileInput");
 
             function mostrarLista() {
                 listaLicencas.classList.remove("hidden");
@@ -85,12 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const data_inicio = document.getElementById("dataInicio").value;
                 const data_fim = document.getElementById("dataFim").value;
                 const observacoes = document.getElementById("desc").value;
-                const arquivos = document.getElementById("fileInput");
-
-                let anexos = null;
-                if (arquivos.files.length > 0) {
-                    anexos = arquivos.files[0].name; 
-                }
+                const arquivo = fileInput.files[0] || null;
 
                 const payload = {
                     id_funcionario,
@@ -98,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     data_inicio,
                     data_fim,
                     observacoes,
-                    anexos
+                    anexos: arquivo ? arquivo.name : null,
                 };
 
                 try {
@@ -109,8 +105,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
 
                     const data = await response.json();
-
                     if (!response.ok) throw new Error(data.error || "Erro ao registrar licença");
+
+                    const idLicenca = data.id;
+
+                    if(arquivo){
+                        const formData = new FormData();
+                        formData.append("anexo", arquivo);
+
+                        const uploadRes = await fetch(`/licencas/${idLicenca}/upload`, {
+                            method: "POST",
+                            body: formData,
+                        });
+
+                        if(!uploadRes.ok) throw new Error("Falha ao enviar anexo");
+                    }
 
                     alert("Licença registrada com sucesso!");
                     form.reset();

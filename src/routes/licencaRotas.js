@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const licencaController = require('../controllers/licencaController');
+const uploadController = require('../controllers/uploadController');
 
 // Registrar nova licença
 router.post('/', licencaController.registrarLicenca);
@@ -19,5 +20,7 @@ router.put('/:id/aprovar', licencaController.aprovarLicenca);
 
 // Rejeitar licença
 router.put('/:id/rejeitar', licencaController.rejeitarLicenca);
+
+router.post('/:id/upload', upload.single('anexo'), uploadController.uploadAnexoLicenca);
 
 module.exports = router;

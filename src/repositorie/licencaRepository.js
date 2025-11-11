@@ -57,10 +57,24 @@ async function buscarLicencaPorId(id) {
   return result.rows[0];
 }
 
+async function atualizarAnexo(idLicenca, urlAnexo) {
+  const query = `
+  UPDATE licencas 
+  SET anexo_url = $1
+  WHERE id = $2
+  RETURNING *; 
+  `;
+
+  const values = [urlAnexo, idLicenca];
+  const result = await pool.query(query, values);
+  return result.rows[0];
+}
+
 module.exports = {
   inserirLicenca,
   listarLicencasPorFuncionario,
   listarTodasLicencas,
   atualizarStatusLicenca,
   buscarLicencaPorId,
+  atualizarAnexo,
 };

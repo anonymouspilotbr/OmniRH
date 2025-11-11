@@ -50,6 +50,16 @@ async function buscarLicencaPorId(id) {
   return licenca;
 }
 
+async function atualizarAnexo(idLicenca, urlAnexo) {
+  try{
+    const licencaAtualizada = await licencaRepository.atualizarAnexo(idLicenca, urlAnexo);
+    return licencaAtualizada;
+  } catch (err) {
+    console.error('Erro ao atualizar anexo da licença:', err);
+    throw err;
+  }
+}
+
 module.exports = {
   registrarLicenca,
   listarLicencasPorFuncionario,
@@ -57,4 +67,5 @@ module.exports = {
   aprovarLicenca,
   rejeitarLicenca,
   buscarLicencaPorId,
+  atualizarAnexo,
 };
