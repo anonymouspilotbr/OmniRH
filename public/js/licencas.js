@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         const formData = new FormData();
 
                         for(const file of fileInput.files){
+                            console.log("📤 Enviando arquivo:", file.name);
                             formData.append('anexos', file);
                         }
                         
