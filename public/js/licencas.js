@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     data_inicio,
                     data_fim,
                     observacoes,
-                    anexos: arquivo ? arquivo.name : null,
+                    anexos: arquivo ? [arquivo.nam] : [],
                 };
 
                 try {
