@@ -50,7 +50,7 @@ const uploadAnexoLicenca = async (req,res) => {
       urls.push(result.secure_url);
       await licencaService.atualizarAnexo(idLicenca, result.secure_url);
     }
-    res.json({ sucesso: true, urls, licenca: licencaAtualizada });
+    res.json({ sucesso: true, urls});
   } catch (err) {
     console.error('Erro ao salvar o arquivo:', err);
     res.status(500).json({ erro: 'Erro ao salvar o arquivo no banco.' });
