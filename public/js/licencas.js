@@ -125,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const data_inicio = document.getElementById("dataInicio").value;
                 const data_fim = document.getElementById("dataFim").value;
                 const observacoes = document.getElementById("desc").value;
-                const arquivo = fileInput.files[0] || null;
 
                 const payload = {
                     id_funcionario,
@@ -133,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     data_inicio,
                     data_fim,
                     observacoes,
-                    anexos: arquivo ? [arquivo.nam] : [],
                 };
 
                 try {
@@ -148,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const idLicenca = data.id;
 
-                    if(arquivo){
+                    if(fileInput.files.length > 0){
                         const formData = new FormData();
 
                         for(const file of fileInput.files){
