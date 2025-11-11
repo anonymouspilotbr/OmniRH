@@ -38,7 +38,7 @@ const uploadImagem = async (req, res) => {
 
 const uploadAnexoLicenca = async (req,res) => {
   try {
-    const { idLicenca } = req.params.id;
+    const { idLicenca } = req.params;
     const urls = [];
 
     for(const file of req.files){
