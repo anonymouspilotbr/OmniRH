@@ -41,6 +41,10 @@ const uploadAnexoLicenca = async (req,res) => {
     const { idLicenca } = req.params;
     const urls = [];
 
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ erro: 'Nenhum arquivo enviado.' });
+    }
+    
     for(const file of req.files){
       const result = await cloudinary.uploader.upload(file.path, {
         folder: 'anexos_licencas',
