@@ -16,9 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const voltarListaBtn = document.getElementById("voltarListaBtn");
             const corpoTabela = document.getElementById("corpoTabelaLicencas");
             const form = document.getElementById("licenca_form");
-            const fileInput = document.getElementById("fileInput").files;
+            const fileInput = document.getElementById("fileInput");
             const previewContainer = document.getElementById("previewContainer");
-
             fileInput.addEventListener("change", () => {
                 previewContainer.innerHTML = "";
                 const files = fileInput.files;
@@ -152,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if(arquivo){
                         const formData = new FormData();
 
-                        for(const file of fileInput){
+                        for(const file of fileInput.files){
                             formData.append('anexos', file);
                         }
                         
