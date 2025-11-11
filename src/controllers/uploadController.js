@@ -38,7 +38,7 @@ const uploadImagem = async (req, res) => {
 
 const uploadAnexoLicenca = async (req,res) => {
   try {
-    const { idLicenca } = req.params;
+    const { idLicenca } = req.params.id;
     if (!req.file) {
       return res.status(400).json({ erro: 'Nenhum arquivo enviado.' });
     }
@@ -48,7 +48,7 @@ const uploadAnexoLicenca = async (req,res) => {
       resource_type: 'auto'
     });
 
-    const licencaAtualizada = await licencaService.atualizarAnexo(licencaID, result.secure_url);
+    const licencaAtualizada = await licencaService.atualizarAnexo(idLicenca, result.secure_url);
 
     res.json({ sucesso: true, url: result.secure_url, licenca: licencaAtualizada });
   } catch (err) {
