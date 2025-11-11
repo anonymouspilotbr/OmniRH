@@ -60,7 +60,7 @@ async function buscarLicencaPorId(id) {
 async function atualizarAnexo(idLicenca, urlAnexo) {
   const query = `
   UPDATE licencas 
-  SET anexo_url = $1
+  SET anexos = $1
   WHERE id = $2
   RETURNING *; 
   `;
