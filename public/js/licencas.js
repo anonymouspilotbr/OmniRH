@@ -23,12 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
             fileInput.addEventListener("change", () => {
                 const files = Array.from(fileInput.files);
 
-                files.forEach(f => {
-                    if (!arquivosSelecionados.some(a => a.name === f.name && a.size === f.size)) {
-                        arquivosSelecionados.push(f);
-                    }
-                });
-
                 const tiposPermitidos = [
                     "image/jpeg",
                     "image/png",
@@ -38,14 +32,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 ];
 
+                const arquivosValidos = [];
                 const arquivosInvalidos = Array.from(files).filter(file => !tiposPermitidos.includes(file.type));
+
+                files.forEach(file => {
+                    if (tiposPermitidos.includes(file.type)) {
+                        if (!arquivosSelecionados.some(a => a.name === file.name && a.size === file.size)) {
+                            arquivosValidos.push(file);
+                        }
+                    } else {
+                        arquivosInvalidos.push(file);
+                    }
+                });
+
                 if (arquivosInvalidos.length > 0) {
                     alert(`⚠️ Arquivo(s) não permitido(s): ${arquivosInvalidos.map(f => f.name).join(", ")}.
                 Tipos aceitos: JPG, PNG, PDF, DOC e DOCX.`);
-                    fileInput.value = ""; 
-                    previewContainer.innerHTML = "<p class='text-gray-400 italic'>Nenhum arquivo selecionado</p>";
-                    return;
                 }
+
+                arquivosSelecionados = [...arquivosSelecionados, ...arquivosValidos];
+
+                const dataTransfer = new DataTransfer();
+                arquivosSelecionados.forEach(f => dataTransfer.items.add(f));
+                fileInput.files = dataTransfer.files;
 
                 atualizarPreview();
             });
