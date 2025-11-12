@@ -38,7 +38,7 @@ const uploadImagem = async (req, res) => {
 
 const uploadAnexoLicenca = async (req,res) => {
   try {
-    const { idLicenca } = req.params;
+    const { id } = req.params;
     const urls = [];
 
     if (!req.files || req.files.length === 0) {
@@ -56,7 +56,7 @@ const uploadAnexoLicenca = async (req,res) => {
     );
 
     console.log("✅ Uploads concluídos:", uploads);
-    await licencaService.atualizarAnexo(idLicenca, uploads);
+    await licencaService.atualizarAnexo(id, uploads);
 
     res.json({ sucesso: true, urls: uploads});
   } catch (err) {
