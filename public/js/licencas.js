@@ -159,6 +159,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 const data_fim = document.getElementById("dataFim").value;
                 const observacoes = document.getElementById("desc").value;
 
+                const anoAtual = new Date().getFullYear();
+                const anoInicio = new Date(data_inicio).getFullYear();
+                const anoFim = new Date(data_fim).getFullYear();
+
+                if (
+                    isNaN(anoInicio) || 
+                    isNaN(anoFim) || 
+                    anoInicio < anoAtual || 
+                    anoInicio > 2099 || 
+                    anoFim < anoAtual || 
+                    anoFim > 2099
+                ) {
+                    alert(`⚠️ O ano das datas deve estar entre ${anoAtual} e 2099.`);
+                    return;
+                }
+
+                if (new Date(data_fim) < new Date(data_inicio)) {
+                    alert("⚠️ A data de término não pode ser anterior à data de início.");
+                    return;
+                }
+
                 const payload = {
                     id_funcionario,
                     tipo_licenca,
