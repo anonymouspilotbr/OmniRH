@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const fileInput = document.getElementById("fileInput");
             const previewContainer = document.getElementById("previewContainer");
             let arquivosSelecionados = [];
+            const hoje = new Date().toISOString().split("T")[0];
+            document.getElementById("dataInicio").setAttribute("min", hoje);
+            document.getElementById("dataFim").setAttribute("min", hoje);
 
             fileInput.addEventListener("change", () => {
                 const files = Array.from(fileInput.files);
@@ -208,6 +211,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (new Date(data_fim) < new Date(data_inicio)) {
                     alert("⚠️ A data de término não pode ser anterior à data de início.");
+                    return;
+                }
+
+                const hoje = new Date();
+                hoje.setHours(0, 0, 0, 0);
+                const inicio = new Date(data_inicio);
+                const fim = new Date(data_fim);
+
+                if (inicio < hoje || fim < hoje) {
+                    alert("⚠️ As datas não podem ser anteriores à data atual.");
                     return;
                 }
 
