@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     "image/png",
                     "image/jpg",
                     "application/pdf",
-                    "application/doc",
-                    "application/docx"
+                    "application/msword",
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 ];
 
                 const arquivosInvalidos = Array.from(files).filter(file => !tiposPermitidos.includes(file.type));

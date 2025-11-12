@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 });
 
 function fileFilter(req, file, cb) {
-  const tiposPermitidos = ["image/jpeg", "image/png", "image/jpg", "application/pdf", "application/doc", "application/docx"];
+  const tiposPermitidos = ["image/jpeg", "image/png", "image/jpg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
   if (tiposPermitidos.includes(file.mimetype)) {
     cb(null, true);
   } else {
@@ -24,7 +24,28 @@ function fileFilter(req, file, cb) {
   }
 }
 
-const upload = multer({ storage, fileFilter });
+const upload = multer({ storage, fileFilter, limits: { fileSize: 25 * 1024 * 1024 } });
+
+function tratarErroUpload(err, req, res, next) {
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+      return res.status(400).json({
+        erro: `Tipo de arquivo não permitido. Apenas JPG, PNG, PDF, DOC e DOCX são aceitos.`
+      });
+    }
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({
+        erro: 'Arquivo muito grande! O limite é de 25MB por arquivo.'
+      });
+    }
+  }
+  // Outros erros genéricos
+  if (err) {
+    console.error('Erro no upload:', err);
+    return res.status(500).json({ erro: 'Erro ao processar o upload.' });
+  }
+  next();
+}
 
 const uploadImagem = async (req, res) => {
   try {
@@ -74,5 +95,5 @@ const uploadAnexoLicenca = async (req,res) => {
   }
 }
 
-module.exports = { upload, uploadImagem, uploadAnexoLicenca };
+module.exports = { upload, uploadImagem, uploadAnexoLicenca, tratarErroUpload };
 

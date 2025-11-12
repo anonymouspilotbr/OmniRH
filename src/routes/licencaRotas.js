@@ -21,6 +21,6 @@ router.put('/:id/aprovar', licencaController.aprovarLicenca);
 // Rejeitar licença
 router.put('/:id/rejeitar', licencaController.rejeitarLicenca);
 
-router.post('/:id/upload', uploadController.upload.array('anexos'), uploadController.uploadAnexoLicenca);
+router.post('/:id/upload', uploadController.upload.array('anexos'), uploadController.tratarErroUpload, uploadController.uploadAnexoLicenca);
 
 module.exports = router;
