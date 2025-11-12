@@ -57,15 +57,15 @@ async function buscarLicencaPorId(id) {
   return result.rows[0];
 }
 
-async function atualizarAnexo(idLicenca, urlAnexo) {
+async function atualizarAnexo(idLicenca, urls) {
   const query = `
     UPDATE licencas
-    SET anexos = COALESCE(anexos, '{}') || ARRAY[$2::text]
+    SET anexos = COALESCE(anexos, '{}') || $2::text[]
     WHERE id = $1
     RETURNING *;
   `;
 
-  const values = [idLicenca, urlAnexo];
+  const values = [idLicenca, urls];
   const result = await pool.query(query, values);
   return result.rows[0];
 }
