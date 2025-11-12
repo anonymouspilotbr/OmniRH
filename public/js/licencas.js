@@ -89,6 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     previewContainer.appendChild(fileItem);
                 });
             }
+            function formatarDataLocal(isoDate) {
+                if (!isoDate) return "-";
+                const [ano, mes, dia] = isoDate.split("-");
+                return `${dia}/${mes}/${ano}`;
+            }
 
             function mostrarLista() {
                 listaLicencas.classList.remove("hidden");
@@ -136,8 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         tr.innerHTML = `
                         <td class="p-3 border-b">${l.tipo_licenca || "-"}</td>
-                        <td class="p-3 border-b">${new Date(l.data_inicio).toLocaleDateString("pt-BR")}</td>
-                        <td class="p-3 border-b">${new Date(l.data_fim).toLocaleDateString("pt-BR")}</td>
+                        <td class="p-3 border-b">${formatarDataLocal(l.data_inicio)}</td>
+                        <td class="p-3 border-b">${formatarDataLocal(l.data_fim)}</td>
                         <td class="p-3 border-b">
                             <span class="px-3 py-1 rounded-full text-white ${statusClass}">
                             ${l.status || "Pendente"}

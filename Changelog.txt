@@ -1,5 +1,8 @@
 Changelog
  
+ [0.17.7] Integração Sistema de Licenças III - 12 NOV 2025
+ - Várias correções e validações adicionadas à pagina do Registro de Licenças.
+ 
  [0.17.6] Integração Sistema de Licenças II - 11 NOV 2025
  - Adicionado o upload de anexos das Licenças no Cloudinary. 
 
