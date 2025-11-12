@@ -18,16 +18,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const form = document.getElementById("licenca_form");
             const fileInput = document.getElementById("fileInput");
             const previewContainer = document.getElementById("previewContainer");
+            let arquivosSelecionados = [];
             fileInput.addEventListener("change", () => {
                 previewContainer.innerHTML = "";
-                const files = fileInput.files;
+                const files = Array.from(fileInput.files);
 
-                if (!files.length) {
+                arquivosSelecionados = [...arquivosSelecionados, ...files];
+                previewContainer.innerHTML = "";
+
+                if (arquivosSelecionados.length === 0) {
                     previewContainer.innerHTML = "<p class='text-gray-400 italic'>Nenhum arquivo selecionado</p>";
                     return;
                 }
 
-                Array.from(files).forEach(file => {
+                arquivosSelecionados.forEach(file => {
                     const fileReader = new FileReader();
                     const fileItem = document.createElement("div");
                     fileItem.classList.add("p-2", "rounded", "border", "border-gray-200", "flex", "items-center", "gap-2", "mb-2");
@@ -37,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     fileName.classList.add("text-sm", "text-gray-700", "truncate", "max-w-xs");
 
                     if (file.type.startsWith("image/")) {
-                        // Mostra imagem
                         fileReader.onload = (e) => {
                             const img = document.createElement("img");
                             img.src = e.target.result;
@@ -46,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         };
                         fileReader.readAsDataURL(file);
                     } else {
-                        // Mostra ícone genérico (PDF, DOC etc)
                         const icon = document.createElement("i");
                         icon.classList.add("fa", "fa-file", "text-gray-500", "text-xl");
                         fileItem.prepend(icon);
@@ -146,11 +148,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const idLicenca = data.id;
 
-                    if(fileInput.files.length > 0){
+                    if(arquivosSelecionados.length > 0){
                         const formData = new FormData();
 
-                        console.log('Arquivos enviados:', fileInput.files);
-                        for(const file of fileInput.files){
+                        console.log('Arquivos enviados:', arquivosSelecionados);
+                        for(const file of arquivosSelecionados){
                             console.log("📤 Enviando arquivo:", file.name);
                             formData.append('anexos', file);
                         }
