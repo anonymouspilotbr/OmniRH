@@ -23,12 +23,29 @@ document.addEventListener("DOMContentLoaded", () => {
             fileInput.addEventListener("change", () => {
                 const files = Array.from(fileInput.files);
 
-                // adiciona novos arquivos, sem duplicar nomes
                 files.forEach(f => {
                     if (!arquivosSelecionados.some(a => a.name === f.name && a.size === f.size)) {
                         arquivosSelecionados.push(f);
                     }
                 });
+
+                const tiposPermitidos = [
+                    "image/jpeg",
+                    "image/png",
+                    "image/jpg",
+                    "application/pdf",
+                    "application/doc",
+                    "application/docx"
+                ];
+
+                const arquivosInvalidos = Array.from(files).filter(file => !tiposPermitidos.includes(file.type));
+                if (arquivosInvalidos.length > 0) {
+                    alert(`⚠️ Arquivo(s) não permitido(s): ${arquivosInvalidos.map(f => f.name).join(", ")}.
+                Tipos aceitos: JPG, PNG, PDF, DOC e DOCX.`);
+                    fileInput.value = ""; 
+                    previewContainer.innerHTML = "<p class='text-gray-400 italic'>Nenhum arquivo selecionado</p>";
+                    return;
+                }
 
                 atualizarPreview();
             });

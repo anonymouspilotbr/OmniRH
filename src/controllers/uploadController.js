@@ -15,7 +15,16 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
 });
 
-const upload = multer({ storage });
+function fileFilter(req, file, cb) {
+  const tiposPermitidos = ["image/jpeg", "image/png", "image/jpg", "application/pdf", "application/doc", "application/docx"];
+  if (tiposPermitidos.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Tipo de arquivo não permitido! Apenas JPG, PNG, PDF, DOC e DOCX."), false);
+  }
+}
+
+const upload = multer({ storage, fileFilter });
 
 const uploadImagem = async (req, res) => {
   try {
