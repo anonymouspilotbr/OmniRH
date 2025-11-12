@@ -19,11 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const fileInput = document.getElementById("fileInput");
             const previewContainer = document.getElementById("previewContainer");
             let arquivosSelecionados = [];
+
             fileInput.addEventListener("change", () => {
-                previewContainer.innerHTML = "";
                 const files = Array.from(fileInput.files);
 
-                arquivosSelecionados = [...arquivosSelecionados, ...files];
+                // adiciona novos arquivos, sem duplicar nomes
+                files.forEach(f => {
+                    if (!arquivosSelecionados.some(a => a.name === f.name && a.size === f.size)) {
+                        arquivosSelecionados.push(f);
+                    }
+                });
+
+                atualizarPreview();
+            });
+
+            function atualizarPreview() {
                 previewContainer.innerHTML = "";
 
                 if (arquivosSelecionados.length === 0) {
@@ -31,33 +41,54 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                arquivosSelecionados.forEach(file => {
+                arquivosSelecionados.forEach((file, index) => {
                     const fileReader = new FileReader();
                     const fileItem = document.createElement("div");
-                    fileItem.classList.add("p-2", "rounded", "border", "border-gray-200", "flex", "items-center", "gap-2", "mb-2");
+                    fileItem.classList.add(
+                        "p-2", "rounded", "border", "border-gray-200",
+                        "flex", "items-center", "justify-between", "gap-2", "mb-2"
+                    );
+
+                    const infoContainer = document.createElement("div");
+                    infoContainer.classList.add("flex", "items-center", "gap-2");
 
                     const fileName = document.createElement("span");
                     fileName.textContent = file.name;
                     fileName.classList.add("text-sm", "text-gray-700", "truncate", "max-w-xs");
 
+                    // Ícone ou miniatura
                     if (file.type.startsWith("image/")) {
                         fileReader.onload = (e) => {
                             const img = document.createElement("img");
                             img.src = e.target.result;
-                            img.classList.add("w-16", "h-16", "object-cover", "rounded");
-                            fileItem.prepend(img);
+                            img.classList.add("w-12", "h-12", "object-cover", "rounded");
+                            infoContainer.prepend(img);
                         };
                         fileReader.readAsDataURL(file);
                     } else {
                         const icon = document.createElement("i");
-                        icon.classList.add("fa", "fa-file", "text-gray-500", "text-xl");
-                        fileItem.prepend(icon);
+                        icon.classList.add("fa", "fa-file", "text-gray-500", "text-lg");
+                        infoContainer.prepend(icon);
                     }
 
-                    fileItem.appendChild(fileName);
+                    infoContainer.appendChild(fileName);
+                    fileItem.appendChild(infoContainer);
+
+                    // Botão de remover arquivo
+                    const removeBtn = document.createElement("button");
+                    removeBtn.innerHTML = `<i class="fa fa-trash text-red-500 hover:text-red-700"></i>`;
+                    removeBtn.classList.add("p-1", "rounded", "hover:bg-red-50", "transition");
+                    removeBtn.title = "Remover arquivo";
+
+                    removeBtn.addEventListener("click", () => {
+                        arquivosSelecionados.splice(index, 1);
+                        atualizarPreview();
+                    });
+
+                    fileItem.appendChild(removeBtn);
                     previewContainer.appendChild(fileItem);
                 });
-            });
+            }
 
             function mostrarLista() {
                 listaLicencas.classList.remove("hidden");
