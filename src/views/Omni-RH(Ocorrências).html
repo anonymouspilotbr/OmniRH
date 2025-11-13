@@ -11,20 +11,22 @@
             background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
             color: #333;
             margin: 0;
-            padding: 20px;
             line-height: 1.6;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
             grid-template-columns: 250px 1fr;
             gap: 30px;
         }
 
+        main {
+            padding: 20px;
+        }
+
         /* Header - Cor alterada para azul #2980b9 (consistente com outras telas) */
-        header {
+        header#original {
             grid-column: 1 / -1;
             background: #2980b9;
             color: white;
@@ -33,7 +35,7 @@
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-
+        
         header h1 {
             margin: 0;
             font-size: 2.2em;
@@ -242,40 +244,93 @@
             }
         }
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>Sistema de Ocorrências</h1>
-            <p>Gerencie registros manuais, automáticos e acompanhe o status de todas as ocorrências</p>
-        </header>
+    <header class="bg-gray-50 text-black shadow-lg">
+        <div class="container mx-auto px-4 py-6"> 
+            <div class="flex items-center justify-between"> 
+                <div class="flex items-center space-x-4"> 
+                    <div> 
+                        <h1 class="text-2xl font-bold">OmniRH</h1> 
+                        <p class="text-blue-900 text-sm">Painel de Controle do RH</p> 
+                    </div> 
+                </div> 
+                <div class="flex items-center space-x-4"> 
+                    <div class="text-right"> 
+                        <p class="font-semibold">João Silva</p> 
+                        <p class="text-blue-800 text-sm">Recursos Humanos</p> 
+                    </div> 
+                    <div class="relative w-12 h-12 bg-blue-500 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">
+                        <i id="headerIcon" class="fas fa-user text-white text-xl"></i>
+                        <img id="headerFoto" class="hidden w-full h-full object-cover" alt="Foto do usuário">
+                        <button id="usericon" class="absolute inset-0 z-10 w-full h-full bg-transparent cursor-pointer"></button>
+                    </div>
+                    <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40 z-50">
+                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
+                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Ajuda</button>
+                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="sair()">Sair</button>
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </header>
+    <main>
+        <div class="grid container">
+            <!-- Header -->
+            <header id="original">
+                <h1>Sistema de Ocorrências</h1>
+                <p>Gerencie registros manuais, automáticos e acompanhe o status de todas as ocorrências</p>
+            </header>
 
-        <!-- Sidebar com Estatísticas -->
-        <aside class="sidebar">
-            <h2>Estatísticas Rápidas</h2>
-            <div class="stat-item">
-                <span>Total de Ocorrências</span>
-                <span class="stat-number" id="totalOcorrencias">0</span>
-            </div>
-            <div class="stat-item">
-                <span>Em Análise</span>
-                <span class="stat-number" id="emAnalise">0</span>
-            </div>
-            <div class="stat-item">
-                <span>Graves</span>
-                <span class="stat-number" id="ocorrenciasGraves">0</span>
-            </div>
-        </aside>
+            <!-- Sidebar com Estatísticas -->
+            <aside class="sidebar">
+                <h2>Estatísticas Rápidas</h2>
+                <div class="stat-item">
+                    <span>Total de Ocorrências</span>
+                    <span class="stat-number" id="totalOcorrencias">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>Em Análise</span>
+                    <span class="stat-number" id="emAnalise">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>Graves</span>
+                    <span class="stat-number" id="ocorrenciasGraves">0</span>
+                </div>
+            </aside>
 
-        <!-- Conteúdo Principal -->
-        <main class="main-content">
-            <div id="ocorrenciasContainer">
-                <!-- Cards das ocorrências serão inseridos aqui -->
+            <!-- Conteúdo Principal -->
+            <main class="main-content">
+                <div id="ocorrenciasContainer">
+                    <!-- Cards das ocorrências serão inseridos aqui -->
+                </div>
+            </main>
+        </div>
+    </main>
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="font-semibold mb-4">OmniRH</h4>
+                    <p class="text-gray-400">Gestão eficiente de recursos humanos</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contato</h4>
+                    <p class="text-gray-400">omnirh.suporte@gmail.com</p>
+                    <p class="text-gray-400">(11) 9999-9999</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Links Úteis</h4>
+                    <a href="#" class="block text-gray-400 hover:text-white mb-2">Política de Recessos</a>
+                    <a href="#" class="block text-gray-400 hover:text-white">Portal do Colaborador</a>
+                </div>
             </div>
-        </main>
-    </div>
-
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>© 2025 OmniRH. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
     <script>
         // Carrega os dados de ocorrências do localStorage
         let ocorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
