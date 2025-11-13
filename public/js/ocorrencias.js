@@ -1,4 +1,3 @@
-// Carrega os dados de ocorrências do localStorage
 let ocorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
 
 const container = document.getElementById('ocorrenciasContainer');
@@ -30,45 +29,91 @@ function renderOcorrencias() {
     updateStats();
 
     if (ocorrencias.length === 0) {
-        container.innerHTML = '<div class="no-data">Nenhuma ocorrência registrada no momento.</div>';
+        container.innerHTML = `
+            <div class="text-center text-gray-500 py-6 italic">
+                Nenhuma ocorrência registrada no momento.
+            </div>`;
         return;
     }
 
-    ocorrencias.forEach((ocorrencia, index) => {
-        const card = document.createElement('div');
-        card.className = 'occurrence-card';
+    ocorrencias.forEach((o, index) => {
+        
+        const descricaoCurta = o.detalhes.length > 100 
+            ? o.detalhes.substring(0, 100) + "..." 
+            : o.detalhes;
 
-        // Limita a descrição para legibilidade
-        const descricaoCurta = ocorrencia.detalhes.length > 100 ? ocorrencia.detalhes.substring(0, 100) + '...' : ocorrencia.detalhes;
+        const statusColors = {
+            Registrada: "bg-gray-200 text-gray-700",
+            EmAnálise: "bg-yellow-100 text-yellow-700",
+            Resolvida: "bg-green-100 text-green-700",
+            Grave: "bg-red-100 text-red-700"
+        };
 
-        let acoesHtml = '<div class="actions">-</div>';
-        if (ocorrencia.status === 'Registrada') {
+        const severidadeColors = {
+            Baixa: "bg-blue-100 text-blue-700",
+            Média: "bg-yellow-100 text-yellow-700",
+            Alta: "bg-red-100 text-red-700"
+        };
+
+        let acoesHtml = `
+            <div class="flex gap-2 mt-4 text-sm">
+                -
+            </div>
+        `;
+
+        if (o.status === "Registrada") {
             acoesHtml = `
-                <div class="actions">
-                    <button class="btn-analisar" onclick="iniciarAnalise(${index})">Iniciar Análise</button>
-                    <button class="btn-resolver" onclick="resolver(${index})">Resolver</button>
-                    <button class="btn-grave" onclick="marcarGrave(${index})">Marcar como Grave</button>
-                </div>
-            `;
-        } else if (ocorrencia.status === 'EmAnálise') {
+            <div class="flex gap-2 mt-4">
+                <button class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                    onclick="iniciarAnalise(${index})">Iniciar Análise</button>
+
+                <button class="px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                    onclick="resolver(${index})">Resolver</button>
+
+                <button class="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                    onclick="marcarGrave(${index})">Marcar Grave</button>
+            </div>`;
+        }
+        else if (o.status === "EmAnálise") {
             acoesHtml = `
-                <div class="actions">
-                    <button class="btn-resolver" onclick="resolver(${index})">Resolver</button>
-                </div>
-            `;
+            <div class="flex gap-2 mt-4">
+                <button class="px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                    onclick="resolver(${index})">Resolver</button>
+            </div>`;
         }
 
+        const card = document.createElement("div");
+        card.className =
+            "bg-white shadow rounded-xl p-5 border border-gray-200 flex flex-col gap-3 mb-4";
+
         card.innerHTML = `
-            <div class="occurrence-header">
-                <h3 class="occurrence-title">${ocorrencia.tipoOcorrencia} - ${ocorrencia.funcionario}</h3>
-                <div>
-                    <span class="status-badge ${ocorrencia.status}">${ocorrencia.status}</span>
-                    <span class="severity-badge ${ocorrencia.severidade}">${ocorrencia.severidade}</span>
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-800">
+                    ${o.tipoOcorrencia} - ${o.funcionario}
+                </h3>
+
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold ${statusColors[o.status]}">
+                        ${o.status}
+                    </span>
+
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold ${severidadeColors[o.severidade]}">
+                        ${o.severidade}
+                    </span>
                 </div>
             </div>
-            <p class="occurrence-meta">Data: ${formatDate(ocorrencia.dataOcorrencia)} | Hora: ${formatTime(ocorrencia.horaInicio)}</p>
-            <p class="occurrence-description">${descricaoCurta}</p>
-            <p class="occurrence-meta">Registrado em: ${formatDate(ocorrencia.dataRegistro || ocorrencia.dataOcorrencia)}</p>
+
+            <p class="text-sm text-gray-600">
+                <strong>Data:</strong> ${formatDate(o.dataOcorrencia)} —
+                <strong>Hora:</strong> ${formatTime(o.horaInicio)}
+            </p>
+
+            <p class="text-gray-700 text-sm">${descricaoCurta}</p>
+
+            <p class="text-xs text-gray-500">
+                Registrado em: ${formatDate(o.dataRegistro || o.dataOcorrencia)}
+            </p>
+
             ${acoesHtml}
         `;
 
