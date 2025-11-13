@@ -10,7 +10,7 @@ router.get('/perfil', OmniRH_Controllers.perfilView);
 router.get('/licencas', OmniRH_Controllers.licencasView);
 router.get('/chamados', OmniRH_Controllers.chamadosView);
 router.get('/cadastro', OmniRH_Controllers.cadFuncionariosView);
-router.get('/ocorrencias-RH', OmniRH_Controllers.ocorrenciasView);
+router.get('/controle-rh', OmniRH_Controllers.ocorrenciasView);
 router.get('/ocorrencias', OmniRH_Controllers.ocorrenciasFuncView);
 router.get('/recessos-funcionario', OmniRH_Controllers.recessosView);
 router.get('/recessos-RH', OmniRH_Controllers.recessosRHView);

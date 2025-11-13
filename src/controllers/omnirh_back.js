@@ -41,7 +41,7 @@ function bancoHorasView(req,res){
 }
 
 function ocorrenciasView(req,res){
-    res.render('Omni-RH(Ocorrências).html');
+    res.render('Painel_ControleRH.html');
 }
 
 function ocorrenciasFuncView(req,res){
