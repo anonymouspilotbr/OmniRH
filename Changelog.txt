@@ -1,5 +1,9 @@
 Changelog
  
+ [0.17.8] Painel de Controle RH - 13 NOV 2025
+ - Início do desenvolvimento do Painel de Controle do RH, que concentra as funções de 
+   Aprovar/Rejeitar Licenças, Aprovar/Rejeitar Solicitações de Recessos e Gerenciar Ocorrências. 
+
  [0.17.7] Integração Sistema de Licenças III - 12 NOV 2025
  - Várias correções e validações adicionadas à pagina do Registro de Licenças.
  
