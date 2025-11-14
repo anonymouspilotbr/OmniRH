@@ -1,4 +1,4 @@
-let ocorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
+/*let ocorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
 
 const container = document.getElementById('ocorrenciasContainer');
 
@@ -144,4 +144,51 @@ function marcarGrave(index) {
 }
 
 // Inicializa a renderização
-renderOcorrencias();
+renderOcorrencias();*/
+
+const lista = document.getElementById("listaOcorrencias");
+    const formSecao = document.getElementById("formOcorrenciaSecao");
+    const novaBtn = document.getElementById("novaOcorrenciaBtn");
+    const voltarBtn = document.getElementById("voltarListaBtn");
+    const previewContainer = document.getElementById("previewContainer");
+    const fileInput = document.getElementById("fileInput");
+
+    let arquivosSelecionados = [];
+
+    novaBtn.onclick = () => {
+        lista.classList.add("hidden");
+        formSecao.classList.remove("hidden");
+    };
+
+    voltarBtn.onclick = () => {
+        formSecao.classList.add("hidden");
+        lista.classList.remove("hidden");
+    };
+
+    // ******************** PRÉVIA DOS ANEXOS ********************
+    fileInput.addEventListener("change", () => {
+        arquivosSelecionados = Array.from(fileInput.files);
+        previewContainer.innerHTML = "";
+
+        if (arquivosSelecionados.length === 0) {
+            previewContainer.textContent = "Nenhum arquivo selecionado";
+            return;
+        }
+
+        arquivosSelecionados.forEach(f => {
+            const div = document.createElement("div");
+            div.classList.add("p-2", "border", "rounded", "mb-2", "flex", "justify-between", "items-center");
+
+            div.innerHTML = `
+                <span>${f.name}</span>
+                <span class="text-gray-400 text-xs">${(f.size / 1024).toFixed(1)} KB</span>
+            `;
+            previewContainer.appendChild(div);
+        });
+    });
+
+    // ******************** SUBMIT ********************
+    document.getElementById("formOcorrencia").addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("⚠️ Backend ainda vai ser implementado.");
+    });

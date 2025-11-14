@@ -1,5 +1,8 @@
 Changelog
  
+ [0.18.1] Desenvolvimento Ocorrências I - 14 NOV 2025
+ - Início do desenvolvimento do back end do sistema de Ocorrências.
+ 
  [0.18.0] Sistema de Licenças Completo - 14 NOV 2025
  - Concluída a integração entre Front e Back End das Licenças
  - Implementadas as telas tanto do Funcionário quanto do Gestor

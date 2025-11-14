@@ -6,7 +6,7 @@ async function consultar(req, res) {
   const ano = parseInt(req.query.ano) || new Date().getFullYear();
 
   try {
-    const saldo = await bancoHorasService.consultarSaldo(usuario_id, mes, ano);
+    const saldo = await bh_service.consultarSaldo(usuario_id, mes, ano);
     res.json(saldo);
   } catch (err) {
     console.error(err);
@@ -22,7 +22,7 @@ async function ajustar(req, res) {
   }
 
   try {
-    const resultado = await bancoHorasService.ajustarSaldo(
+    const resultado = await bh_service.ajustarSaldo(
       usuario_id,
       ajuste,
       mes || new Date().getMonth() + 1,
