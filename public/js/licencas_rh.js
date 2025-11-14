@@ -43,6 +43,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         licencaSelecionada = licenca.id;
 
+        const anexosContainer = document.createElement("div");
+        anexosContainer.className = "mt-2 flex flex-col gap-2";
+
+        if (licenca.anexos && licenca.anexos.length > 0) {
+            licenca.anexos.forEach(url => {
+                const link = document.createElement("a");
+                link.href = url;
+                link.target = "_blank";
+                link.className = "text-blue-600 underline";
+                link.textContent = url.split("/").pop();
+                anexosContainer.appendChild(link);
+            });
+        } else {
+            const p = document.createElement("p");
+            p.className = "text-gray-500";
+            p.textContent = "Nenhum anexo enviado.";
+            anexosContainer.appendChild(p);
+        }
+
         detalhes.innerHTML = `
             <p><strong>Funcionário:</strong> ${licenca.funcionario_nome}</p>
             <p><strong>Tipo:</strong> ${licenca.tipo_licenca}</p>
@@ -50,12 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Observações:</strong> ${licenca.observacoes || "-"}</p>
 
             <h4 class="font-semibold mt-4">Anexos:</h4>
-            <div class="mt-2 flex flex-col gap-2">
-                ${licenca.anexos.map(url => `
-                    <a href="${url}" target="_blank" class="text-blue-600 underline">${url.split("/").pop()}</a>
-                `).join("")}
-            </div>
         `;
+        detalhes.appendChild(anexosContainer);
 
         modal.classList.remove("hidden");
     };
