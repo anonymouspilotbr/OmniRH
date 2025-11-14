@@ -1,5 +1,9 @@
 Changelog
  
+ [0.18.0] Sistema de Licenças Completo - 14 NOV 2025
+ - Concluída a integração entre Front e Back End das Licenças
+ - Implementadas as telas tanto do Funcionário quanto do Gestor
+
  [0.17.8] Painel de Controle RH - 14 NOV 2025
  - Início do desenvolvimento do Painel de Controle do RH, que concentra as funções de 
    Aprovar/Rejeitar Licenças, Aprovar/Rejeitar Solicitações de Recessos e Gerenciar Ocorrências. 
