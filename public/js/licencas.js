@@ -162,9 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     licencas.forEach(l => {
                         const tr = document.createElement("tr");
                         const statusClass =
-                        l.status === "Aprovada"
+                        l.status === "aprovada"
                             ? "bg-green-500"
-                            : l.status === "Rejeitada"
+                            : l.status === "rejeitada"
                             ? "bg-red-500"
                             : "bg-yellow-500";
 
