@@ -45,7 +45,7 @@ function ocorrenciasView(req,res){
 }
 
 function ocorrenciasFuncView(req,res){
-    res.render('ocorrencias.html');
+    res.render('ocorrenciasv2.html');
 }
 
 function esqueciSenhaView(req,res){

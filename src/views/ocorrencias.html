@@ -65,111 +65,76 @@
         </aside>
         <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
         <main class="container mx-auto px-4 py-8">
-            <div class="max-w-5xl mx-auto mt-10 bg-white p-6 rounded-xl shadow">
-                <!-- ===================== LISTA DE OCORRÊNCIAS ===================== -->
-                <div id="listaOcorrencias">
-                    <h1 class="text-2xl font-bold text-blue-700 mb-6 border-b pb-2">Ocorrências</h1>
-                    <!-- Filtros -->
-                    <div class="flex gap-3 mb-4">
-                        <button class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Todas</button>
-                        <button class="px-4 py-2 rounded bg-yellow-500 text-white hover:bg-yellow-600">Pendentes</button>
-                        <button class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700">Resolvidas</button>
-                    </div>
-
-                    <!-- Botão nova ocorrência -->
-                    <div class="flex justify-end mb-6">
-                        <button id="novaOcorrenciaBtn" class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800">
-                            Registrar Ocorrência
-                        </button>
-                    </div>
-
-                    <!-- Tabela -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-blue-600 text-white">
-                                    <th class="p-3">Tipo</th>
-                                    <th class="p-3">Motivo</th>
-                                    <th class="p-3">Data</th>
-                                    <th class="p-3">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="corpoTabelaOcorrencias">
-                                <!-- Preenchido via JS futuramente -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- ===================== FORMULÁRIO DE NOVA OCORRÊNCIA ===================== -->
-                <div id="formOcorrenciaSecao" class="hidden">
-
-                    <h1 class="text-2xl font-bold text-blue-700 mb-6 border-b pb-2">Registrar Ocorrência</h1>
-
-                    <form id="formOcorrencia" class="space-y-4" enctype="multipart/form-data">
-
-                        <!-- Tipo de ocorrência -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-6" id="formSection">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                        <i class="fas fa-file-pen text-blue-500 mr-3"></i>
+                        Registrar Ocorrência
+                    </h3>
+                    <form id="ocorrenciaForm" class="space-y-6">
                         <div>
-                            <label class="block mb-1 font-semibold">Tipo de ocorrência</label>
-                            <select id="tipoOcorrencia" required class="w-full p-2 border rounded">
-                                <option value="">Selecione...</option>
+                            <label for="tipoOcorrencia" class="block text-sm font-medium text-gray-700 mb-2">Tipo de Ocorrência</label>
+                            <select id="tipoOcorrencia" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 <option>Atraso</option>
                                 <option>Falta</option>
                                 <option>Problemas técnicos</option>
                                 <option>Outro</option>
                             </select>
                         </div>
-
-                        <!-- Motivo -->
                         <div>
-                            <label class="block mb-1 font-semibold">Motivo</label>
-                            <select id="motivoOcorrencia" required class="w-full p-2 border rounded">
-                                <option value="">Selecione...</option>
+                            <label for="motivoOcorrencia" class="block text-sm font-medium text-gray-700 mb-2">Motivo</label>
+                            <select id="motivoOcorrencia" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 <option>Problema médico</option>
                                 <option>Problema pessoal</option>
                                 <option>Falha do sistema</option>
                                 <option>Outro</option>
                             </select>
                         </div>
-
-                        <!-- Data -->
                         <div>
-                            <label class="block mb-1 font-semibold">Data da ocorrência</label>
-                            <input type="date" id="dataOcorrencia" required class="w-full p-2 border rounded">
+                            <label for="dataOcorrencia" class="block text-sm font-medium text-gray-700 mb-2">Data da Ocorrência</label>
+                            <input type="date" id="dataOcorrencia" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                         </div>
-
-                        <!-- Detalhes -->
                         <div>
-                            <label class="block mb-1 font-semibold">Detalhes</label>
-                            <textarea id="detalhesOcorrencia" rows="4" required class="w-full p-2 border rounded"></textarea>
+                            <label for="detalhes" class="block text-sm font-medium text-gray-700 mb-2">Mais detalhes</label>
+                            <textarea id="detalhes" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Digite mais informações se necessário..." required></textarea>
                         </div>
 
-                        <!-- Anexos -->
                         <div>
-                            <label class="block mb-1 font-semibold">Anexos (opcional)</label>
-                            <input type="file" id="fileInput" multiple class="w-full p-2 border rounded">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Anexos (Opcional)</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-2"></i>
+                                <p class="text-gray-500">Arraste arquivos aqui ou clique para selecionar</p>
+                                <input type="file" class="hidden" id="fileInput">
+                                <button type="button" onclick="document.getElementById('fileInput').click()" class="mt-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                    Selecionar Arquivos
+                                </button>
+                            </div>
                         </div>
-
-                        <!-- Prévia dos anexos -->
-                        <div id="previewContainer" class="bg-gray-50 p-3 rounded border text-sm text-gray-600">
-                            Nenhum arquivo selecionado
-                        </div>
-
-                        <!-- Botões -->
-                        <div class="flex justify-end gap-3 pt-4">
-                            <button type="button" id="voltarListaBtn"
-                                    class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">
-                                Voltar
-                            </button>
-                            <button type="submit"
-                                    class="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">
-                                Registrar
-                            </button>
-                        </div>
-
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-paper-plane mr-2"></i>Registrar Ocorrência
+                        </button>
                     </form>
+                </div>        
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800">
+                            <i class="fas fa-list-alt text-blue-500 mr-3"></i>
+                            Minhas Ocorrências
+                        </h3>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-2 bg-gray-100 rounded-lg hover:bg-gray-200">
+                                <i class="fas fa-filter"></i>
+                            </button>
+                            <button class="px-3 py-2 bg-gray-100 rounded-lg hover:bg-gray-200">
+                                <i class="fas fa-sort"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-4" id="ocorrenciasList">
+                        <!-- As solicitações serão renderizadas aqui pelo JavaScript -->
+                        <p class="text-center text-gray-500" id="noflagMSG">Nenhuma ocorrência registrada ainda.</p>
+                    </div>
                 </div>
-
             </div>
         </main>
         <footer class="bg-gray-800 text-white py-8 mt-12">
@@ -204,7 +169,114 @@
             window.location.href = "/";
         }
 
+        //FUNÇÕES DO FORMULÁRIO
+
+        function mostrarOcorrencias(){
+            const ocorrenciasList = document.getElementById('ocorrenciasList');
+            const noFlag = document.getElementById('noflagMSG');
+            const nomeUser = document.getElementById('nomeFuncionario').textContent.trim();
+            
+            const allOcorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
+            
+            // Filtra apenas as solicitações deste funcionário
+            const myOcorrencias = allOcorrencias.filter(ocorrencia => ocorrencia.funcionario === nomeUser);
+
+            ocorrenciasList.innerHTML = ''; // Limpa a lista existente
+
+            if (myOcorrencias.length === 0) {
+                noFlag.style.display = 'block';
+            } else {
+                noFlag.style.display = 'none';
+                myOcorrencias.forEach(ocorrencia => {
+                    const ocorrenciaCard = document.createElement('div');
+                    ocorrenciaCard.className = `border border-gray-200 rounded-lg p-4 card-hover`;
+                    
+                    let statusClass = '';
+                    let statusIcon = '';
+                    switch (ocorrencia.status) {
+                        case 'Em análise':
+                            statusClass = 'status-pendente';
+                            statusIcon = 'fas fa-clock';
+                            break;
+                        case 'Resolvida':
+                            statusClass = 'status-aprovado';
+                            statusIcon = 'fas fa-check';
+                            break;
+                        case 'Grave':
+                            statusClass = 'status-grave';
+                            statusIcon = 'fa-solid fa-triangle-exclamation';
+                            break;
+                        case 'Concluido': 
+                            statusClass = 'status-concluido';
+                            statusIcon = 'fas fa-check-circle';
+                            break;
+                        default:
+                            statusClass = 'status-pendente';
+                            statusIcon = 'fas fa-clock';
+                    }
+                    ocorrenciaCard.innerHTML = `
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">${ocorrencia.tipoOcorrencia}</h4>
+                            </div>
+                            <span class="${statusClass} px-3 py-1 rounded-full text-xs font-medium">
+                                <i class="${statusIcon} mr-1"></i>${ocorrencia.status}
+                            </span>
+                        </div>
+                        <p class="text-gray-700 mb-3">${ocorrencia.detalhes}</p>
+                    `;
+                    ocorrenciasList.appendChild(ocorrenciaCard);
+                });       
+            }
+        }
+
+        document.getElementById('ocorrenciaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nomeUser = document.getElementById('nomeFuncionario').textContent; 
+            const tipoOcorrencia = document.getElementById('tipoOcorrencia').value;
+            const motivoOcorrencia = document.getElementById('motivoOcorrencia').value;
+            const detalhes = document.getElementById('detalhes').value;
+            const dataOcorrencia = document.getElementById('dataOcorrencia').value;
+            const dataRegistro = Date.now();
+
+            const novaOcorrencia = {
+                funcionario: nomeUser,
+                tipoOcorrencia: tipoOcorrencia,
+                motivoOcorrencia: motivoOcorrencia,
+                detalhes: detalhes,
+                status: "Registrada",
+                severidade: "Baixa",
+                dataOcorrencia: dataOcorrencia,
+                dataRegistro: dataRegistro,
+            };
+
+            let allOcorrencias = JSON.parse(localStorage.getItem('ocorrenciasRH')) || [];
+            allOcorrencias.push(novaOcorrencia);
+
+            localStorage.setItem('ocorrenciasRH', JSON.stringify(allOcorrencias));
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Ocorrência registrada com sucesso!');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                this.reset(); 
+                mostrarOcorrencias(); 
+            }, 2000);
+        });
+
+        document.addEventListener('DOMContentLoaded', mostrarOcorrencias);
+
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('click', function() {
+            });
+        });
     </script>
     <script src="/js/front.js"></script>
-    <script src="/js/ocorrencias.js"></script>
 </html>
