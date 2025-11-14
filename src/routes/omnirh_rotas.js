@@ -7,7 +7,7 @@ router.get('/', OmniRH_Controllers.loginView);
 router.get('/horas', OmniRH_Controllers.bancoHorasView);
 router.get('/home', OmniRH_Controllers.homeView);
 router.get('/perfil', OmniRH_Controllers.perfilView);
-router.get('/licencas', OmniRH_Controllers.licencasView);
+router.get('/registro-licencas', OmniRH_Controllers.licencasView);
 router.get('/chamados', OmniRH_Controllers.chamadosView);
 router.get('/cadastro', OmniRH_Controllers.cadFuncionariosView);
 router.get('/controle-rh', OmniRH_Controllers.ocorrenciasView);

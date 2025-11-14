@@ -28,7 +28,7 @@ function paginaMenuRecessos(){
   window.location.href = "recessos-funcionario";
 }
 function paginaMenuLicencas(){
-  window.location.href = "licencas";
+  window.location.href = "registro-licencas";
 }
 function paginaMenuHoras(){
   window.location.href = "horas";
