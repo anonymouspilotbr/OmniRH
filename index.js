@@ -25,18 +25,20 @@ app.set('views', __dirname + '/src/views')
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
-app.use(express.static(__dirname + '/public'));
 
 configurarCors(app);
 
 app.use('/auth', require('./src/routes/authRotas'));
-app.use('/', require('./src/routes/omnirh_rotas'));
-app.use('/', require('./src/routes/funcionarioRotas'));
-app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
-app.use(uploadRoutes);
 app.use('/registro', registroRoutes);
 app.use('/banco-horas', bancoRoutes);
 app.use('/licencas', licencaRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+app.use(uploadRoutes);
+
+app.use('/', require('./src/routes/omnirh_rotas'));
+app.use('/', require('./src/routes/funcionarioRotas'));
+
+app.use(express.static(__dirname + '/public'));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, function () {
