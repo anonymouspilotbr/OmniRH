@@ -99,6 +99,32 @@ async function buscarPendentes() {
     return rows;
 }
 
+async function obterEstatisticas() {
+    const query = `
+        SELECT
+            COUNT(*) AS total,
+            SUM(CASE WHEN status = 'pendente' THEN 1 ELSE 0 END) AS pendentes,
+            SUM(CASE WHEN status = 'aprovada' THEN 1 ELSE 0 END) AS aprovadas
+        FROM licencas;
+    `;
+
+    const { rows } = await pool.query(query);
+    return rows[0];
+}
+
+async function buscarAprovadas() {
+    const query = `
+        SELECT l.*, f.nome AS funcionario_nome
+        FROM licencas l
+        JOIN funcionario f ON f.id = l.id_funcionario
+        WHERE l.status = 'aprovada'
+        ORDER BY l.data_inicio DESC
+    `;
+
+    const result = await pool.query(query);
+    return result.rows;
+}
+
 module.exports = {
   inserirLicenca,
   listarLicencasPorFuncionario,
@@ -107,4 +133,6 @@ module.exports = {
   buscarLicencaPorId,
   atualizarAnexo,
   buscarPendentes,
+  obterEstatisticas,
+  buscarAprovadas,
 };

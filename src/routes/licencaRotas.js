@@ -10,6 +10,8 @@ router.post('/', licencaController.registrarLicenca);
 router.get('/funcionario/:id_funcionario', licencaController.listarLicencasPorFuncionario);
 
 router.get('/pendentes', licencaController.listarLicencasPendentes);
+router.get("/aprovadas", licencaController.buscarAprovadas);
+router.get('/estatisticas', licencaController.estatisticas);
 
 // Listar todas as licenças (para RH)
 router.get('/', licencaController.listarTodasLicencas);

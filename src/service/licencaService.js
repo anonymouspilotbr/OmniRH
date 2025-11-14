@@ -64,6 +64,14 @@ async function listarLicencasPendentes() {
     return await licencaRepository.buscarPendentes();
 }
 
+async function obterEstatisticas() {
+    return await licencaRepository.obterEstatisticas();
+}
+
+async function buscarAprovadas() {
+    return await licencaRepository.buscarAprovadas();
+}
+
 module.exports = {
   registrarLicenca,
   listarLicencasPorFuncionario,
@@ -73,4 +81,6 @@ module.exports = {
   buscarLicencaPorId,
   atualizarAnexo,
   listarLicencasPendentes,
+  obterEstatisticas,
+  buscarAprovadas,
 };

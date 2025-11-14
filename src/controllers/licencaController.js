@@ -94,6 +94,26 @@ async function listarLicencasPendentes(req, res) {
     }
 }
 
+async function estatisticas(req, res) {
+    try {
+        const dados = await licencaService.obterEstatisticas();
+        res.json(dados);
+    } catch (error) {
+        console.error("Erro ao obter estatísticas:", error);
+        res.status(500).json({ error: "Erro ao obter estatísticas" });
+    }
+}
+
+async function buscarAprovadas(req, res) {
+    try {
+        const lista = await licencaService.buscarAprovadas();
+        res.json(lista);
+    } catch (err) {
+        console.error("Erro ao buscar aprovadas:", err);
+        res.status(500).json({ erro: "Erro ao buscar aprovadas" });
+    }
+}
+
 module.exports = {
   registrarLicenca,
   listarLicencasPorFuncionario,
@@ -102,4 +122,6 @@ module.exports = {
   rejeitarLicenca,
   buscarLicencaPorId,
   listarLicencasPendentes,
+  estatisticas,
+  buscarAprovadas,
 };
