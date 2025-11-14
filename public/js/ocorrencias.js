@@ -208,7 +208,7 @@ renderOcorrencias();*/
             const listaOcorrencias = document.getElementById("listaOcorrencias");
             const formOcorrencia = document.getElementById("formOcorrencia");
             const novaOcorrenciaBtn = document.getElementById("novaOcorrenciaBtn");
-            const voltarOcorrenciaBtn = document.getElementById("voltarListaBtn");
+            const voltarListaBtn = document.getElementById("voltarListaBtn");
             const corpoTabela = document.getElementById("corpoTabelaOcorrencias");
             const form = document.getElementById("ocorrencia_form");
             const fileInput = document.getElementById("fileInput");
@@ -313,19 +313,18 @@ renderOcorrencias();*/
             }
 
             function mostrarLista() {
-                listaLicencas.classList.remove("hidden");
-                formLicenca.classList.add("hidden");
+                listaOcorrencias.classList.remove("hidden");
+                formOcorrencia.classList.add("hidden");
                 carregarLicencas();
             }
 
             function mostrarFormulario() {
-                formLicenca.classList.remove("hidden");
-                listaLicencas.classList.add("hidden");
+                formOcorrencia.classList.remove("hidden");
+                listaOcorrencias.classList.add("hidden");
             }
 
-            novaLicencaBtn.addEventListener("click", mostrarFormulario);
+            novaOcorrenciaBtn.addEventListener("click", mostrarFormulario);
             voltarListaBtn.addEventListener("click", mostrarLista);
-
 
         })
     }
