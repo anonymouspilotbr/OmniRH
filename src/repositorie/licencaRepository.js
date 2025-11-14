@@ -88,7 +88,7 @@ async function atualizarAnexo(idLicenca, urls) {
 
 async function buscarPendentes() {
     const query = `
-        SELECT l.*, f.nome AS funcionario_nome
+        SELECT l.*, f.nome AS nome_funcionario
         FROM licencas l
         JOIN funcionario f ON f.id = l.id_funcionario
         WHERE l.status = 'pendente'
@@ -114,7 +114,7 @@ async function obterEstatisticas() {
 
 async function buscarAprovadas() {
     const query = `
-        SELECT l.*, f.nome AS funcionario_nome
+        SELECT l.*, f.nome AS nome_funcionario
         FROM licencas l
         JOIN funcionario f ON f.id = l.id_funcionario
         WHERE l.status = 'aprovada'
