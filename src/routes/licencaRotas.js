@@ -9,6 +9,8 @@ router.post('/', licencaController.registrarLicenca);
 // Listar licenças de um funcionário
 router.get('/funcionario/:id_funcionario', licencaController.listarLicencasPorFuncionario);
 
+router.get('/pendentes', licencaController.listarLicencasPendentes);
+
 // Listar todas as licenças (para RH)
 router.get('/', licencaController.listarTodasLicencas);
 
@@ -22,7 +24,5 @@ router.put('/:id/aprovar', licencaController.aprovarLicenca);
 router.put('/:id/rejeitar', licencaController.rejeitarLicenca);
 
 router.post('/:id/upload', uploadController.upload.array('anexos'), uploadController.tratarErroUpload, uploadController.uploadAnexoLicenca);
-
-router.get('/pendentes', licencaController.listarLicencasPendentes);
 
 module.exports = router;
