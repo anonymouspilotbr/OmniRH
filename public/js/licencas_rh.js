@@ -76,13 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     document.getElementById("btnAprovar").addEventListener("click", async () => {
-        await fetch(`/licencas/${licencaSelecionada}/aprovar`, { method: "PATCH" });
+        await fetch(`/licencas/${licencaSelecionada}/aprovar`, { method: "PUT" });
         fecharModal();
         carregarPendentes();
     });
 
     document.getElementById("btnRejeitar").addEventListener("click", async () => {
-        await fetch(`/licencas/${licencaSelecionada}/rejeitar`, { method: "PATCH" });
+        await fetch(`/licencas/${licencaSelecionada}/rejeitar`, { method: "PUT" });
         fecharModal();
         carregarPendentes();
     });
