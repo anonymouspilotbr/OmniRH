@@ -84,6 +84,16 @@ async function buscarLicencaPorId(req, res) {
   }
 }
 
+async function listarLicencasPendentes(req, res) {
+    try {
+        const lista = await licencaService.listarLicencasPendentes();
+        res.json(lista);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ erro: "Erro ao listar licenças pendentes" });
+    }
+}
+
 module.exports = {
   registrarLicenca,
   listarLicencasPorFuncionario,
@@ -91,4 +101,5 @@ module.exports = {
   aprovarLicenca,
   rejeitarLicenca,
   buscarLicencaPorId,
+  listarLicencasPendentes,
 };

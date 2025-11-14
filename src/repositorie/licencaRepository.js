@@ -12,6 +12,20 @@ async function inserirLicenca(id_funcionario, tipo_licenca, data_inicio, data_fi
   return result.rows[0];
 }
 
+function tratarLinha(linha) {
+  if (!linha) return linha;
+
+  if (linha.anexos) {
+    try {
+      linha.anexos = JSON.parse(linha.anexos);
+    } catch (e) {
+      linha.anexos = []; 
+    }
+  }
+
+  return linha;
+}
+
 async function listarLicencasPorFuncionario(id_funcionario) {
   const query = `
     SELECT id, tipo_licenca, to_char(data_inicio, 'YYYY-MM-DD') as data_inicio,
@@ -21,7 +35,8 @@ async function listarLicencasPorFuncionario(id_funcionario) {
     ORDER BY data_inicio DESC
   `;
   const result = await pool.query(query, [id_funcionario]);
-  return result.rows;
+  
+  return result.rows.map(tratarLinha);
 }
 
 async function listarTodasLicencas() {
@@ -34,7 +49,8 @@ async function listarTodasLicencas() {
     ORDER BY l.data_inicio DESC
   `;
   const result = await pool.query(query);
-  return result.rows;
+  
+  return result.rows.map(tratarLinha);
 }
 
 async function atualizarStatusLicenca(id, status) {
@@ -48,13 +64,14 @@ async function atualizarStatusLicenca(id, status) {
 
 async function buscarLicencaPorId(id) {
   const query = `
-    SELECT l.*, f.nome as nome_funcionario
+    SELECT l.*, f.nome AS nome_funcionario
     FROM licencas l
     JOIN funcionario f ON l.id_funcionario = f.id
     WHERE l.id = $1
   `;
   const result = await pool.query(query, [id]);
-  return result.rows[0];
+  
+  return tratarLinha(result.rows[0]);
 }
 
 async function atualizarAnexo(idLicenca, urls) {
@@ -69,6 +86,19 @@ async function atualizarAnexo(idLicenca, urls) {
   return result.rows[0];
 }
 
+async function buscarPendentes() {
+    const query = `
+        SELECT l.*, f.nome AS funcionario_nome
+        FROM licencas l
+        JOIN funcionario f ON f.id = l.id_funcionario
+        WHERE l.status = 'pendente'
+        ORDER BY l.data_inicio DESC
+    `;
+
+    const { rows } = await pool.query(query);
+    return rows;
+}
+
 module.exports = {
   inserirLicenca,
   listarLicencasPorFuncionario,
@@ -76,4 +106,5 @@ module.exports = {
   atualizarStatusLicenca,
   buscarLicencaPorId,
   atualizarAnexo,
+  buscarPendentes,
 };

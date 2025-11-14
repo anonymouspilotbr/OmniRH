@@ -60,6 +60,10 @@ async function atualizarAnexo(idLicenca, urlAnexo) {
   }
 }
 
+async function listarLicencasPendentes() {
+    return await licencaRepository.buscarPendentes();
+}
+
 module.exports = {
   registrarLicenca,
   listarLicencasPorFuncionario,
@@ -68,4 +72,5 @@ module.exports = {
   rejeitarLicenca,
   buscarLicencaPorId,
   atualizarAnexo,
+  listarLicencasPendentes,
 };
