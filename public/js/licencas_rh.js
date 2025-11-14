@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tr.classList.add("border-b");
 
             tr.innerHTML = `
-                <td class="p-3">${l.funcionario_nome}</td>
+                <td class="p-3">${l.nome_funcionario}</td>
                 <td class="p-3">${l.tipo_licenca}</td>
                 <td class="p-3">${formatarPeriodo(l.data_inicio, l.data_fim)}</td>
                 <td class="p-3">${badgeStatus(l.status)}</td>
