@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             function mostrarLista() {
                 listaOcorrencias.classList.remove("hidden");
                 formOcorrencia.classList.add("hidden");
-                carregarLicencas();
+                carregarOcorrencias();
             }
 
             function mostrarFormulario() {
