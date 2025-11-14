@@ -56,7 +56,7 @@ function resetarSenhaView(req, res){
     res.render('resetar_senha.html');
 }
 
-exports.register = (req, res) => {
+/*exports.register = (req, res) => {
     const { email, senha } = req.body;
 
     if (!email || !senha)
@@ -83,7 +83,7 @@ exports.login = (req, res) => {
 
     const token = jwt.sign({ email: user.email }, SECRET, { expiresIn: '1h' });
     res.json({ msg: 'Login realizado com sucesso', token });
-};
+};*/
 
 module.exports = {
     loginView,
