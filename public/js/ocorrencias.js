@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const id_funcionario = data.id;
             const listaOcorrencias = document.getElementById("listaOcorrencias");
-            const formOcorrencia = document.getElementById("formOcorrencia");
+            const formOcorrencia = document.getElementById("formOcorrencias");
             const novaOcorrenciaBtn = document.getElementById("novaOcorrenciaBtn");
             const voltarListaBtn = document.getElementById("voltarListaBtn");
             const corpoTabela = document.getElementById("corpoTabelaOcorrencias");
