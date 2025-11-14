@@ -20,6 +20,63 @@ document.addEventListener("DOMContentLoaded", () => {
             const previewContainer = document.getElementById("previewContainer");
             let arquivosSelecionados = [];
 
+            async function carregarOcorrencias() {
+                corpoTabela.innerHTML = `
+                    <tr><td colspan="4" class="py-4 text-gray-500">Carregando...</td></tr>
+                `;
+
+                try {
+                    const res = await fetch(`/ocorrencias/funcionario/${id_funcionario}`);
+                    const lista = await res.json();
+
+                    if (!Array.isArray(lista) || lista.length === 0) {
+                        corpoTabela.innerHTML = `
+                            <tr><td colspan="4" class="py-4 text-gray-500">Nenhuma ocorrência encontrada.</td></tr>
+                        `;
+                        return;
+                    }
+
+                    corpoTabela.innerHTML = "";
+                    lista.forEach(oc => {
+                        const tr = document.createElement("tr");
+                        tr.classList.add("border-b");
+
+                        tr.innerHTML = `
+                            <td class="py-3">${oc.tipo_ocorrencia || "-"}</td>
+                            <td class="py-3">${formatarData(oc.data)}</td>
+                            <td class="py-3">${oc.data ? formatarData(oc.data) : "-"}</td>
+                            <td class="py-3">${oc.gravidade || "Em análise"}</td>
+                        `;
+                        corpoTabela.appendChild(tr);
+                    });
+
+                } catch (err) {
+                    corpoTabela.innerHTML = `
+                        <tr><td colspan="4" class="py-4 text-red-500">Erro ao carregar ocorrências.</td></tr>
+                    `;
+                    console.error(err);
+                }
+            }
+
+            function formatarData(dataISO) {
+                if (!dataISO) return "-";
+                const d = new Date(dataISO);
+                return d.toLocaleDateString("pt-BR");
+            }
+
+            function mostrarLista() {
+                listaOcorrencias.classList.remove("hidden");
+                formOcorrencia.classList.add("hidden");
+                carregarLicencas();
+            }
+
+            function mostrarFormulario() {
+                formOcorrencia.classList.remove("hidden");
+                listaOcorrencias.classList.add("hidden");
+            }
+
+            novaOcorrenciaBtn.addEventListener("click", mostrarFormulario);
+            voltarListaBtn.addEventListener("click", mostrarLista);
 
             fileInput.addEventListener("change", () => {
                 const files = Array.from(fileInput.files);
@@ -117,20 +174,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            function mostrarLista() {
-                listaOcorrencias.classList.remove("hidden");
-                formOcorrencia.classList.add("hidden");
-                carregarLicencas();
-            }
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
 
-            function mostrarFormulario() {
-                formOcorrencia.classList.remove("hidden");
-                listaOcorrencias.classList.add("hidden");
-            }
+                const formData = new FormData();
+                formData.append("id_funcionario", id_funcionario);
+                formData.append("tipo_ocorrencia", document.getElementById("tipoOcorrencia").value);
+                formData.append("motivo", document.getElementById("motivoOcorrencia").value);
+                formData.append("data", document.getElementById("dataOcorrencia").value);
+                formData.append("detalhes", document.getElementById("detalhes").value);
 
-            novaOcorrenciaBtn.addEventListener("click", mostrarFormulario);
-            voltarListaBtn.addEventListener("click", mostrarLista);
-            
-        })
+                arquivosSelecionados.forEach(file => formData.append("anexos", file));
+
+                try {
+                    const res = await fetch("/ocorrencias", {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    if (!res.ok) throw new Error("Erro ao registrar ocorrência.");
+
+                    alert("Ocorrência registrada com sucesso!");
+
+                    arquivosSelecionados = [];
+                    atualizarPreview();
+                    form.reset();
+
+                    mostrarLista();
+
+                } catch (err) {
+                    alert("Erro: " + err.message);
+                }
+            });
+
+            carregarOcorrencias();
+        });
     }
 });
