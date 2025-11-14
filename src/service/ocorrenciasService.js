@@ -4,6 +4,7 @@ async function criar(data) {
     if (!data.id_funcionario) throw new Error("id_funcionario é obrigatório");
     if (!data.tipo_ocorrencia) throw new Error("tipo_ocorrencia é obrigatório");
     if (!data.motivo) throw new Error("motivo é obrigatório");
+    if (!data.data) throw new Error("data é obrigatória");
 
     return await repository.criarOcorrencia(data);
 }

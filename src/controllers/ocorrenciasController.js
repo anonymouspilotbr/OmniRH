@@ -1,9 +1,22 @@
 const service = require('../service/ocorrenciasService');
 
 async function criar(req, res) {
+    
     try {
-        const ocorrencia = await service.criar(req.body);
-        res.status(201).json(ocorrencia);
+        const data = {
+            id_funcionario: req.body.id_funcionario,
+            tipo_ocorrencia: req.body.tipo_ocorrencia,
+            motivo: req.body.motivo,
+            data: req.body.data,
+            detalhes: req.body.detalhes,
+            anexos: req.body.anexos,       
+            gravidade: req.body.gravidade || "Em análise"
+        };
+        
+        data.anexos = JSON.stringify(req.files);
+
+        const ocorrencia = await service.criar(data);
+        res.status(201).json({ message: 'Ocorrência registrada com sucesso', id: ocorrencia.id });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

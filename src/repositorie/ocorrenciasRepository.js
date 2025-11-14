@@ -1,13 +1,22 @@
 const pool = require('../model/db.js');
 
-async function criarOcorrencia(id_funcionario, tipo_ocorrencia, motivo, data, detalhes, anexos, gravidade) {
+async function criarOcorrencia(data) {
     const query = `
         INSERT INTO ocorrencias 
         (id_funcionario, tipo_ocorrencia, motivo, data, detalhes, anexos, gravidade)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
     `
-    const values = [id_funcionario, tipo_ocorrencia, motivo, data, detalhes, anexos, gravidade];
+    const values = [
+        data.id_funcionario, 
+        data.tipo_ocorrencia, 
+        data.motivo, 
+        data.data, 
+        data.detalhes, 
+        data.anexos, 
+        data.gravidade
+    ];
+    
     const result = await pool.query(query, values);
     return result.rows[0];
 }
