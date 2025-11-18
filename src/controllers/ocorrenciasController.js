@@ -1,11 +1,11 @@
 const service = require('../service/ocorrenciasService');
 
-console.log("REQ BODY:", req.body);
-console.log("REQ FILES:", req.files);
 
 async function criar(req, res) {
     
     try {
+        console.log("REQ BODY:", req.body);
+        console.log("REQ FILES:", req.files);
         const data = {
             id_funcionario: req.body.id_funcionario,
             tipo_ocorrencia: req.body.tipo_ocorrencia,
