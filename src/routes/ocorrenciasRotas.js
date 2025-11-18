@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer();
 const controller = require('../controllers/ocorrenciasController');
 const upController = require('../controllers/uploadController');
 
-router.post('/', controller.criar);
+router.post('/', upload.none(), controller.criar);
 router.get('/', controller.listar);
 router.get('/funcionario/:id_funcionario', controller.listarPorFuncionario);
 router.get('/:id', controller.buscarPorId);
