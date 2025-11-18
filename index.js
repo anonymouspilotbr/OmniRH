@@ -28,6 +28,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 configurarCors(app);
+app.use(uploadRoutes);
 
 app.use('/auth', require('./src/routes/authRotas'));
 app.use('/registro', registroRoutes);
@@ -35,7 +36,6 @@ app.use('/banco-horas', bancoRoutes);
 app.use('/licencas', licencaRoutes);
 app.use('/ocorrencias', ocorrenciasRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
-app.use(uploadRoutes);
 
 app.use('/', require('./src/routes/omnirh_rotas'));
 app.use('/', require('./src/routes/funcionarioRotas'));
