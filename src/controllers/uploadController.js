@@ -95,5 +95,40 @@ const uploadAnexoLicenca = async (req,res) => {
   }
 }
 
-module.exports = { upload, uploadImagem, uploadAnexoLicenca, tratarErroUpload };
+const uploadAnexoOcorrencia = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ erro: 'Nenhum arquivo enviado.' });
+    }
+
+    const uploads = await Promise.all(
+      req.files.map(async (file) => {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: 'anexos_ocorrencias',
+          resource_type: 'auto',
+        });
+        return result.secure_url;
+      })
+    );
+
+    console.log("📌 Uploads ocorrências:", uploads);
+
+    await ocorrenciasService.atualizarAnexos(id, uploads);
+
+    res.json({ sucesso: true, urls: uploads });
+  } catch (err) {
+    console.error('Erro ao salvar anexo da ocorrência:', err);
+    res.status(500).json({ erro: 'Erro ao salvar o arquivo.' });
+  }
+};
+
+module.exports = { 
+  upload, 
+  uploadImagem, 
+  uploadAnexoLicenca, 
+  uploadAnexoOcorrencia, 
+  tratarErroUpload, 
+};
 

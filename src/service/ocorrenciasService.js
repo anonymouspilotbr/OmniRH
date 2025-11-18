@@ -33,6 +33,17 @@ async function deletar(id) {
     return await repository.deletarOcorrencia(id);
 }
 
+async function atualizarAnexos(id, anexos) {
+  const query = `
+    UPDATE ocorrencias 
+    SET anexos = anexos || $1
+    WHERE id = $2
+    RETURNING *;
+  `;
+  const resultado = await pool.query(query, [anexos, id]);
+  return resultado.rows[0];
+}
+
 module.exports = {
     criar,
     listar,
@@ -40,4 +51,5 @@ module.exports = {
     buscarPorId,
     atualizar,
     deletar,
+    atualizarAnexos,
 };
