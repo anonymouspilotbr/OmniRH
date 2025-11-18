@@ -1,5 +1,8 @@
 const service = require('../service/ocorrenciasService');
 
+console.log("REQ BODY:", req.body);
+console.log("REQ FILES:", req.files);
+
 async function criar(req, res) {
     
     try {

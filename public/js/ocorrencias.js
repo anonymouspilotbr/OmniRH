@@ -204,6 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 } catch (err) {
                     alert("Erro: " + err.message);
+                    console.error("ERRO NO FETCH:", err);
                 }
             });
 
