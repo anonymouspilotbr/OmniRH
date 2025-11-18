@@ -13,7 +13,9 @@ async function criar(req, res) {
             gravidade: req.body.gravidade || "Em análise"
         };
         
-        data.anexos = JSON.stringify(req.files);
+        if (req.files && req.files.length > 0) {
+            data.anexos = JSON.stringify(req.files);
+        }
 
         const ocorrencia = await service.criar(data);
         res.status(201).json({ message: 'Ocorrência registrada com sucesso', id: ocorrencia.id });
