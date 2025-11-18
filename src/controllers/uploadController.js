@@ -3,6 +3,7 @@ const path = require('path');
 const cloudinary = require('cloudinary').v2;
 const userService = require('../service/userService');
 const licencaService = require('../service/licencaService');
+const ocorrenciasService = require('../service/ocorrenciasService');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD,
