@@ -175,37 +175,76 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             form.addEventListener("submit", async (e) => {
-                e.preventDefault();
+            e.preventDefault();
 
-                const formData = new FormData();
-                formData.append("id_funcionario", id_funcionario);
-                formData.append("tipo_ocorrencia", document.getElementById("tipoOcorrencia").value);
-                formData.append("motivo", document.getElementById("motivoOcorrencia").value);
-                formData.append("data", document.getElementById("dataOcorrencia").value);
-                formData.append("detalhes", document.getElementById("detalhes").value);
+            // --- validação local rápida ---
+            const tipo = document.getElementById("tipoOcorrencia").value;
+            const motivo = document.getElementById("motivoOcorrencia").value;
+            const dataVal = document.getElementById("dataOcorrencia").value;
+            const detalhesVal = document.getElementById("detalhes").value;
 
-                arquivosSelecionados.forEach(file => formData.append("anexos", file));
+            if (!id_funcionario) return alert("Erro: id do funcionário não encontrado. Faça login novamente.");
+            if (!tipo || !motivo || !dataVal) return alert("Preencha Tipo, Motivo e Data antes de enviar.");
 
-                try {
-                    const res = await fetch("https://omnirh.onrender.com/ocorrencias", {
-                        method: "POST",
-                        body: formData
-                    });
+            // --- montar FormData ---
+            const formData = new FormData();
+            formData.append("id_funcionario", id_funcionario);
+            formData.append("tipo_ocorrencia", tipo);
+            formData.append("motivo", motivo);
+            formData.append("data", dataVal);
+            formData.append("detalhes", detalhesVal || "");
 
-                    if (!res.ok) throw new Error("Erro ao registrar ocorrência.");
+            arquivosSelecionados.forEach(file => formData.append("anexos", file));
 
-                    alert("Ocorrência registrada com sucesso!");
-
-                    arquivosSelecionados = [];
-                    atualizarPreview();
-                    form.reset();
-
-                    mostrarLista();
-
-                } catch (err) {
-                    alert("Erro: " + err.message);
-                    console.error("ERRO NO FETCH:", err);
+            // --- DEBUG: listar FormData no console ---
+            console.log("=== Conteúdo do FormData a ser enviado ===");
+            for (const pair of formData.entries()) {
+                // arquivos aparecem como File — mostramos seu name para clareza
+                if (pair[1] instanceof File) {
+                console.log(pair[0], ":", pair[1].name, "(" + pair[1].type + ")");
+                } else {
+                console.log(pair[0], ":", pair[1]);
                 }
+            }
+            console.log("=========================================");
+
+            // --- pegar token (se houver) e preparar fetch ---
+            const token = localStorage.getItem("token");
+
+            try {
+                const res = await fetch("https://omnirh.onrender.com/ocorrencias", {
+                method: "POST",
+                // NÃO definir Content-Type quando enviar FormData
+                headers: token ? { "Authorization": `Bearer ${token}` } : {},
+                body: formData,
+                });
+
+                // tenta parsear JSON, mas aceita texto cru se não for JSON
+                let body;
+                try {
+                body = await res.json();
+                } catch (err) {
+                body = await res.text();
+                }
+
+                if (!res.ok) {
+                console.error("ERRO DO SERVIDOR (status " + res.status + "):", body);
+                // mostrar mensagem amigável quando possível
+                const msg = (body && body.error) ? body.error : (typeof body === "string" ? body : "Erro desconhecido do servidor");
+                throw new Error(msg);
+                }
+
+                console.log("Resposta do servidor (sucesso):", body);
+                alert("Ocorrência registrada com sucesso!");
+                arquivosSelecionados = [];
+                atualizarPreview();
+                form.reset();
+                mostrarLista();
+
+            } catch (err) {
+                console.error("ERRO NO FETCH:", err);
+                alert("Erro ao registrar ocorrência: " + err.message);
+            }
             });
 
             carregarOcorrencias();
