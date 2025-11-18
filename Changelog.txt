@@ -1,35 +1,38 @@
 Changelog
  
- [0.18.2] Desenvolvimento Ocorrências II - 14 NOV 2025
- - Criação da tabela no banco de dados.
- - Desenvolvimento do back end. 
- 
- [0.18.1] Desenvolvimento Ocorrências I - 14 NOV 2025
- - Início do desenvolvimento do back end do sistema de Ocorrências.
- - Reforma no front end do sistema de Ocorrências.
+[0.18.3] Desenvolvimento Ocorrências III - 18 NOV 2025
+- Upload de arquivos para as ocorrências.
 
- [0.18.0] Sistema de Licenças Completo - 14 NOV 2025
- - Concluída a integração entre Front e Back End das Licenças
- - Implementadas as telas tanto do Funcionário quanto do Gestor
+[0.18.2] Desenvolvimento Ocorrências II - 14 NOV 2025
+- Criação da tabela no banco de dados.
+- Desenvolvimento do back end. 
 
- [0.17.8] Painel de Controle RH - 14 NOV 2025
- - Início do desenvolvimento do Painel de Controle do RH, que concentra as funções de 
-   Aprovar/Rejeitar Licenças, Aprovar/Rejeitar Solicitações de Recessos e Gerenciar Ocorrências. 
+[0.18.1] Desenvolvimento Ocorrências I - 14 NOV 2025
+- Início do desenvolvimento do back end do sistema de Ocorrências.
+- Reforma no front end do sistema de Ocorrências.
 
- [0.17.7] Integração Sistema de Licenças III - 12 NOV 2025
- - Várias correções e validações adicionadas à pagina do Registro de Licenças.
- 
- [0.17.6] Integração Sistema de Licenças II - 11 NOV 2025
- - Adicionado o upload de anexos das Licenças no Cloudinary. 
+[0.18.0] Sistema de Licenças Completo - 14 NOV 2025
+- Concluída a integração entre Front e Back End das Licenças
+- Implementadas as telas tanto do Funcionário quanto do Gestor
 
- [0.17.5] Integração Sistema de Licenças - 07 NOV 2025
- - Integração entre front e back end do Registro de Licenças.
- - Alterações no HTML para mostrar uma lista de Licenças.
+[0.17.8] Painel de Controle RH - 14 NOV 2025
+- Início do desenvolvimento do Painel de Controle do RH, que concentra as funções de 
+  Aprovar/Rejeitar Licenças, Aprovar/Rejeitar Solicitações de Recessos e Gerenciar Ocorrências. 
 
- [0.17.4] Backend Sistema de Licenças - 07 NOV 2025
- - Criado o back end e comunicação com o banco de dados para o sistema de Registro de Licenças.
+[0.17.7] Integração Sistema de Licenças III - 12 NOV 2025
+- Várias correções e validações adicionadas à pagina do Registro de Licenças.
 
- [0.17.3] Migração da Imagem de Perfil - 06 NOV 2025
+[0.17.6] Integração Sistema de Licenças II - 11 NOV 2025
+- Adicionado o upload de anexos das Licenças no Cloudinary. 
+
+[0.17.5] Integração Sistema de Licenças - 07 NOV 2025
+- Integração entre front e back end do Registro de Licenças.
+- Alterações no HTML para mostrar uma lista de Licenças.
+
+[0.17.4] Backend Sistema de Licenças - 07 NOV 2025
+- Criado o back end e comunicação com o banco de dados para o sistema de Registro de Licenças.
+
+[0.17.3] Migração da Imagem de Perfil - 06 NOV 2025
 - A imagem de perfil agora é salva no Cloudinary, em vez de ser salva localmente, já que isso
   não estava funcionando com o Render. 
   

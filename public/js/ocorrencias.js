@@ -177,75 +177,87 @@ document.addEventListener("DOMContentLoaded", () => {
             form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            // --- validação local rápida ---
             const tipo = document.getElementById("tipoOcorrencia").value;
             const motivo = document.getElementById("motivoOcorrencia").value;
             const dataVal = document.getElementById("dataOcorrencia").value;
             const detalhesVal = document.getElementById("detalhes").value;
 
-            if (!id_funcionario) return alert("Erro: id do funcionário não encontrado. Faça login novamente.");
-            if (!tipo || !motivo || !dataVal) return alert("Preencha Tipo, Motivo e Data antes de enviar.");
+            if (!id_funcionario) return alert("Erro: id do funcionário não encontrado.");
+            if (!tipo || !motivo || !dataVal) 
+                return alert("Preencha Tipo, Motivo e Data.");
 
-            // --- montar FormData ---
-            const formData = new FormData();
-            formData.append("id_funcionario", id_funcionario);
-            formData.append("tipo_ocorrencia", tipo);
-            formData.append("motivo", motivo);
-            formData.append("data", dataVal);
-            formData.append("detalhes", detalhesVal || "");
-
-            arquivosSelecionados.forEach(file => formData.append("anexos", file));
-
-            // --- DEBUG: listar FormData no console ---
-            console.log("=== Conteúdo do FormData a ser enviado ===");
-            for (const pair of formData.entries()) {
-                // arquivos aparecem como File — mostramos seu name para clareza
-                if (pair[1] instanceof File) {
-                console.log(pair[0], ":", pair[1].name, "(" + pair[1].type + ")");
-                } else {
-                console.log(pair[0], ":", pair[1]);
-                }
-            }
-            console.log("=========================================");
-
-            // --- pegar token (se houver) e preparar fetch ---
             const token = localStorage.getItem("token");
 
             try {
-                const res = await fetch("https://omnirh.onrender.com/ocorrencias", {
-                method: "POST",
-                // NÃO definir Content-Type quando enviar FormData
-                headers: token ? { "Authorization": `Bearer ${token}` } : {},
-                body: formData,
+                /* ===========================================================
+                1) CRIAR A OCORRÊNCIA (SEM ARQUIVOS)
+                ============================================================ */
+
+                const formData = new FormData();
+                formData.append("id_funcionario", id_funcionario);
+                formData.append("tipo_ocorrencia", tipo);
+                formData.append("motivo", motivo);
+                formData.append("data", dataVal);
+                formData.append("detalhes", detalhesVal || "");
+
+                const criarRes = await fetch("https://omnirh.onrender.com/ocorrencias", {
+                    method: "POST",
+                    body: formData,
+                    headers: token ? { "Authorization": `Bearer ${token}` } : {},
                 });
 
-                // tenta parsear JSON, mas aceita texto cru se não for JSON
-                let body;
-                try {
-                body = await res.json();
-                } catch (err) {
-                body = await res.text();
+                const criarBody = await criarRes.json();
+
+                if (!criarRes.ok) {
+                    throw new Error(criarBody.error || "Erro ao criar ocorrência.");
                 }
 
-                if (!res.ok) {
-                console.error("ERRO DO SERVIDOR (status " + res.status + "):", body);
-                // mostrar mensagem amigável quando possível
-                const msg = (body && body.error) ? body.error : (typeof body === "string" ? body : "Erro desconhecido do servidor");
-                throw new Error(msg);
+                const ocorrenciaId = criarBody.id;
+                console.log("Ocorrência criada com ID:", ocorrenciaId);
+
+                /* ===========================================================
+                2) SE HOUVER ARQUIVOS, ENVIAR PARA /ocorrencias/:id/upload
+                ============================================================ */
+
+                if (arquivosSelecionados.length > 0) {
+                    console.log("Enviando anexos...");
+
+                    const formUpload = new FormData();
+                    arquivosSelecionados.forEach(file => {
+                        formUpload.append("anexos", file);
+                    });
+
+                    const uploadRes = await fetch(`https://omnirh.onrender.com/ocorrencias/${ocorrenciaId}/upload`, {
+                        method: "POST",
+                        body: formUpload,
+                        headers: token ? { "Authorization": `Bearer ${token}` } : {},
+                    });
+
+                    const uploadBody = await uploadRes.json();
+
+                    if (!uploadRes.ok) {
+                        throw new Error(uploadBody.error || "Erro ao enviar anexos.");
+                    }
+
+                    console.log("Upload finalizado:", uploadBody.urls);
                 }
 
-                console.log("Resposta do servidor (sucesso):", body);
+                /* ===========================================================
+                3) SUCESSO
+                ============================================================ */
+
                 alert("Ocorrência registrada com sucesso!");
+
                 arquivosSelecionados = [];
                 atualizarPreview();
                 form.reset();
                 mostrarLista();
 
             } catch (err) {
-                console.error("ERRO NO FETCH:", err);
+                console.error("ERRO NO PROCESSO:", err);
                 alert("Erro ao registrar ocorrência: " + err.message);
             }
-            });
+        });
 
             carregarOcorrencias();
         });
