@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
                 try {
-                    const res = await fetch(`/ocorrencias/funcionario/${id_funcionario}`);
+                    const res = await fetch(`https://omnirh.onrender.com/ocorrencias/funcionario/${id_funcionario}`);
                     const lista = await res.json();
 
                     if (!Array.isArray(lista) || lista.length === 0) {
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 arquivosSelecionados.forEach(file => formData.append("anexos", file));
 
                 try {
-                    const res = await fetch("/ocorrencias", {
+                    const res = await fetch("https://omnirh.onrender.com/ocorrencias", {
                         method: "POST",
                         body: formData
                     });
