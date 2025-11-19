@@ -113,9 +113,15 @@ function construirModal(occ) {
 
     let anexos = [];
 
-    if (occ.anexos && occ.anexos.trim() !== "") {
+    if (occ.anexos) {
         try {
-            anexos = JSON.parse(occ.anexos);
+            if (typeof occ.anexos === "string") {
+                anexos = JSON.parse(occ.anexos);
+            } else if (Array.isArray(occ.anexos)) {
+                anexos = occ.anexos; 
+            } else {
+                anexos = [];
+            }
 
             if (!Array.isArray(anexos)) anexos = [];
         } catch (e) {
