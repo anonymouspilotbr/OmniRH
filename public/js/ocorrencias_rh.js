@@ -148,12 +148,17 @@ function construirModal(occ) {
         return partes[partes.length - 1]; 
     }
 
+    function formatarData(data){
+        const df = new Date(data).toLocaleDateString("pt-BR");
+        return df;
+    }
+
     box.innerHTML = `
         <h2 class="text-xl font-bold mb-3">Detalhes da Ocorrência</h2>
 
         <p><strong>Funcionário:</strong> ${occ.nome_funcionario || occ.id_funcionario}</p>
         <p><strong>Tipo:</strong> ${occ.tipo_ocorrencia}</p>
-        <p><strong>Data:</strong> ${occ.data}</p>
+        <p><strong>Data:</strong> ${formatarData(occ.data)}</p>
         <p><strong>Motivo:</strong> ${occ.motivo || "—"}</p>
         <p><strong>Detalhes:</strong> ${occ.detalhes || "—"}</p>
         <p><strong>Gravidade:</strong> ${occ.gravidade}</p>

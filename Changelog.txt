@@ -1,5 +1,9 @@
 Changelog
  
+[0.19.0] Sistema de Ocorrências Completo - 19 NOV 2025
+- Concluída a integração entre Front e Back End das Ocorrências
+- Implementadas as telas tanto do Funcionário quanto do Gestor
+
 [0.18.3] Desenvolvimento Ocorrências III - 19 NOV 2025
 - Upload de arquivos para as ocorrências.
 
