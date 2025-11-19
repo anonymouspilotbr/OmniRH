@@ -23,13 +23,22 @@ async function criarOcorrencia(data) {
 }
 
 async function listarOcorrencias() {
-    const result = await pool.query(`SELECT * FROM ocorrencias ORDER BY id DESC`);
+    const result = await pool.query(`
+        SELECT o.*, f.nome AS nome_funcionario
+        FROM ocorrencias o
+        LEFT JOIN funcionario f ON f.id = o.id_funcionario
+        ORDER BY o.id DESC
+    `);
     return result.rows;
 }
 
 async function listarPorFuncionario(id_funcionario) {
     const result = await pool.query(
-        `SELECT * FROM ocorrencias WHERE id_funcionario = $1 ORDER BY id DESC`,
+        `SELECT o.*, f.nome AS nome_funcionario
+        FROM ocorrencias o
+        LEFT JOIN funcionario f ON f.id = o.id_funcionario
+        WHERE o.id_funcionario = $1
+        ORDER BY o.id DESC`,
         [id_funcionario]
     );
     return result.rows;
@@ -37,7 +46,10 @@ async function listarPorFuncionario(id_funcionario) {
 
 async function buscarPorId(id) {
     const result = await pool.query(
-        `SELECT * FROM ocorrencias WHERE id = $1`,
+        `SELECT o.*, f.nome AS nome_funcionario
+         FROM ocorrencias o
+         LEFT JOIN funcionario f ON f.id = o.id_funcionario
+         WHERE o.id = $1`,
         [id]
     );
     return result.rows[0];
