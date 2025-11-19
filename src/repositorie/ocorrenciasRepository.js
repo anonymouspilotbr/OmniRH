@@ -73,6 +73,17 @@ async function deletarOcorrencia(id) {
     return true;
 }
 
+async function atualizarAnexo(id, anexos) {
+        const query = `
+        UPDATE ocorrencias 
+        SET anexos = $1
+        WHERE id = $2
+        RETURNING *;
+    `;
+    const resultado = await pool.query(query, [anexos, id]);
+    return resultado.rows[0];
+}
+
 
 
 module.exports = {

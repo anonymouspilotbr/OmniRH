@@ -224,7 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         const uploadRes = await fetch(`https://omnirh.onrender.com/ocorrencias/${ocorrenciaId}/upload`, {
                             method: "POST",
                             body: formUpload,
-                            headers: token ? { "Authorization": `Bearer ${token}` } : {}
                         });
 
                         const uploadBody = await uploadRes.json();

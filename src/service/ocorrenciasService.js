@@ -34,14 +34,13 @@ async function deletar(id) {
 }
 
 async function atualizarAnexos(id, anexos) {
-  const query = `
-    UPDATE ocorrencias 
-    SET anexos = anexos || $1
-    WHERE id = $2
-    RETURNING *;
-  `;
-  const resultado = await pool.query(query, [anexos, id]);
-  return resultado.rows[0];
+    try {
+        const ocorrenciaAtualizada = await repository.atualizarAnexo(id, anexos);
+        return ocorrenciaAtualizada;
+    } catch (err) {
+        console.error('Erro ao atualizar anexo da licença:', err);
+        throw err;
+    }
 }
 
 module.exports = {

@@ -1,6 +1,5 @@
 const service = require('../service/ocorrenciasService');
 
-
 async function criar(req, res) {
     
     try {
@@ -14,7 +13,7 @@ async function criar(req, res) {
             motivo: req.body.motivo,
             data: req.body.data,
             detalhes: req.body.detalhes,
-            anexos: req.body.anexos,       
+            anexos: "[]",
             gravidade: req.body.gravidade || "Em análise"
         };
         
