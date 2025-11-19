@@ -1,3 +1,6 @@
+let ocorrenciasTodas = [];
+let filtroAtual = "todas";
+
 async function carregarOcorrenciasRH() {
     try {
         const token = localStorage.getItem("token");
@@ -5,14 +8,34 @@ async function carregarOcorrenciasRH() {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        const ocorrencias = await resp.json();
+        ocorrenciasTodas = await resp.json();
 
-        montarEstatisticas(ocorrencias);
-        montarListaOcorrencias(ocorrencias);
+        aplicarFiltro(filtroAtual); 
 
     } catch (err) {
         console.error("Erro ao carregar ocorrências (RH):", err);
     }
+}
+
+function aplicarFiltro(tipo) {
+    filtroAtual = tipo;
+
+    let lista = [...ocorrenciasTodas];
+
+    if (tipo === "analise") {
+        lista = lista.filter(o => o.status === "Em análise");
+    }
+
+    if (tipo === "grave") {
+        lista = lista.filter(o => o.gravidade === "Grave");
+    }
+
+    if (tipo === "resolvida") {
+        lista = lista.filter(o => o.status === "Resolvida");
+    }
+
+    montarEstatisticas(ocorrenciasTodas); 
+    montarListaOcorrencias(lista);
 }
 
 function montarEstatisticas(lista) {
@@ -23,6 +46,9 @@ function montarEstatisticas(lista) {
 
     const graves = lista.filter(o => o.gravidade === "Grave").length;
     document.getElementById("ocorrenciasGraves").textContent = graves;
+
+    const resolvidas = lista.filter(o => o.status === "Resolvida").length;
+    document.getElementById("ocorrenciasResolvidas").textContent = resolvidas;
 }
 
 function montarListaOcorrencias(lista) {
@@ -36,7 +62,7 @@ function montarListaOcorrencias(lista) {
 
     lista.forEach(occ => {
         const card = document.createElement("div");
-        
+
         let cor = "border-blue-600";
         if (occ.gravidade === "Grave") cor = "border-red-600";
         if (occ.status === "Resolvida") cor = "border-green-600";
@@ -165,6 +191,14 @@ function fecharModalOcorrencia() {
     const overlay = document.querySelector(".modal-ocorrencia-overlay");
     if (overlay) overlay.remove();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.filtro').forEach(div => {
+        div.addEventListener('click', () => {
+            aplicarFiltro(div.dataset.filtro);
+        });
+    });
+});
 
 document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "btnOcorrencias") {
