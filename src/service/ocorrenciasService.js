@@ -30,7 +30,7 @@ async function listar() {
 }
 
 async function listarPorFuncionario(id_funcionario) {
-    const lista = await repository.listarPorFuncionario(id);
+    const lista = await repository.listarPorFuncionario(id_funcionario);
     return lista.map(normalizar);
 }
 

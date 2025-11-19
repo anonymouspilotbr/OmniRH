@@ -139,6 +139,7 @@ function construirModal(occ) {
         <p><strong>Motivo:</strong> ${occ.motivo || "—"}</p>
         <p><strong>Detalhes:</strong> ${occ.detalhes || "—"}</p>
         <p><strong>Gravidade:</strong> ${occ.gravidade}</p>
+        <p><strong>Status:</strong> ${occ.status}</p>
 
         <h3 class="font-semibold mt-3">Anexos:</h3>
         ${arquivosHtml || "<p class='text-gray-500'>Nenhum arquivo enviado</p>"}
