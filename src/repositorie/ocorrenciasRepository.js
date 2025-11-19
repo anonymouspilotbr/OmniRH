@@ -3,8 +3,8 @@ const pool = require('../model/db.js');
 async function criarOcorrencia(data) {
     const query = `
         INSERT INTO ocorrencias 
-        (id_funcionario, tipo_ocorrencia, motivo, data, detalhes, anexos, gravidade)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        (id_funcionario, tipo_ocorrencia, motivo, data, detalhes, anexos, gravidade, status)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING *;
     `
     const values = [
@@ -14,7 +14,8 @@ async function criarOcorrencia(data) {
         data.data, 
         data.detalhes, 
         data.anexos, 
-        data.gravidade
+        data.gravidade,
+        data.status || "Em análise"
     ];
     
     const result = await pool.query(query, values);

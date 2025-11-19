@@ -158,9 +158,8 @@ function fecharModalOcorrencia() {
     if (overlay) overlay.remove();
 }
 
-window.addEventListener("load", () => {
-    const btn = document.getElementById("btnOcorrencias");
-    if (btn) {
-        btn.addEventListener("click", carregarOcorrenciasRH);
+document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "btnOcorrencias") {
+        carregarOcorrenciasRH();
     }
 });

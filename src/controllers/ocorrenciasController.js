@@ -10,12 +10,9 @@ async function criar(req, res) {
             data: req.body.data,
             detalhes: req.body.detalhes,
             anexos: "",
-            gravidade: req.body.gravidade || "Em análise"
+            gravidade: req.body.gravidade || "Leve",
+            status: req.body.status || "Em análise"
         };
-        
-        if (req.files && req.files.length > 0) {
-            data.anexos = JSON.stringify(req.files);
-        }
 
         const ocorrencia = await service.criar(data);
         res.status(201).json({ message: 'Ocorrência registrada com sucesso', id: ocorrencia.id });
