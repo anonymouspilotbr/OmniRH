@@ -175,89 +175,79 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+                e.preventDefault();
 
-            const tipo = document.getElementById("tipoOcorrencia").value;
-            const motivo = document.getElementById("motivoOcorrencia").value;
-            const dataVal = document.getElementById("dataOcorrencia").value;
-            const detalhesVal = document.getElementById("detalhes").value;
+                const tipo = document.getElementById("tipoOcorrencia").value;
+                const motivo = document.getElementById("motivoOcorrencia").value;
+                const dataVal = document.getElementById("dataOcorrencia").value;
+                const detalhesVal = document.getElementById("detalhes").value;
 
-            if (!id_funcionario) return alert("Erro: id do funcionário não encontrado.");
-            if (!tipo || !motivo || !dataVal) 
-                return alert("Preencha Tipo, Motivo e Data.");
+                if (!id_funcionario) return alert("Erro: id do funcionário não encontrado.");
+                if (!tipo || !motivo || !dataVal) 
+                    return alert("Preencha Tipo, Motivo e Data.");
 
-            const token = localStorage.getItem("token");
+                const token = localStorage.getItem("token");
 
-            try {
-                /* ===========================================================
-                1) CRIAR A OCORRÊNCIA (SEM ARQUIVOS)
-                ============================================================ */
+                try {
+                    // 1) Criar ocorrência sem arquivos
+                    const formData = new FormData();
+                    formData.append("id_funcionario", id_funcionario);
+                    formData.append("tipo_ocorrencia", tipo);
+                    formData.append("motivo", motivo);
+                    formData.append("data", dataVal);
+                    formData.append("detalhes", detalhesVal || "");
 
-                const formData = new FormData();
-                formData.append("id_funcionario", id_funcionario);
-                formData.append("tipo_ocorrencia", tipo);
-                formData.append("motivo", motivo);
-                formData.append("data", dataVal);
-                formData.append("detalhes", detalhesVal || "");
-
-                const criarRes = await fetch("https://omnirh.onrender.com/ocorrencias", {
-                    method: "POST",
-                    body: formData,
-                    headers: token ? { "Authorization": `Bearer ${token}` } : {},
-                });
-
-                const criarBody = await criarRes.json();
-
-                if (!criarRes.ok) {
-                    throw new Error(criarBody.error || "Erro ao criar ocorrência.");
-                }
-
-                const ocorrenciaId = criarBody.id;
-                console.log("Ocorrência criada com ID:", ocorrenciaId);
-
-                /* ===========================================================
-                2) SE HOUVER ARQUIVOS, ENVIAR PARA /ocorrencias/:id/upload
-                ============================================================ */
-
-                if (arquivosSelecionados.length > 0) {
-                    console.log("Enviando anexos...");
-
-                    const formUpload = new FormData();
-                    arquivosSelecionados.forEach(file => {
-                        formUpload.append("anexos", file);
-                    });
-
-                    const uploadRes = await fetch(`https://omnirh.onrender.com/ocorrencias/${ocorrenciaId}/upload`, {
+                    const criarRes = await fetch("https://omnirh.onrender.com/ocorrencias", {
                         method: "POST",
-                        body: formUpload,
-                        headers: token ? { "Authorization": `Bearer ${token}` } : {},
+                        body: formData,
+                        headers: token ? { "Authorization": `Bearer ${token}` } : {}
                     });
 
-                    const uploadBody = await uploadRes.json();
+                    const criarBody = await criarRes.json();
 
-                    if (!uploadRes.ok) {
-                        throw new Error(uploadBody.error || "Erro ao enviar anexos.");
+                    if (!criarRes.ok) {
+                        throw new Error(criarBody.error || "Erro ao criar ocorrência.");
                     }
 
-                    console.log("Upload finalizado:", uploadBody.urls);
+                    const ocorrenciaId = criarBody.id;
+                    console.log("Ocorrência criada com ID:", ocorrenciaId);
+
+                    // 2) Upload opcional de anexos
+                    if (arquivosSelecionados.length > 0) {
+                        console.log("Enviando anexos...");
+
+                        const formUpload = new FormData();
+                        arquivosSelecionados.forEach(file => {
+                            formUpload.append("anexos", file); // CAMPO CORRETO
+                        });
+
+                        const uploadRes = await fetch(`https://omnirh.onrender.com/ocorrencias/${ocorrenciaId}/upload`, {
+                            method: "POST",
+                            body: formUpload,
+                            headers: token ? { "Authorization": `Bearer ${token}` } : {}
+                        });
+
+                        const uploadBody = await uploadRes.json();
+
+                        if (!uploadRes.ok) {
+                            throw new Error(uploadBody.error || "Erro ao enviar anexos.");
+                        }
+
+                        console.log("Upload finalizado:", uploadBody.urls);
+                    }
+
+                    alert("Ocorrência registrada com sucesso!");
+
+                    arquivosSelecionados = [];
+                    atualizarPreview();
+                    form.reset();
+                    mostrarLista();
+
+                } catch (err) {
+                    console.error("ERRO NO PROCESSO:", err);
+                    alert("Erro ao registrar ocorrência: " + err.message);
                 }
-
-                /* ===========================================================
-                3) SUCESSO
-                ============================================================ */
-
-                alert("Ocorrência registrada com sucesso!");
-
-                arquivosSelecionados = [];
-                atualizarPreview();
-                form.reset();
-                mostrarLista();
-
-            } catch (err) {
-                console.error("ERRO NO PROCESSO:", err);
-                alert("Erro ao registrar ocorrência: " + err.message);
-            }
-        });
+            });
 
             carregarOcorrencias();
         });
