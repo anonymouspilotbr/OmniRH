@@ -95,6 +95,8 @@ async function abrirModalOcorrencia(id) {
     });
 
     const occ = await resp.json();
+    console.log("DEBUG OCORRÊNCIA COMPLETA:", occ);
+    console.log("TIPO DE anexos:", typeof occ.anexos, occ.anexos);
 
     const modal = construirModal(occ);
 
