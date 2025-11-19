@@ -5,7 +5,7 @@ const upController = require('../controllers/uploadController');
 
 router.post('/:id/upload', upController.upload.array('anexos'), upController.tratarErroUpload, upController.uploadAnexoOcorrencia);
 
-router.post('/', controller.criar);
+router.post('/', upController.upload.none(),controller.criar);
 router.get('/', controller.listar);
 router.get('/funcionario/:id_funcionario', controller.listarPorFuncionario);
 router.get('/:id', controller.buscarPorId);
