@@ -76,19 +76,24 @@ async function abrirModalOcorrencia(id) {
 
 function construirModal(occ) {
     const overlay = document.createElement("div");
-    overlay.className = "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50";
-
+    overlay.className = "modal-ocorrencia-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50";
     const box = document.createElement("div");
     box.className = "bg-white rounded-lg shadow-lg p-6 w-full max-w-lg";
 
     let arquivosHtml = "";
-    if (occ.anexos && occ.anexos.length > 0) {
+
+    if (occ.anexos) {
         try {
             const anexos = JSON.parse(occ.anexos);
-            arquivosHtml = anexos.map(a =>
-                `<a href="/uploads/${a.filename}" target="_blank" class="text-blue-600 underline">${a.originalname}</a>`
-            ).join("<br>");
-        } catch { }
+
+            if (Array.isArray(anexos) && anexos.length > 0) {
+                arquivosHtml = anexos.map(a =>
+                    `<a href="/uploads/${a.filename}" target="_blank" class="text-blue-600 underline">${a.originalname}</a>`
+                ).join("<br>");
+            }
+        } catch (e) {
+            console.error("Erro ao processar anexos:", e);
+        }
     }
 
     box.innerHTML = `
@@ -106,11 +111,24 @@ function construirModal(occ) {
 
         <div class="flex justify-end gap-3 mt-5">
             <button onclick="alterarStatus(${occ.id}, 'Rejeitada')" 
-                class="px-4 py-2 bg-red-600 text-white rounded">Rejeitar</button>
+                class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                Rejeitar
+            </button>
+
             <button onclick="alterarStatus(${occ.id}, 'Grave')" 
-                class="px-4 py-2 bg-green-600 text-white rounded">Marcar Grave</button>
+                class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                Marcar Grave
+            </button>
+
+            <button onclick="alterarStatus(${occ.id}, 'Resolvida')" 
+                class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+                Resolver
+            </button>
+
             <button onclick="fecharModalOcorrencia()" 
-                class="px-4 py-2 bg-gray-300 rounded">Fechar</button>
+                class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                Fechar
+            </button>
         </div>
     `;
 
@@ -140,7 +158,9 @@ function fecharModalOcorrencia() {
     if (overlay) overlay.remove();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
     const btn = document.getElementById("btnOcorrencias");
-    btn.addEventListener("click", () => carregarOcorrenciasRH());
+    if (btn) {
+        btn.addEventListener("click", carregarOcorrenciasRH);
+    }
 });
