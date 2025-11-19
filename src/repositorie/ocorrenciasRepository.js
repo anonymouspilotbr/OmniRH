@@ -93,4 +93,5 @@ module.exports = {
     buscarPorId,
     atualizarOcorrencia,
     deletarOcorrencia,
+    atualizarAnexo,
 }
