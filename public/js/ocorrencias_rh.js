@@ -133,9 +133,19 @@ function construirModal(occ) {
     }
 
     if (anexos.length > 0) {
-        arquivosHtml = anexos.map(a =>
-            `<a href="/uploads/${a.filename}" target="_blank" class="text-blue-600 underline">${a.originalname}</a>`
-        ).join("<br>");
+        arquivosHtml = anexos.map(url => `
+            <a href="${url}" 
+            target="_blank" 
+            class="text-blue-600 underline">
+                ${extrairNomeArquivo(url)}
+            </a>
+        `).join("<br>");
+    }
+
+    function extrairNomeArquivo(url) {
+        if (!url) return "Arquivo";
+        const partes = url.split("/");
+        return partes[partes.length - 1]; 
     }
 
     box.innerHTML = `
