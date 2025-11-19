@@ -3,13 +3,23 @@ const service = require('../service/ocorrenciasService');
 async function criar(req, res) {
     
     try {       
+        let anexos = "";
+
+        if (req.files && req.files.length > 0) {
+            anexos = JSON.stringify(
+                req.files.map(f => ({
+                    filename: f.filename,
+                    originalname: f.originalname
+                }))
+            );
+        }
         const data = {
             id_funcionario: req.body.id_funcionario,
             tipo_ocorrencia: req.body.tipo_ocorrencia,
             motivo: req.body.motivo,
             data: req.body.data,
             detalhes: req.body.detalhes,
-            anexos: "",
+            anexos: anexos,
             gravidade: req.body.gravidade || "Leve",
             status: req.body.status || "Em análise"
         };
