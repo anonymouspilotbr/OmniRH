@@ -116,7 +116,7 @@ const uploadAnexoOcorrencia = async (req, res) => {
 
     console.log("📌 Uploads ocorrências:", uploads);
 
-    await ocorrenciasService.atualizarAnexos(id, uploads);
+    await ocorrenciasService.atualizarAnexos(id, JSON.stringify(uploads));
 
     res.json({ sucesso: true, urls: uploads });
   } catch (err) {

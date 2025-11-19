@@ -36,8 +36,11 @@ function montarListaOcorrencias(lista) {
 
     lista.forEach(occ => {
         const card = document.createElement("div");
-        card.className = "bg-white rounded-lg shadow p-4 border-l-4 " +
-            (occ.gravidade === "Grave" ? "border-red-600" : "border-blue-600");
+        
+        let cor = "border-blue-600";
+        if (occ.gravidade === "Grave") cor = "border-red-600";
+        if (occ.status === "Resolvida") cor = "border-green-600";
+        card.className = "bg-white rounded-lg shadow p-4 border-l-4 " + cor;
 
         card.innerHTML = `
             <div class="flex justify-between items-center">
@@ -84,7 +87,12 @@ function construirModal(occ) {
 
     if (occ.anexos) {
         try {
-            const anexos = JSON.parse(occ.anexos);
+            let anexos = [];
+            try {
+                anexos = JSON.parse(occ.anexos);
+            } catch (e) {
+                console.warn("Anexo inválido no banco:", occ.anexos);
+            }
 
             if (Array.isArray(anexos) && anexos.length > 0) {
                 arquivosHtml = anexos.map(a =>

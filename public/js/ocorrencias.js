@@ -42,10 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         tr.classList.add("border-b");
 
                         tr.innerHTML = `
-                            <td class="py-3">${oc.tipo_ocorrencia || "-"}</td>
                             <td class="py-3">${formatarData(oc.data)}</td>
-                            <td class="py-3">${oc.data ? formatarData(oc.data) : "-"}</td>
-                            <td class="py-3">${oc.gravidade || "Em análise"}</td>
+                            <td class="py-3">${oc.tipo_ocorrencia || "Outro"}</td>
+                            <td class="py-3">${oc.motivo || "Outro"}</td>
+                            <td class="py-3">${oc.status || "Em análise"}</td>
                         `;
                         corpoTabela.appendChild(tr);
                     });

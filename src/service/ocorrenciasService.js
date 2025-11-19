@@ -9,18 +9,35 @@ async function criar(data) {
     return await repository.criarOcorrencia(data);
 }
 
+function normalizar(ocorrencia) {
+    if (!ocorrencia.anexos) {
+        ocorrencia.anexos = [];
+        return ocorrencia;
+    }
+
+    try {
+        ocorrencia.anexos = JSON.parse(ocorrencia.anexos);
+    } catch {
+        ocorrencia.anexos = [];
+    }
+
+    return ocorrencia;
+}
+
 async function listar() {
-    return await repository.listarOcorrencias();
+    const lista = await repository.listarOcorrencias();
+    return lista.map(normalizar);
 }
 
 async function listarPorFuncionario(id_funcionario) {
-    return await repository.listarPorFuncionario(id_funcionario);
+    const lista = await repository.listarPorFuncionario(id);
+    return lista.map(normalizar);
 }
 
 async function buscarPorId(id) {
     const ocorrencia = await repository.buscarPorId(id);
     if (!ocorrencia) throw new Error("Ocorrência não encontrada");
-    return ocorrencia;
+    return normalizar(ocorrencia);
 }
 
 async function atualizar(id, campos) {
