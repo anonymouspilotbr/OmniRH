@@ -140,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     fileName.textContent = file.name;
                     fileName.classList.add("text-sm", "text-gray-700", "truncate", "max-w-xs");
 
-                    // Ícone ou miniatura
                     if (file.type.startsWith("image/")) {
                         fileReader.onload = (e) => {
                             const img = document.createElement("img");
@@ -158,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     infoContainer.appendChild(fileName);
                     fileItem.appendChild(infoContainer);
 
-                    // Botão de remover arquivo
                     const removeBtn = document.createElement("button");
                     removeBtn.innerHTML = `<i class="fa fa-trash text-red-500 hover:text-red-700"></i>`;
                     removeBtn.classList.add("p-1", "rounded", "hover:bg-red-50", "transition");
@@ -189,7 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const token = localStorage.getItem("token");
 
                 try {
-                    // 1) Criar ocorrência sem arquivos
                     const formData = new FormData();
                     formData.append("id_funcionario", id_funcionario);
                     formData.append("tipo_ocorrencia", tipo);
@@ -212,13 +209,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     const ocorrenciaId = criarBody.id;
                     console.log("Ocorrência criada com ID:", ocorrenciaId);
 
-                    // 2) Upload opcional de anexos
                     if (arquivosSelecionados.length > 0) {
                         console.log("Enviando anexos...");
 
                         const formUpload = new FormData();
                         arquivosSelecionados.forEach(file => {
-                            formUpload.append("anexos", file); // CAMPO CORRETO
+                            formUpload.append("anexos", file); 
                         });
 
                         const uploadRes = await fetch(`https://omnirh.onrender.com/ocorrencias/${ocorrenciaId}/upload`, {
