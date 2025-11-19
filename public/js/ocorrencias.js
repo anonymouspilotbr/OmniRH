@@ -232,7 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             throw new Error(uploadBody.error || "Erro ao enviar anexos.");
                         }
 
-                        console.log("Upload finalizado:", uploadBody.urls);
                     }
 
                     alert("Ocorrência registrada com sucesso!");

@@ -2,18 +2,14 @@ const service = require('../service/ocorrenciasService');
 
 async function criar(req, res) {
     
-    try {
-        console.log(">>> REQ.HEADERS:", req.headers);
-        console.log(">>> REQ.BODY:", req.body);
-        console.log(">>> REQ.FILES:", req.files);
-        
+    try {       
         const data = {
             id_funcionario: req.body.id_funcionario,
             tipo_ocorrencia: req.body.tipo_ocorrencia,
             motivo: req.body.motivo,
             data: req.body.data,
             detalhes: req.body.detalhes,
-            anexos: "[]",
+            anexos: "",
             gravidade: req.body.gravidade || "Em análise"
         };
         
