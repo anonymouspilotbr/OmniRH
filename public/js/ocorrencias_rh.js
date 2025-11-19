@@ -111,23 +111,23 @@ function construirModal(occ) {
 
     let arquivosHtml = "";
 
-    if (occ.anexos) {
-        try {
-            let anexos = [];
-            try {
-                anexos = JSON.parse(occ.anexos);
-            } catch (e) {
-                console.warn("Anexo inválido no banco:", occ.anexos);
-            }
+    let anexos = [];
 
-            if (Array.isArray(anexos) && anexos.length > 0) {
-                arquivosHtml = anexos.map(a =>
-                    `<a href="/uploads/${a.filename}" target="_blank" class="text-blue-600 underline">${a.originalname}</a>`
-                ).join("<br>");
-            }
+    if (occ.anexos && occ.anexos.trim() !== "") {
+        try {
+            anexos = JSON.parse(occ.anexos);
+
+            if (!Array.isArray(anexos)) anexos = [];
         } catch (e) {
-            console.error("Erro ao processar anexos:", e);
+            console.error("Erro ao interpretar anexos do banco:", occ.anexos);
+            anexos = [];
         }
+    }
+
+    if (anexos.length > 0) {
+        arquivosHtml = anexos.map(a =>
+            `<a href="/uploads/${a.filename}" target="_blank" class="text-blue-600 underline">${a.originalname}</a>`
+        ).join("<br>");
     }
 
     box.innerHTML = `
