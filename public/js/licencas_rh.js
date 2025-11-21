@@ -168,10 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.add("hidden");
     };
 
-    function formatarDataLocal(isoDate) {
-        if (!isoDate) return "-";
-        const [ano, mes, dia] = isoDate.split("-");
-        return `${dia}/${mes}/${ano}`;
+    function formatarDataLocal(dataISO) {
+        if (!dataISO) return "-";
+        const d = new Date(dataISO);
+        return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
     }
 
     function formatarPeriodo(i, f) {

@@ -58,10 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            function formatarData(isoDate) {
-                if (!isoDate) return "-";
-                const [ano, mes, dia] = isoDate.split("-");
-                return `${dia}/${mes}/${ano}`;
+            function formatarData(dataISO) {
+                if (!dataISO) return "-";
+                const d = new Date(dataISO);
+                return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
             }
 
             function mostrarLista() {
