@@ -148,9 +148,10 @@ function construirModal(occ) {
         return partes[partes.length - 1]; 
     }
 
-    function formatarData(data){
-        const df = new Date(data).toLocaleDateString("pt-BR");
-        return df;
+    function formatarData(isoDate) {
+        if (!isoDate) return "-";
+        const [ano, mes, dia] = isoDate.split("-");
+        return `${dia}/${mes}/${ano}`;
     }
 
     box.innerHTML = `

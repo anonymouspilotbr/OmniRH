@@ -168,9 +168,15 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.add("hidden");
     };
 
+    function formatarDataLocal(isoDate) {
+        if (!isoDate) return "-";
+        const [ano, mes, dia] = isoDate.split("-");
+        return `${dia}/${mes}/${ano}`;
+    }
+
     function formatarPeriodo(i, f) {
-        const di = new Date(i).toLocaleDateString("pt-BR");
-        const df = new Date(f).toLocaleDateString("pt-BR");
+        const di = formatarDataLocal(i);
+        const df = formatarDataLocal(f);
         return `${di} até ${df}`;
     }
 });
