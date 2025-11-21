@@ -1,5 +1,9 @@
 Changelog
  
+[0.19.1] Desenvolvimento Recessos - 21 NOV 2025
+- Início do desenvolvimento do back end do sistema de Recessos.
+- Reforma no front end do sistema de Recessos.
+
 [0.19.0] Sistema de Ocorrências Completo - 19 NOV 2025
 - Concluída a integração entre Front e Back End das Ocorrências
 - Implementadas as telas tanto do Funcionário quanto do Gestor

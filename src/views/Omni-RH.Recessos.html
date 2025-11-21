@@ -65,27 +65,7 @@
         </aside>
         <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
         <main class="container mx-auto px-4 py-8">
-            <!-- Hero Section -->
-            <div class="mb-12">
-                <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-8 text-white shadow-xl">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="flex-1">
-                            <h2 class="text-3xl md:text-4xl font-bold mb-4">Solicitação de Recessos</h2>
-                            <p class="text-blue-100 text-lg mb-6">Gerencie suas solicitações de recesso de forma simples e organizada</p>
-                            <button onclick="scrollToForm()" class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300">
-                                <i class="fas fa-plus mr-2"></i>Nova Solicitação
-                            </button>
-                        </div>
-                        <div class="flex-1">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4cf32178-42fd-448c-a252-57afacfd5658.png" alt="Ilustração de pessoa relaxando em ambiente de trabalho com calendário ao fundo, representando equilíbrio entre trabalho e descanso" class="w-full h-auto rounded-lg shadow-lg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Two Column Layout -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- New Request Form -->
                 <div class="bg-white rounded-2xl shadow-lg p-6" id="formSection">
                     <h3 class="text-2xl font-bold text-gray-800 mb-6">
                         <i class="fas fa-file-alt text-blue-500 mr-3"></i>
@@ -102,7 +82,6 @@
                                 <option>Folga</option>
                             </select>
                         </div>
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="dataInicio" class="block text-sm font-medium text-gray-700 mb-2">Data Início</label>
@@ -113,17 +92,10 @@
                                 <input type="date" id="dataFim" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
                             </div>
                         </div>
-
-                        <div>
-                            <label for="quantidadeDias" class="block text-sm font-medium text-gray-700 mb-2">Quantidade de Dias</label>
-                            <input type="number" id="quantidadeDias" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" value="1" min="1" max="30" required>
-                        </div>
-
                         <div>
                             <label for="motivo" class="block text-sm font-medium text-gray-700 mb-2">Motivo</label>
                             <textarea id="motivo" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Descreva o motivo do recesso..." required></textarea>
                         </div>
-
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Anexos (Opcional)</label>
                             <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
@@ -135,7 +107,6 @@
                                 </button>
                             </div>
                         </div>
-
                         <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
                             <i class="fas fa-paper-plane mr-2"></i>Enviar Solicitação
                         </button>
