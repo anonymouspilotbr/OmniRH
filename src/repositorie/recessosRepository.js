@@ -11,7 +11,7 @@ async function listarPorFuncionario(id_funcionario) {
     return result.rows;
 }
 
-async function criarRecesso({ id_funcionario, tipoRecesso, data_inicio, data_termino, motivo, anexos }) {
+async function criarRecesso({ id_funcionario, tipo, data_inicio, data_termino, motivo, anexos }) {
     const query = `
         INSERT INTO recessos 
             (id_funcionario, tipo, data_inicio, data_termino, motivo, anexos)
@@ -21,7 +21,7 @@ async function criarRecesso({ id_funcionario, tipoRecesso, data_inicio, data_ter
     const anexosDB = anexos ? JSON.stringify(anexos) : null;
     const values = [
         id_funcionario,
-        tipoRecesso,
+        tipo,
         data_inicio,
         data_termino,
         motivo,
