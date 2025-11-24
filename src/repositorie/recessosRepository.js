@@ -7,7 +7,7 @@ async function listarPorFuncionario(id_funcionario) {
         WHERE id_funcionario = $1
         ORDER BY created_at DESC
     `;
-    const result = await pool.query(sql, [idFuncionario]);
+    const result = await pool.query(query, [idFuncionario]);
     return result.rows;
 }
 
@@ -27,7 +27,7 @@ async function criarRecesso({ id_funcionario, tipoRecesso, data_inicio, data_ter
         motivo,
         anexosDB
     ];
-    const result = await pool.query(sql, values);
+    const result = await pool.query(query, values);
     return result.rows[0];
 }
 
