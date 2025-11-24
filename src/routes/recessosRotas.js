@@ -5,3 +5,5 @@ const upController = require('../controllers/uploadController');
 
 router.get("/funcionario/:id", controller.listarPorFuncionario);
 router.post("/", upController.upload.array("anexos"), upController.tratarErroUpload, upController.uploadAnexoRecesso);
+
+module.exports = router;

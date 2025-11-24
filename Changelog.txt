@@ -1,5 +1,9 @@
 Changelog
  
+[0.19.2] Desenvolvimento Recessos II - 24 NOV 2025
+- Integração entre Front e Backend dos recessos.
+- Criação da tela de suporte para os funcionários.
+
 [0.19.1] Desenvolvimento Recessos - 21 NOV 2025
 - Início do desenvolvimento do back end do sistema de Recessos.
 - Reforma no front end do sistema de Recessos.
