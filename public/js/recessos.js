@@ -86,21 +86,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 formData.append("data_termino", dataFim);
                 formData.append("motivo", motivo);
 
-                if (fileInput.files.length > 0) {
-                    for (let file of fileInput.files) {
-                        formData.append("anexos", file);
-                    }
-                } else {
-                    formData.append("anexos", ""); 
-                }
-
                 fetch("https://omnirh.onrender.com/recessos", {
                     method: "POST",
                     body: formData
                 })
                 .then(res => res.json())
-                .then(resp => {
+                .then(async (resp) => {
                     console.log("Resposta do POST:", resp);
+                    if (fileInput.files.length > 0 && resp.id) {
+                        const formDataUpload = new FormData();
+                        for (let file of fileInput.files) {
+                            formDataUpload.append("anexos", file);
+                        }
+
+                        await fetch(`https://omnirh.onrender.com/recessos/${resp.id}/upload`, {
+                            method: "POST",
+                            body: formDataUpload
+                        });
+                    }
+
                     alert("Solicitação enviada com sucesso!");
 
                     recessoForm.reset();
