@@ -31,7 +31,19 @@ async function criarRecesso({ id_funcionario, tipoRecesso, data_inicio, data_ter
     return result.rows[0];
 }
 
+async function atualizarAnexo(id, anexos) {
+        const query = `
+        UPDATE recessos 
+        SET anexos = $1
+        WHERE id = $2
+        RETURNING *;
+    `;
+    const resultado = await pool.query(query, [anexos, id]);
+    return resultado.rows[0];
+}
+
 module.exports = {
     listarPorFuncionario,
     criarRecesso,
+    atualizarAnexo,
 }

@@ -4,6 +4,7 @@ const cloudinary = require('cloudinary').v2;
 const userService = require('../service/userService');
 const licencaService = require('../service/licencaService');
 const ocorrenciasService = require('../service/ocorrenciasService');
+const recessosService = require('../service/recessosService');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD,
@@ -125,11 +126,41 @@ const uploadAnexoOcorrencia = async (req, res) => {
   }
 };
 
+const uploadAnexoRecesso = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ erro: 'Nenhum arquivo enviado.' });
+    }
+
+    const uploads = await Promise.all(
+      req.files.map(async (file) => {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: 'anexos_recessos',
+          resource_type: 'auto',
+        });
+        return result.secure_url;
+      })
+    );
+
+    console.log("📌 Uploads recessos:", uploads);
+
+    await recessosService.atualizarAnexos(id, JSON.stringify(uploads));
+
+    res.json({ sucesso: true, urls: uploads });
+  } catch (err) {
+    console.error('Erro ao salvar anexo da ocorrência:', err);
+    res.status(500).json({ erro: 'Erro ao salvar o arquivo.' });
+  }
+};
+
 module.exports = { 
   upload, 
   uploadImagem, 
   uploadAnexoLicenca, 
   uploadAnexoOcorrencia, 
+  uploadAnexoRecesso,
   tratarErroUpload, 
 };
 
