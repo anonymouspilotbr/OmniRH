@@ -86,8 +86,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 formData.append("data_termino", dataFim);
                 formData.append("motivo", motivo);
 
-                for (let file of fileInput.files) {
-                    formData.append("anexos", file);
+                if (fileInput.files.length > 0) {
+                    for (let file of fileInput.files) {
+                        formData.append("anexos", file);
+                    }
+                } else {
+                    formData.append("anexos", ""); 
                 }
 
                 fetch("https://omnirh.onrender.com/recessos", {
