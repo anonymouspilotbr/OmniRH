@@ -7,7 +7,7 @@ async function listarPorFuncionario(id_funcionario) {
         WHERE id_funcionario = $1
         ORDER BY created_at DESC
     `;
-    const result = await pool.query(query, [idFuncionario]);
+    const result = await pool.query(query, [id_funcionario]);
     return result.rows;
 }
 
