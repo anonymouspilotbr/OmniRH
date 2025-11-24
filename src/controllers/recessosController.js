@@ -31,7 +31,77 @@ async function criarRecesso(req, res) {
     }
 }
 
+async function listarTodosRecessos(req, res) {
+  try {
+    const recessos = await recessosService.listarTodosRecessos();
+    res.json(recessos);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao listar recessos' });
+  }
+}
+
+async function aprovarRecesso(req, res) {
+  const { id } = req.params;
+
+  try {
+    await recessosService.aprovarRecesso(id);
+    res.json({ message: 'Recesso aprovado com sucesso' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao aprovar recesso' });
+  }
+}
+
+async function rejeitarRecesso(req, res) {
+  const { id } = req.params;
+
+  try {
+    await recessosService.rejeitarRecesso(id);
+    res.json({ message: 'Recesso rejeitado com sucesso' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao rejeitar recesso' });
+  }
+}
+
+async function listarPendentes(req, res) {
+    try {
+        const lista = await recessosService.listarPendentes();
+        res.json(lista);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ erro: "Erro ao listar recessos pendentes" });
+    }
+}
+
+async function estatisticas(req, res) {
+    try {
+        const dados = await recessosService.obterEstatisticas();
+        res.json(dados);
+    } catch (error) {
+        console.error("Erro ao obter estatísticas:", error);
+        res.status(500).json({ error: "Erro ao obter estatísticas" });
+    }
+}
+
+async function buscarAprovados(req, res) {
+    try {
+        const lista = await recessosService.buscarAprovados();
+        res.json(lista);
+    } catch (err) {
+        console.error("Erro ao buscar aprovados:", err);
+        res.status(500).json({ erro: "Erro ao buscar aprovados" });
+    }
+}
+
 module.exports = {
     listarPorFuncionario,
     criarRecesso,
+    listarTodosRecessos,
+    aprovarRecesso,
+    rejeitarRecesso,
+    listarPendentes,
+    estatisticas,
+    buscarAprovados,
 }

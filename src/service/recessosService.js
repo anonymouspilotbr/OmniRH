@@ -18,8 +18,38 @@ async function atualizarAnexos(id, anexos) {
     }
 }
 
+async function listarTodosRecessos() {
+  return await recessosRepository.listarTodosRecessos();
+}
+
+async function aprovarRecesso(id) {
+  await recessosRepository.atualizarStatusRecesso(id, 'aprovado');
+}
+
+async function rejeitarRecesso(id) {
+  await recessosRepository.atualizarStatusRecesso(id, 'rejeitado');
+}
+
+async function listarPendentes() {
+    return await recessosRepository.buscarPendentes();
+}
+
+async function obterEstatisticas() {
+    return await recessosRepository.obterEstatisticas();
+}
+
+async function buscarAprovados() {
+    return await recessosRepository.buscarAprovados();
+}
+
 module.exports = {
     listarPorFuncionario,
     criarRecesso,
     atualizarAnexos,
+    listarTodosRecessos,
+    aprovarRecesso,
+    rejeitarRecesso,
+    listarPendentes,
+    obterEstatisticas,
+    buscarAprovados,
 }
