@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+formdatadocument.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
 
     if (token) {
