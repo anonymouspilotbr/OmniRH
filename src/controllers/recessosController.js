@@ -14,14 +14,14 @@ async function listarPorFuncionario(req, res) {
 async function criarRecesso(req, res) {
     try {
         const dados = req.body;
-        let anexos = null;
-        if (req.files && req.files.length > 0) {
-            anexos = req.files.map(f => f.filename);
-        }
 
         const novo = await recessosService.criarRecesso({
-            ...dados,
-            anexos
+            id_funcionario: dados.id_funcionario,
+            tipo: dados.tipo,
+            data_inicio: dados.data_inicio,
+            data_termino: dados.data_termino,
+            motivo: data.motivo,
+            anexos: null
         });
 
         return res.json(novo);
