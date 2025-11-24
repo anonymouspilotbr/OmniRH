@@ -20,7 +20,7 @@ async function criarRecesso(req, res) {
             tipo: dados.tipo,
             data_inicio: dados.data_inicio,
             data_termino: dados.data_termino,
-            motivo: data.motivo,
+            motivo: dados.motivo,
             anexos: null
         });
 
