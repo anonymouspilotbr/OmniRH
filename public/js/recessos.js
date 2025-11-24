@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const formData = new FormData();
                 formData.append("id_funcionario", id_funcionario);
-                formData.append("tipoRecesso", tipoRecesso);
+                formData.append("tipo", tipoRecesso);
                 formData.append("data_inicio", dataInicio);
                 formData.append("data_termino", dataFim);
                 formData.append("motivo", motivo);
