@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const fileInput = document.getElementById("fileInput");
             const previewContainer = document.getElementById("previewContainer");
             let arquivosSelecionados = [];
+            const hoje = new Date().toISOString().split("T")[0];
+            document.getElementById("dataInicio").setAttribute("min", hoje);
+            document.getElementById("dataFim").setAttribute("min", hoje);
 
             function formatarDataSemFuso(iso) {
                 if (!iso) return "-";
@@ -174,6 +177,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 const dataInicio = document.getElementById("dataInicio").value;
                 const dataFim = document.getElementById("dataFim").value;
                 const motivo = document.getElementById("motivo").value;
+
+                const anoAtual = new Date().getFullYear();
+                const anoInicio = new Date(data_inicio).getFullYear();
+                const anoFim = new Date(data_fim).getFullYear();
+
+                if (
+                    isNaN(anoInicio) || 
+                    isNaN(anoFim) || 
+                    anoInicio < anoAtual || 
+                    anoInicio > 2099 || 
+                    anoFim < anoAtual || 
+                    anoFim > 2099
+                ) {
+                    alert(`⚠️ O ano das datas deve estar entre ${anoAtual} e 2099.`);
+                    return;
+                }
+
+                if (new Date(dataFim) < new Date(dataInicio)) {
+                    alert("⚠️ A data de término não pode ser anterior à data de início.");
+                    return;
+                }
+
+                const hoje = new Date();
+                hoje.setHours(0, 0, 0, 0);
+                const inicio = new Date(dataInicio);
+                const fim = new Date(dataFim);
+
+                if (inicio < hoje || fim < hoje) {
+                    alert("⚠️ As datas não podem ser anteriores à data atual.");
+                    return;
+                }
 
                 const formData = new FormData();
                 formData.append("id_funcionario", id_funcionario);
