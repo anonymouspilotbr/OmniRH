@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(res => res.json())
                 .then(resp => {
+                    console.log("Resposta do POST:", resp);
                     alert("Solicitação enviada com sucesso!");
 
                     recessoForm.reset();
