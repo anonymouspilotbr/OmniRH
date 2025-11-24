@@ -179,8 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const motivo = document.getElementById("motivo").value;
 
                 const anoAtual = new Date().getFullYear();
-                const anoInicio = new Date(data_inicio).getFullYear();
-                const anoFim = new Date(data_fim).getFullYear();
+                const anoInicio = new Date(dataInicio).getFullYear();
+                const anoFim = new Date(dataFim).getFullYear();
 
                 if (
                     isNaN(anoInicio) || 
