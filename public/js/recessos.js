@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const formRecessos = document.getElementById("formRecessos");
             const recessoForm = document.getElementById("recessoForm");
             const fileInput = document.getElementById("fileInput");
+            const previewContainer = document.getElementById("previewContainer");
             let arquivosSelecionados = [];
 
             function formatarDataSemFuso(iso) {
