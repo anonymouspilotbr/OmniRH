@@ -1,5 +1,9 @@
 Changelog
  
+[0.19.3] Desenvolvimento Recessos III - 24 NOV 2025
+- Parte do Funcionário 100% funcional
+- Início da parte do Gestor
+
 [0.19.2] Desenvolvimento Recessos II - 24 NOV 2025
 - Integração entre Front e Backend dos recessos.
 - Criação da tela de suporte para os funcionários.
