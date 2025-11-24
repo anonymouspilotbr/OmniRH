@@ -30,10 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     <tr><td colspan="4" class="p-4 text-gray-500">Carregando...</td></tr>
                 `;
 
-                fetch(`/recessos/funcionario/${id_funcionario}`)
+                fetch(`https://omnirh.onrender.com/recessos/funcionario/${id_funcionario}`)
                 .then(res => res.json())
                 .then(lista => {
-                    if (!lista || lista.length === 0) {
+                    console.log("Retorno do backend:", lista);
+                    if (!Array.isArray(lista)) {
+                        lista = lista.data || [];
+                    }
+
+                    if (lista.length === 0) {
                         corpoTabela.innerHTML = `
                             <tr><td colspan="4" class="p-4 text-gray-500">Nenhuma solicitação encontrada.</td></tr>
                         `;
@@ -43,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     corpoTabela.innerHTML = "";
                     lista.forEach(item => {
                         const tr = document.createElement("tr");
-
                         tr.innerHTML = `
                             <td class="p-3">${item.tipo || "-"}</td>
                             <td class="p-3">${formatarDataSemFuso(item.data_inicio)}</td>
@@ -86,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     formData.append("anexos", file);
                 }
 
-                fetch("/recessos", {
+                fetch("https://omnirh.onrender.com/recessos", {
                     method: "POST",
                     body: formData
                 })
