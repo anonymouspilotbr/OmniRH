@@ -18,4 +18,6 @@ router.get('/', controller.listarTodosRecessos);
 router.put('/:id/aprovar', controller.aprovarRecesso);
 router.put('/:id/rejeitar', controller.rejeitarRecesso);
 
+router.get('/:id', controller.buscarRecessoPorId);
+
 module.exports = router;
