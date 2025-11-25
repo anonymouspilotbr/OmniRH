@@ -39,10 +39,10 @@ app.use('/ocorrencias', ocorrenciasRoutes);
 app.use('/recessos', recessosRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
+app.use(express.static(__dirname + '/public'));
+
 app.use('/', require('./src/routes/omnirh_rotas'));
 app.use('/', require('./src/routes/funcionarioRotas'));
-
-app.use(express.static(__dirname + '/public'));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, function () {
