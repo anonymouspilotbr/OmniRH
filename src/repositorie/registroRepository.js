@@ -64,7 +64,7 @@ async function criarRegistro(id_funcionario, entrada) {
 async function registrarSaida(id, saida) {
     const sql = `
         UPDATE registros_horas
-        SET saída = $1
+        SET saida = $1
         WHERE id = $2
     `;
     await pool.query(sql, [saida, id]);

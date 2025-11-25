@@ -14,6 +14,10 @@ function calcularHoras(entrada, saida) {
   return { horas, extras };
 }
 
+function formatarHora(date) {
+  return date.toTimeString().slice(0, 8); 
+}
+
 /*async function registrarEntrada(usuarioId, entrada) {
   const hoje = new Date().toISOString().split('T')[0];
   return await repositorio_registro.inserirEntrada(usuarioId, hoje, entrada);
@@ -39,14 +43,25 @@ async function registrarPonto(id_funcionario) {
   const registroHoje = await repositorio_registro.buscarRegistroPorData(id_funcionario, hoje);
 
   if (!registroHoje) {
-    const entrada = new Date();
+    const agora = new Date();
+    const entrada = formatarHora(agora);
     await repositorio_registro.criarRegistro(id_funcionario, entrada);
     return { mensagem: "Entrada registrada", entrada };
   }
 
   if (registroHoje.saida == null) {
-    const saida = new Date();
+    const agora = new Date();
+    const saida = formatarHora(agora);
     await repositorio_registro.registrarSaida(registroHoje.id, saida);
+
+    const data = new Date(registroHoje.data);
+    const mes = data.getMonth() + 1;
+    const ano = data.getFullYear();
+
+    const { horas, extras } = calcularHoras(registroHoje.entrada, horaSaida);
+
+    await repositorio_banco.atualizarSaldo(id_funcionario, mes, ano, extras);
+
     return { mensagem: "Saída registrada", saida };
   }
 
