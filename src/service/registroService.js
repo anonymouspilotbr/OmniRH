@@ -58,7 +58,7 @@ async function registrarPonto(id_funcionario) {
     const mes = data.getMonth() + 1;
     const ano = data.getFullYear();
 
-    const { horas, extras } = calcularHoras(registroHoje.entrada, horaSaida);
+    const { horas, extras } = calcularHoras(registroHoje.entrada, saida);
 
     await repositorio_banco.atualizarSaldo(id_funcionario, mes, ano, extras);
 
