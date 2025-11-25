@@ -241,13 +241,9 @@
         }
 
         function mostrarPainel(secao) {
-            // Ocultar todos os painéis
             document.querySelectorAll('.painel').forEach(p => p.classList.add('hidden'));
-
-            // Mostrar o painel selecionado
             document.getElementById(`painel-${secao}`).classList.remove('hidden');
 
-            // Atualizar botões
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active-tab');
                 btn.classList.add('inactive-tab');
@@ -256,11 +252,20 @@
             const btnAtivo = document.getElementById(`btn${secao.charAt(0).toUpperCase() + secao.slice(1)}`);
             btnAtivo.classList.add('active-tab');
             btnAtivo.classList.remove('inactive-tab');
+
+            const map = {
+                licencas: "/js/licencas_rh.js",
+                ocorrencias: "/js/ocorrencias_rh.js",
+                recessos: "/js/recessos_rh.js"
+            };
+
+            if (!document.querySelector(`script[src="${map[secao]}"]`)) {
+                const s = document.createElement("script");
+                s.src = map[secao];
+                document.body.appendChild(s);
+            }
         }
     </script>
     <script src="/js/front.js"></script>
-    <script src="/js/licencas_rh.js"></script>
-    <script src="/js/ocorrencias_rh.js"></script>
-    <script src="/js/recessos_rh.js"></script>
 </body>
 </html>
