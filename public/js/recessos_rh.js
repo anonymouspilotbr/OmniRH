@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td class="p-3 whitespace-nowrap">${formatarPeriodo(r.data_inicio, r.data_termino)}</td>
                 <td class="p-3 whitespace-nowrap">${badgeStatus(r.status)}</td>
                 <td class="p-3 whitespace-nowrap">
-                    <button class="text-blue-600 underline" onclick="verDetalhes(${r.id})">
+                    <button class="text-blue-600 underline" onclick="verDetalhesRecesso(${r.id})">
                         Ver detalhes
                     </button>
                 </td>
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td class="p-3 whitespace-nowrap">${formatarPeriodo(r.data_inicio, r.data_termino)}</td>
                 <td class="p-3 whitespace-nowrap">${badgeStatus(r.status)}</td>
                 <td class="p-3 whitespace-nowrap">
-                    <button class="text-blue-600 underline" onclick="verDetalhes(${r.id})">
+                    <button class="text-blue-600 underline" onclick="verDetalhesRecesso(${r.id})">
                         Ver detalhes
                     </button>
                 </td>
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    window.verDetalhes = async (id) => {
+    window.verDetalhesRecesso = async (id) => {
         const res = await fetch(`/recessos/${id}`);
         const recesso = await res.json();
 

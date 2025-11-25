@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td class="p-3">${formatarPeriodo(l.data_inicio, l.data_fim)}</td>
                 <td class="p-3">${badgeStatus(l.status)}</td>
                 <td class="p-3">
-                    <button class="text-blue-600 underline" onclick="verDetalhes(${l.id})">
+                    <button class="text-blue-600 underline" onclick="verDetalhesLicenca(${l.id})">
                         Ver detalhes
                     </button>
                 </td>
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td class="p-3 whitespace-nowrap">${formatarPeriodo(l.data_inicio, l.data_fim)}</td>
                 <td class="p-3 whitespace-nowrap">${badgeStatus(l.status)}</td>
                 <td class="p-3 whitespace-nowrap">
-                    <button class="text-blue-600 underline" onclick="verDetalhes(${l.id})">
+                    <button class="text-blue-600 underline" onclick="verDetalhesLicenca(${l.id})">
                         Ver detalhes
                     </button>
                 </td>
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    window.verDetalhes = async (id) => {
+    window.verDetalhesLicenca = async (id) => {
         const res = await fetch(`/licencas/${id}`);
         const licenca = await res.json();
 
