@@ -22,6 +22,14 @@ async function listarTodosRecessos() {
   return await recessosRepository.listarTodosRecessos();
 }
 
+async function buscarPorId(id) {
+  const recesso = await recessosRepository.buscarPorId(id);
+  if (!recesso) {
+    throw new Error('Recesso não encontrado');
+  }
+  return recesso;
+}
+
 async function aprovarRecesso(id) {
   await recessosRepository.atualizarStatusRecesso(id, 'aprovado');
 }
