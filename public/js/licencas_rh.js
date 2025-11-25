@@ -179,4 +179,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const df = formatarDataLocal(f);
         return `${di} até ${df}`;
     }
+
+    const filtrosLicencas = document.querySelectorAll('#painel-licencas aside div[id^="btnFiltro"]');
+
+    filtrosLicencas.forEach(f => {
+        f.addEventListener("click", () => {
+            filtrosLicencas.forEach(x => x.classList.remove("filtro-selecionado"));
+            f.classList.add("filtro-selecionado");
+        });
+    });
+
+    document.getElementById("btnFiltroTotal").classList.add("filtro-selecionado");
 });
