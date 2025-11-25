@@ -229,3 +229,14 @@ document.addEventListener("click", (e) => {
         carregarOcorrenciasRH();
     }
 });
+
+const filtrosOcorrencias = document.querySelectorAll('#painel-ocorrencias .filtro');
+
+filtrosOcorrencias.forEach(f => {
+    f.addEventListener("click", () => {
+        filtrosOcorrencias.forEach(x => x.classList.remove("filtro-selecionado"));
+        f.classList.add("filtro-selecionado");
+    });
+});
+
+document.querySelector('#painel-ocorrencias .filtro[data-filtro="todas"]').classList.add("filtro-selecionado");

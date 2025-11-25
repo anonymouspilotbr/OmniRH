@@ -180,5 +180,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const df = formatarDataLocal(f);
         return `${di} até ${df}`;
     }
+
+    const filtrosRecessos = document.querySelectorAll('#painel-recessos aside div[id^="btnRecessos"]');
+
+    filtrosRecessos.forEach(f => {
+        f.addEventListener("click", () => {
+            filtrosRecessos.forEach(x => x.classList.remove("filtro-selecionado"));
+            f.classList.add("filtro-selecionado");
+        });
+    });
+
+    document.getElementById("btnTotalRecessos").classList.add("filtro-selecionado");
 });
 
