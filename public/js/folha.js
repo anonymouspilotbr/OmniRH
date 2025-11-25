@@ -108,8 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     try { hiddenInput.blur(); } catch(e){}
                     atualizarPonto();
                 });
-
-                
                 
                 async function atualizarPonto(){
                     const { domingo, sabado } = getSemana(dataAtual);
@@ -181,6 +179,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 atualizarPonto();
+
+                document.getElementById("btnRegistrarPonto").addEventListener("click", async () => {
+                    const token = localStorage.getItem("token");
+
+                    const resposta = await fetch("https://omnirh.onrender.com/registro", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+
+                    const dados = await resposta.json();
+                    alert(dados.mensagem);
+                });
 
             })();
         })

@@ -2,7 +2,7 @@ const pool = require('../model/db.js');
 
 //Registro de Horas e Folha de ponto
 
-async function inserirEntrada(usuarioId, data, entrada) {
+/*async function inserirEntrada(usuarioId, data, entrada) {
   const query = `
     INSERT INTO registros_horas (id_funcionario, data, entrada)
     VALUES ($1, $2, $3)
@@ -19,14 +19,14 @@ async function atualizarSaida(id, saida, horas, extras) {
     WHERE id = $4
   `;
   await pool.query(query, [saida, horas, extras, id]);
-}
+}*/
 
 async function buscarRegistroPorId(id) {
   const result = await pool.query('SELECT * FROM registros_horas WHERE id = $1', [id]);
   return result.rows[0];
 }
 
-async function buscarPorPeriodo(id_funcionario, inicioISO, fimISO) {
+/*async function buscarPorPeriodo(id_funcionario, inicioISO, fimISO) {
   const query = `
     SELECT
       to_char(data, 'YYYY-MM-DD') as data,
@@ -39,6 +39,35 @@ async function buscarPorPeriodo(id_funcionario, inicioISO, fimISO) {
   `;
   const res = await pool.query(query, [id_funcionario, inicioISO, fimISO]);
   return res.rows;
+}*/
+
+async function buscarRegistroPorData(id_funcionario, data) {
+    const sql = `
+        SELECT *
+        FROM registros_horas
+        WHERE id_funcionario = $1
+          AND data = $2
+        LIMIT 1
+    `;
+    const { rows } = await pool.query(sql, [id_funcionario, data]);
+    return rows[0];
+}
+
+async function criarRegistro(id_funcionario, entrada) {
+    const sql = `
+        INSERT INTO registros_horas (id_funcionario, data, entrada)
+        VALUES ($1, CURRENT_DATE, $2)
+    `;
+    await pool.query(sql, [id_funcionario, entrada]);
+}
+
+async function registrarSaida(id, saida) {
+    const sql = `
+        UPDATE registros_horas
+        SET saída = $1
+        WHERE id = $2
+    `;
+    await pool.query(sql, [saida, id]);
 }
 
 async function listarPorUsuario(usuarioId) {
@@ -53,10 +82,13 @@ async function buscarDataAdmissao(id_funcionario) {
 }
 
 module.exports = {
-    inserirEntrada,
-    atualizarSaida,
+    //inserirEntrada,
+    //atualizarSaida,
     buscarRegistroPorId,
-    buscarPorPeriodo,
+    buscarRegistroPorData,
+    criarRegistro,
+    registrarSaida,
+    //buscarPorPeriodo,
     listarPorUsuario,
     buscarDataAdmissao,
 }

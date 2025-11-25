@@ -1,5 +1,9 @@
 Changelog
  
+[0.20.1] Desenvolvimento Folha de Ponto I - 25 NOV 2025
+- Refatoração do back end da folha de ponto. 
+- Ajustes no front end. 
+
 [0.20.0] Sistema de Solicitação de Recessos completo - 25 NOV 2025
 - Concluída a integração entre Front e Back End dos Recessos
 - Implementadas as telas tanto do Funcionário quanto do Gestor

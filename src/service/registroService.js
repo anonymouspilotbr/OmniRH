@@ -14,7 +14,7 @@ function calcularHoras(entrada, saida) {
   return { horas, extras };
 }
 
-async function registrarEntrada(usuarioId, entrada) {
+/*async function registrarEntrada(usuarioId, entrada) {
   const hoje = new Date().toISOString().split('T')[0];
   return await repositorio_registro.inserirEntrada(usuarioId, hoje, entrada);
 }
@@ -32,6 +32,28 @@ async function registrarSaida(registroId, saida) {
   await repositorio_banco.atualizarSaldo(registro.usuario_id, mes, ano, extras);
 
   return { horas, extras };
+}*/
+
+async function registrarPonto(id_funcionario) {
+  const hoje = new Date().toISOString().split('T')[0];
+  const registroHoje = await repositorio_registro.buscarRegistroPorData(id_funcionario, hoje);
+
+  if (!registroHoje) {
+    const entrada = new Date();
+    await repositorio_registro.criarRegistro(id_funcionario, entrada);
+    return { mensagem: "Entrada registrada", entrada };
+  }
+
+  if (registroHoje.saida == null) {
+    const saida = new Date();
+    await repositorio_registro.registrarSaida(registroHoje.id, saida);
+    return { mensagem: "Saída registrada", saida };
+  }
+
+  return {
+    mensagem: "O ponto de hoje já está completo",
+    registro: registroHoje
+  };
 }
 
 async function listarRegistros(usuarioId) {
@@ -60,8 +82,9 @@ async function listarSemana(id_funcionario, dataInicioISO) {
 }
 
 module.exports = { 
-  registrarEntrada, 
-  registrarSaida, 
+  /*registrarEntrada, 
+  registrarSaida, */
+  registrarPonto,
   listarRegistros,
   listarSemana,
 };

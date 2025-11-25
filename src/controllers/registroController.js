@@ -1,6 +1,6 @@
 const registroService = require('../service/registroService');
 
-async function registrarEntrada(req, res) {
+/*async function registrarEntrada(req, res) {
   const { usuario_id, entrada } = req.body;
   if (!usuario_id || !entrada) {
     return res.status(400).json({ error: 'Dados incompletos' });
@@ -22,6 +22,8 @@ async function registrarSaida(req, res) {
     return res.status(400).json({ error: 'Horário de saída obrigatório' });
   }
 
+
+
   try {
     const { horas, extras } = await registroService.registrarSaida(registro_id, saida);
     res.json({ message: 'Saída registrada', horas, extras });
@@ -29,6 +31,17 @@ async function registrarSaida(req, res) {
     console.error(err);
     res.status(500).json({ error: 'Erro ao registrar saída' });
   }
+}*/
+
+async function registrarPonto(req, res) {
+    try {
+        const idFuncionario = req.user.id; 
+        const resultado = await registroService.registrarPonto(idFuncionario);
+        res.json(resultado);
+    } catch (error) {
+        console.error("Erro ao registrar ponto:", error);
+        res.status(500).json({ erro: "Erro interno ao registrar ponto" });
+    }
 }
 
 async function listar(req, res) {
@@ -61,8 +74,9 @@ async function listarSemana(req, res) {
 }
 
 module.exports = { 
-  registrarEntrada, 
-  registrarSaida, 
+  /*registrarEntrada, 
+  registrarSaida, */
+  registrarPonto,
   listar,
   listarSemana,
  };
