@@ -189,5 +189,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    document.getElementById("btnFiltroTotal").classList.add("filtro-selecionado");
+    document.getElementById("btnFiltroPendentes").classList.add("filtro-selecionado");
 });
