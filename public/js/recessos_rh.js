@@ -190,6 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    document.getElementById("btnTotalRecessos").classList.add("filtro-selecionado");
+    document.getElementById("btnRecessosPendentes").classList.add("filtro-selecionado");
 });
 
