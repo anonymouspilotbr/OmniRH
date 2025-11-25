@@ -45,7 +45,7 @@
                         </div>
                         <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40 z-50">
                             <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
-                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Ajuda</button>
+                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="ajuda()">Ajuda</button>
                             <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="sair()">Sair</button>
                         </div>
                     </div> 
@@ -355,6 +355,9 @@
     <script>
         function accessPerfil(){
             window.location.href = "perfil";
+        }
+        function ajuda(){
+            window.location.href = "registro-chamados";
         }
         function sair(){
             window.location.href = "/";

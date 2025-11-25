@@ -8,6 +8,7 @@ router.get('/horas', OmniRH_Controllers.bancoHorasView);
 router.get('/home', OmniRH_Controllers.homeView);
 router.get('/perfil', OmniRH_Controllers.perfilView);
 router.get('/chamados', OmniRH_Controllers.chamadosView);
+router.get('/registro-chamados', OmniRH_Controllers.chamadosFuncionarioView);
 router.get('/cadastro', OmniRH_Controllers.cadFuncionariosView);
 router.get('/controle-rh', OmniRH_Controllers.ocorrenciasView);
 router.get('/registro-licencas', OmniRH_Controllers.licencasView);

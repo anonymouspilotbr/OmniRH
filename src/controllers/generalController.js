@@ -16,6 +16,10 @@ function chamadosView(req,res){
     res.render('chamados.html');
 }
 
+function chamadosFuncionarioView(req,res){
+    res.render('chamados_funcionario.html');
+}
+
 function cadFuncionariosView(req,res){
     res.render('novos_funcionarios.html');
 }
@@ -60,6 +64,7 @@ module.exports = {
     loginView,
     homeView,
     chamadosView,
+    chamadosFuncionarioView,
     cadFuncionariosView,
     perfilView,
     licencasView,
