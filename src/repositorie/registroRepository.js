@@ -26,7 +26,7 @@ async function buscarRegistroPorId(id) {
   return result.rows[0];
 }
 
-/*async function buscarPorPeriodo(id_funcionario, inicioISO, fimISO) {
+async function buscarPorPeriodo(id_funcionario, inicioISO, fimISO) {
   const query = `
     SELECT
       to_char(data, 'YYYY-MM-DD') as data,
@@ -39,7 +39,7 @@ async function buscarRegistroPorId(id) {
   `;
   const res = await pool.query(query, [id_funcionario, inicioISO, fimISO]);
   return res.rows;
-}*/
+}
 
 async function buscarRegistroPorData(id_funcionario, data) {
     const sql = `
@@ -88,7 +88,7 @@ module.exports = {
     buscarRegistroPorData,
     criarRegistro,
     registrarSaida,
-    //buscarPorPeriodo,
+    buscarPorPeriodo,
     listarPorUsuario,
     buscarDataAdmissao,
 }
