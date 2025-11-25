@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("totalRecessos").textContent = stats.total;
         document.getElementById("recessosPendentes").textContent = stats.pendentes;
-        document.getElementById("recessosAprovados").textContent = stats.aprovadas;
+        document.getElementById("recessosAprovados").textContent = stats.aprovados;
     
     }
 
@@ -31,15 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
         renderizarTabela(lista);
     }
 
-    document.getElementById("btnFiltroTotal").addEventListener("click", () => {
+    document.getElementById("btnTotalRecessos").addEventListener("click", () => {
         carregarTodos();
     });
 
-    document.getElementById("btnFiltroPendentes").addEventListener("click", () => {
+    document.getElementById("btnRecessosPendentes").addEventListener("click", () => {
         carregarPendentes();
     });
 
-    document.getElementById("btnFiltroAprovados").addEventListener("click", () => {
+    document.getElementById("btnRecessosAprovados").addEventListener("click", () => {
         carregarAprovados();
     });
 
