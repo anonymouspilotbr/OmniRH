@@ -41,6 +41,21 @@ async function listarTodosRecessos(req, res) {
   }
 }
 
+async function buscarRecessoPorId(req, res) {
+  const { id } = req.params;
+
+  try {
+    const recesso = await recessosService.buscarPorId(id);
+    res.json(recesso);
+  } catch (err) {
+    console.error(err);
+    if (err.message === 'Recesso não encontrado') {
+      return res.status(404).json({ error: err.message });
+    }
+    res.status(500).json({ error: 'Erro ao buscar recesso' });
+  }
+}
+
 async function aprovarRecesso(req, res) {
   const { id } = req.params;
 
@@ -99,6 +114,7 @@ module.exports = {
     listarPorFuncionario,
     criarRecesso,
     listarTodosRecessos,
+    buscarRecessoPorId,
     aprovarRecesso,
     rejeitarRecesso,
     listarPendentes,
