@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("totalRecessos").textContent = stats.total;
         document.getElementById("recessosPendentes").textContent = stats.pendentes;
-        document.getElementById("recessosAprovadas").textContent = stats.aprovadas;
+        document.getElementById("recessosAprovados").textContent = stats.aprovadas;
     
     }
 
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         tabelaRH.innerHTML = "";
 
-        lista.forEach(l => {
+        lista.forEach(r => {
             const tr = document.createElement("tr");
             tr.classList.add("border-b");
 
