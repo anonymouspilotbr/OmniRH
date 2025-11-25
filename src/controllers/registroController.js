@@ -35,6 +35,7 @@ async function registrarSaida(req, res) {
 
 async function registrarPonto(req, res) {
     try {
+        console.log("req.user =", req.user);
         const idFuncionario = req.user.id; 
         const resultado = await registroService.registrarPonto(idFuncionario);
         res.json(resultado);
