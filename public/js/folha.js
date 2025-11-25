@@ -193,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const dados = await resposta.json();
                     alert(dados.mensagem || dados.erro || "Erro inesperado");
+                    atualizarPonto();
                 });
 
             })();

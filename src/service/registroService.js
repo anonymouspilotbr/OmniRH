@@ -14,55 +14,42 @@ function calcularHoras(entrada, saida) {
   return { horas, extras };
 }
 
-function formatarHora(date) {
-  return date.toTimeString().slice(0, 8); 
+function agoraBrasil() {
+    const dataLocal = new Date().toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo"
+    });
+
+    const [dia, mes, anoHora] = dataLocal.split("/");
+    const [ano, hora] = anoHora.split(", ");
+
+    return {
+        data: `${ano}-${mes}-${dia}`,
+        hora: hora // HH:MM:SS
+    };
 }
-
-/*async function registrarEntrada(usuarioId, entrada) {
-  const hoje = new Date().toISOString().split('T')[0];
-  return await repositorio_registro.inserirEntrada(usuarioId, hoje, entrada);
-}
-
-async function registrarSaida(registroId, saida) {
-  const registro = await repositorio_registro.buscarRegistroPorId(registroId);
-  if (!registro) throw new Error('Registro não encontrado');
-
-  const { horas, extras } = calcularHoras(registro.entrada, saida);
-  await repositorio_registro.atualizarSaida(registroId, saida, horas, extras);
-
-  const mes = new Date(registro.data).getMonth() + 1;
-  const ano = new Date(registro.data).getFullYear();
-
-  await repositorio_banco.atualizarSaldo(registro.usuario_id, mes, ano, extras);
-
-  return { horas, extras };
-}*/
 
 async function registrarPonto(id_funcionario) {
   const hoje = new Date().toISOString().split('T')[0];
   const registroHoje = await repositorio_registro.buscarRegistroPorData(id_funcionario, hoje);
 
   if (!registroHoje) {
-    const agora = new Date();
-    const entrada = formatarHora(agora);
-    await repositorio_registro.criarRegistro(id_funcionario, entrada);
-    return { mensagem: "Entrada registrada", entrada };
+    const { hora } = agoraBrasil();
+    await repositorio_registro.criarRegistro(id_funcionario, hora);
+    return { mensagem: "Entrada registrada", entrada: hora };
   }
 
   if (registroHoje.saida == null) {
-    const agora = new Date();
-    const saida = formatarHora(agora);
-    await repositorio_registro.registrarSaida(registroHoje.id, saida);
+    const { hora: horaSaida } = agoraBrasil();
+    await repositorio_registro.registrarSaida(registroHoje.id, horaSaida);
+
+    const { horas, extras } = calcularHoras(registroHoje.entrada, horaSaida);
 
     const data = new Date(registroHoje.data);
     const mes = data.getMonth() + 1;
     const ano = data.getFullYear();
-
-    const { horas, extras } = calcularHoras(registroHoje.entrada, saida);
-
     await repositorio_banco.atualizarSaldo(id_funcionario, mes, ano, extras);
 
-    return { mensagem: "Saída registrada", saida };
+    return { mensagem: "Saída registrada", saida: horaSaida };
   }
 
   return {
@@ -97,8 +84,6 @@ async function listarSemana(id_funcionario, dataInicioISO) {
 }
 
 module.exports = { 
-  /*registrarEntrada, 
-  registrarSaida, */
   registrarPonto,
   listarRegistros,
   listarSemana,
