@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             tr.innerHTML = `
                 <td class="p-3">${r.nome_funcionario}</td>
-                <td class="p-3">${r.tipo_recesso}</td>
-                <td class="p-3">${formatarPeriodo(r.data_inicio, r.data_fim)}</td>
+                <td class="p-3">${r.tipo}</td>
+                <td class="p-3">${formatarPeriodo(r.data_inicio, r.data_termino)}</td>
                 <td class="p-3">${badgeStatus(r.status)}</td>
                 <td class="p-3">
                     <button class="text-blue-600 underline" onclick="verDetalhes(${r.id})">
@@ -99,8 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             tr.innerHTML = `
                 <td class="p-3">${r.nome_funcionario}</td>
-                <td class="p-3">${r.tipo_recesso}</td>
-                <td class="p-3">${formatarPeriodo(r.data_inicio, r.data_fim)}</td>
+                <td class="p-3">${r.tipo}</td>
+                <td class="p-3">${formatarPeriodo(r.data_inicio, r.data_termino)}</td>
                 <td class="p-3">${badgeStatus(r.status)}</td>
                 <td class="p-3">
                     <button class="text-blue-600 underline" onclick="verDetalhes(${r.id})">
@@ -140,9 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         detalhes.innerHTML = `
             <p><strong>Funcionário:</strong> ${recesso.nome_funcionario}</p>
-            <p><strong>Tipo:</strong> ${recesso.tipo_recesso}</p>
-            <p><strong>Período:</strong> ${formatarPeriodo(recesso.data_inicio, recesso.data_fim)}</p>
-            <p><strong>Observações:</strong> ${recesso.observacoes || "-"}</p>
+            <p><strong>Tipo:</strong> ${recesso.tipo}</p>
+            <p><strong>Período:</strong> ${formatarPeriodo(recesso.data_inicio, recesso.data_termino)}</p>
+            <p><strong>Observações:</strong> ${recesso.motivo || "-"}</p>
 
             <h4 class="font-semibold mt-4">Anexos:</h4>
         `;
