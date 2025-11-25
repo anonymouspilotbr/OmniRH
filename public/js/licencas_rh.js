@@ -152,19 +152,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("btnAprovar").addEventListener("click", async () => {
         await fetch(`/licencas/${licencaSelecionada}/aprovar`, { method: "PUT" });
-        fecharModal();
+        fecharModalLicenca();
         carregarPendentes();
         carregarEstatisticas();
     });
 
     document.getElementById("btnRejeitar").addEventListener("click", async () => {
         await fetch(`/licencas/${licencaSelecionada}/rejeitar`, { method: "PUT" });
-        fecharModal();
+        fecharModalLicenca();
         carregarPendentes();
         carregarEstatisticas();
     });
 
-    window.fecharModal = () => {
+    window.fecharModalLicenca = () => {
         modal.classList.add("hidden");
     };
 

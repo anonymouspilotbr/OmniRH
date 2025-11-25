@@ -153,19 +153,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
      document.getElementById("btnAprovarRecesso").addEventListener("click", async () => {
         await fetch(`/recessos/${recessoSelecionado}/aprovar`, { method: "PUT" });
-        fecharModal();
+        fecharModalRecesso();
         carregarPendentes();
         carregarEstatisticas();
     });
 
     document.getElementById("btnRejeitarRecesso").addEventListener("click", async () => {
         await fetch(`/recessos/${recessoSelecionado}/rejeitar`, { method: "PUT" });
-        fecharModal();
+        fecharModalRecesso();
         carregarPendentes();
         carregarEstatisticas();
     });
 
-    window.fecharModal = () => {
+    window.fecharModalRecesso = () => {
         modal.classList.add("hidden");
     };
 
