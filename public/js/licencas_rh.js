@@ -97,11 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
             tr.classList.add("border-b");
 
             tr.innerHTML = `
-                <td class="p-3">${l.nome_funcionario}</td>
-                <td class="p-3">${l.tipo_licenca}</td>
-                <td class="p-3">${formatarPeriodo(l.data_inicio, l.data_fim)}</td>
-                <td class="p-3">${badgeStatus(l.status)}</td>
-                <td class="p-3">
+                <td class="p-3 whitespace-nowrap">${l.nome_funcionario}</td>
+                <td class="p-3 whitespace-nowrap">${l.tipo_licenca}</td>
+                <td class="p-3 whitespace-nowrap">${formatarPeriodo(l.data_inicio, l.data_fim)}</td>
+                <td class="p-3 whitespace-nowrap">${badgeStatus(l.status)}</td>
+                <td class="p-3 whitespace-nowrap">
                     <button class="text-blue-600 underline" onclick="verDetalhes(${l.id})">
                         Ver detalhes
                     </button>
