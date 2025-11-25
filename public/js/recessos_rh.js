@@ -151,14 +151,14 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove("hidden");
     };
 
-     document.getElementById("btnAprovar").addEventListener("click", async () => {
+     document.getElementById("btnAprovarRecesso").addEventListener("click", async () => {
         await fetch(`/recessos/${recessoSelecionado}/aprovar`, { method: "PUT" });
         fecharModal();
         carregarPendentes();
         carregarEstatisticas();
     });
 
-    document.getElementById("btnRejeitar").addEventListener("click", async () => {
+    document.getElementById("btnRejeitarRecesso").addEventListener("click", async () => {
         await fetch(`/recessos/${recessoSelecionado}/rejeitar`, { method: "PUT" });
         fecharModal();
         carregarPendentes();
