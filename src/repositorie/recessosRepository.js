@@ -79,6 +79,18 @@ async function atualizarAnexo(id, anexos) {
     return resultado.rows[0];
 }
 
+async function buscarPorId(id) {
+  const query = `
+    SELECT r.*, f.nome AS nome_funcionario
+    FROM recessos r
+    JOIN funcionario f ON r.id_funcionario = f.id
+    WHERE r.id = $1
+  `;
+  const result = await pool.query(query, [id]);
+  
+  return tratarLinha(result.rows[0]);
+}
+
 async function buscarPendentes() {
     const query = `
         SELECT r.*, f.nome AS nome_funcionario
@@ -124,6 +136,7 @@ module.exports = {
     listarTodosRecessos,
     atualizarStatusRecesso,
     atualizarAnexo,
+    buscarPorId,
     buscarPendentes,
     obterEstatisticas,
     buscarAprovados,
