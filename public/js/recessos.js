@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <td class="p-3">${item.tipo || "-"}</td>
                             <td class="p-3">${formatarDataSemFuso(item.data_inicio)}</td>
                             <td class="p-3">${formatarDataSemFuso(item.data_termino)}</td>
-                            <td class="p-3 font-semibold">${item.status}</td>
+                            <td class="p-3 font-semibold">${badgeStatus(item.status)}</td>
                         `;
 
                         corpoTabela.appendChild(tr);
@@ -168,6 +168,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     fileItem.appendChild(removeBtn);
                     previewContainer.appendChild(fileItem);
                 });
+            }
+
+            function badgeStatus(status) {
+                const map = {
+                    "em análise": "bg-yellow-100 text-yellow-700 border border-yellow-300",
+                    "aprovado": "bg-green-100 text-green-700 border border-green-300",
+                    "rejeitado": "bg-red-100 text-red-700 border border-red-300"
+                };
+
+                return `<span class="px-3 py-1 rounded-lg text-sm font-medium ${map[status]}">
+                            ${status.charAt(0).toUpperCase() + status.slice(1)}
+                        </span>`;
             }
 
             recessoForm.addEventListener("submit", (e) => {

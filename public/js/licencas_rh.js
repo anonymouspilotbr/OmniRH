@@ -97,8 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
             tr.classList.add("border-b");
 
             tr.innerHTML = `
-                <td class="p-3 align-middle">${l.nome_funcionario}</td>
-                <td class="p-3">${l.tipo_licenca}</td>
+                <td class="p-3 text-center">${l.nome_funcionario}</td>
+                <td class="p-3 text-center">${l.tipo_licenca}</td>
                 <td class="p-3 whitespace-nowrap">${formatarPeriodo(l.data_inicio, l.data_fim)}</td>
                 <td class="p-3 whitespace-nowrap">${badgeStatus(l.status)}</td>
                 <td class="p-3 whitespace-nowrap">
