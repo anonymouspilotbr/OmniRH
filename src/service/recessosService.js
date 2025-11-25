@@ -55,6 +55,7 @@ module.exports = {
     criarRecesso,
     atualizarAnexos,
     listarTodosRecessos,
+    buscarPorId,
     aprovarRecesso,
     rejeitarRecesso,
     listarPendentes,
