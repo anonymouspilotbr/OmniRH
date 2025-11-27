@@ -36,8 +36,10 @@ async function criarRegistro(id_funcionario, entrada) {
     const sql = `
         INSERT INTO registros_horas (id_funcionario, data, entrada)
         VALUES ($1, CURRENT_DATE, $2)
+        RETURNIN id;
     `;
     await pool.query(sql, [id_funcionario, entrada]);
+    return result.rows[0].id;
 }
 
 async function registrarSaida(id, saida, horas, extras) {
