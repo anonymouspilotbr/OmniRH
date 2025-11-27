@@ -44,7 +44,7 @@ async function registrarSaida(id, saida, horas, extras) {
     const sql = `
         UPDATE registros_horas
         SET saida = $1
-            horas_trabalhadas = $2,
+            horas_trabalhadas = $2
             horas_extras = $3
         WHERE id = $4
     `;
