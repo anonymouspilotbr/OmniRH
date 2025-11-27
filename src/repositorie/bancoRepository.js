@@ -7,6 +7,9 @@ async function buscarSaldo(usuarioId, mes, ano) {
     `SELECT * FROM banco_horas WHERE id_funcionario = $1 AND mes = $2 AND ano = $3`,
     [usuarioId, mes, ano]
   );
+  if (result.rows.length === 0) {
+        return null; 
+    }
   return result.rows[0];
 }
 
