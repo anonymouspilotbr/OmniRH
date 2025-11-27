@@ -38,7 +38,7 @@ async function criarRegistro(id_funcionario, entrada) {
         VALUES ($1, CURRENT_DATE, $2)
         RETURNING id;
     `;
-    await pool.query(sql, [id_funcionario, entrada]);
+    const result = await pool.query(sql, [id_funcionario, entrada]);
     return result.rows[0].id;
 }
 
