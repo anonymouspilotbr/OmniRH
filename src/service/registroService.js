@@ -40,7 +40,8 @@ async function registrarPonto(id_funcionario) {
 
   if (registroHoje.saida == null) {
     const { hora: horaSaida } = agoraBrasil();
-    const { horas, extras } = calcularHoras(registroHoje.entrada, horaSaida);
+    const entradaFormatada = String(registroHoje.entrada).substring(0, 8);
+    const { horas, extras } = calcularHoras(entradaFormatada, horaSaida);
     
     await repositorio_registro.registrarSaida(registroHoje.id, horaSaida, horas, extras);
 
