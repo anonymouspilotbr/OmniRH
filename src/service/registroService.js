@@ -40,9 +40,9 @@ async function registrarPonto(id_funcionario) {
 
   if (registroHoje.saida == null) {
     const { hora: horaSaida } = agoraBrasil();
-    await repositorio_registro.registrarSaida(registroHoje.id, horaSaida, horas, extras);
-
     const { horas, extras } = calcularHoras(registroHoje.entrada, horaSaida);
+    
+    await repositorio_registro.registrarSaida(registroHoje.id, horaSaida, horas, extras);
 
     const data = new Date(registroHoje.data);
     const mes = data.getMonth() + 1;
