@@ -29,13 +29,13 @@ function agoraBrasil() {
 }
 
 async function registrarPonto(id_funcionario) {
-  const hoje = new Date().toISOString().split('T')[0];
+  const { data: hoje } = agoraBrasil();
   const registroHoje = await repositorio_registro.buscarRegistroPorData(id_funcionario, hoje);
 
   if (!registroHoje) {
     const { hora } = agoraBrasil();
-    await repositorio_registro.criarRegistro(id_funcionario, hora);
-    return { mensagem: "Entrada registrada", entrada: hora };
+    const idRegistro = await repositorio_registro.criarRegistro(id_funcionario, hora);
+    return { mensagem: "Entrada registrada", entrada: hora, id: idRegistro };
   }
 
   if (registroHoje.saida == null) {
