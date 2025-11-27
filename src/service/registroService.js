@@ -5,13 +5,19 @@ const JORNADA_DIARIA = 8;
 const MAX_HORAS_EXTRAS_MES = 40;
 
 function calcularHoras(entrada, saida) {
-  if (!saida) return { horas: 0.0, extras: 0.0 };
-  const entradaTime = new Date(`1970-01-01T${entrada}:00`);
-  const saidaTime = new Date(`1970-01-01T${saida}:00`);
-  const diffMs = saidaTime - entradaTime;
-  const horas = diffMs / (1000 * 60 * 60);
-  const extras = Math.max(0, horas - JORNADA_DIARIA);
-  return { horas, extras };
+    if (!saida) return { horas: 0.0, extras: 0.0 };
+  
+    const [hE, mE, sE] = entrada.split(":").map(Number);
+    const [hS, mS, sS] = saida.split(":").map(Number);
+  
+    const entradaSeg = hE * 3600 + mE * 60 + sE;
+    const saidaSeg = hS * 3600 + mS * 60 + sS;
+  
+    let diffHoras = (saidaSeg - entradaSeg) / 3600;
+    if (diffHoras < 0) diffHoras += 24; 
+  
+    const extras = Math.max(0, diffHoras - JORNADA_DIARIA);
+    return { horas: diffHoras, extras };
 }
 
 function agoraBrasil() {
