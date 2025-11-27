@@ -75,6 +75,18 @@ async function atualizarContato(userId, email, telefone) {
   return result.rows[0];
 }
 
+async function buscarJornada(id_funcionario) {
+  const sql = `
+    SELECT horario_entrada, horario_saida
+    FROM funcionario
+    WHERE id = $1
+  `;
+  const result = await pool.query(sql, [id_funcionario]);
+
+  if (result.rows.length === 0) return null;
+  return result.rows[0];
+}
+
 module.exports = { 
   buscarFuncionario, 
   inserirFuncionario, 
@@ -85,4 +97,5 @@ module.exports = {
   atualizarSenha,
   atualizarFoto, 
   atualizarContato,
+  buscarJornada,
 };
