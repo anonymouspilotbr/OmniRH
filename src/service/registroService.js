@@ -40,6 +40,7 @@ async function registrarPonto(id_funcionario) {
 
   if (registroHoje.saida == null) {
     const { hora: horaSaida } = agoraBrasil();
+    console.log(registroHoje.entrada);
     const entradaFormatada = String(registroHoje.entrada).substring(0, 8);
     const { horas, extras } = calcularHoras(entradaFormatada, horaSaida);
     
