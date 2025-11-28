@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniRH | Visão Geral</title>
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ICONES -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        body { background: #f1f4f9; }
+        header {
+            background: #1163ea;
+            color: #fff;
+            padding: 18px 28px;
+        }
+        header h5 { font-weight: bold; }
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 18px;
+        }
+        .card-custom {
+            background: #fff;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+        }
+        .metric-icon {
+            font-size: 32px;
+        }
+        footer {
+            background: #1a2533;
+            padding: 40px;
+            color: #d1d7de;
+            margin-top: 50px;
+        }
+        footer hr { border-color: rgba(255,255,255,.1); }
+        footer a { color: #fff; opacity:.8; text-decoration:none; }
+        footer a:hover { opacity:1; }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-3 align-items-center">
+            <i class="bi bi-list fs-3"></i>
+            <h5>OmniRH<br><small style="font-size:14px; opacity:.9;">Visão Geral do RH</small></h5>
+        </div>
+
+        <div class="text-end">
+            <strong>Jaime Miranda</strong><br>
+            <span style="font-size:14px; opacity:.9;">Administrador</span>
+            <i class="bi bi-person-circle fs-3 ms-2"></i>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Métricas -->
+        <h4 class="section-title">Indicadores Gerais</h4>
+        <div class="row g-4">
+
+            <div class="col-md-3">
+                <div class="card-custom text-center">
+                    <i class="bi bi-people-fill text-primary metric-icon"></i>
+                    <h2 class="fw-bold mt-2">128</h2>
+                    <span>Total de Colaboradores</span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card-custom text-center">
+                    <i class="bi bi-person-plus-fill text-success metric-icon"></i>
+                    <h2 class="fw-bold mt-2">4</h2>
+                    <span>Contratações no mês</span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card-custom text-center">
+                    <i class="bi bi-airplane-fill text-warning metric-icon"></i>
+                    <h2 class="fw-bold mt-2">12</h2>
+                    <span>Em Férias</span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card-custom text-center">
+                    <i class="bi bi-person-dash text-danger metric-icon"></i>
+                    <h2 class="fw-bold mt-2">1</h2>
+                    <span>Desligamentos no mês</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Alertas -->
+        <h4 class="section-title">Alertas Importantes</h4>
+        <div class="card-custom">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item border-0">
+                    ✳ Carlos Pereira — Férias em 03/12
+                </li>
+                <li class="list-group-item border-0 text-warning">
+                    ⚠ Documento pendente — Ana Paula
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <h6 class="text-white fw-bold">OmniRH</h6>
+                <p>Gestão eficiente de recursos humanos</p>
+            </div>
+            <div class="col-md-4">
+                <h6 class="fw-bold text-white">Contato</h6>
+                <p>rh@empresa.com<br>(11) 9999-9999</p>
+            </div>
+            <div class="col-md-4">
+                <h6 class="fw-bold text-white">Links Úteis</h6>
+                <a href="#">Política de Recessos</a><br>
+                <a href="#">Portal do Colaborador</a>
+            </div>
+        </div>
+
+        <hr>
+        <p class="text-center m-0">© 2025 OmniRH. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
