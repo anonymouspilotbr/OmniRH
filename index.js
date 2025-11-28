@@ -13,6 +13,7 @@ const uploadRoutes = require('./src/routes/uploadRotas');
 const licencaRoutes = require('./src/routes/licencaRotas');
 const ocorrenciasRoutes = require('./src/routes/ocorrenciasRotas');
 const recessosRoutes = require('./src/routes/recessosRotas');
+const empresaRotas = require('./src/routes/empresaRotas');
 const app = express();
 
 const uploadDir = path.join(__dirname, 'public', 'uploads');
@@ -37,6 +38,7 @@ app.use('/banco-horas', bancoRoutes);
 app.use('/licencas', licencaRoutes);
 app.use('/ocorrencias', ocorrenciasRoutes);
 app.use('/recessos', recessosRoutes);
+app.use('/empresa', empresaRotas);
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
 app.use(express.static(__dirname + '/public'));

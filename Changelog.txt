@@ -1,5 +1,11 @@
 Changelog
  
+[0.20.2] Cadastro de Novas Empresas - 28 NOV 2025
+- Criada a tela para o cadastro de novas empresas <-- by Mateus Bittencourt
+- Criado o back end e tabela no banco de dados para o cadastro de novas empresas <-- by Ruan Arthur
+- Criada a tela para ver informações sobre os funcionários <-- by Breno Reboredo
+- Criada a tela de visão geral para o admin <-- by Gustavo Carvalho
+
 [0.20.1] Desenvolvimento Folha de Ponto I - 25 NOV 2025
 - Refatoração do back end da folha de ponto. 
 - Ajustes no front end. 
