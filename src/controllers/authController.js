@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
         return res.status(401).json({ msg: "Senha incorreta." });
         }
 
-        const token = jwt.sign({ id: user.id, email: user.email, nome: user.nome, cargo: user.cargo, departamento: user.departamento, telefone: user.telefone }, JWT_SECRET, { expiresIn: "2h" });
+        const token = jwt.sign({ id: user.id, email: user.email, nome: user.nome, cargo: user.cargo, departamento: user.departamento, telefone: user.telefone, id_empresa: user.id_empresa }, JWT_SECRET, { expiresIn: "2h" });
 
         return res.json({ msg: "Login realizado com sucesso!", token});
     } catch (error) {
