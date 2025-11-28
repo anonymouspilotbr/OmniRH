@@ -1,5 +1,11 @@
 Changelog
  
+[0.20.3] Desenvolvimento Folha de Ponto II - 28 NOV 2025
+- Feita a comunicação visual de acordo com a pontualidade do funcionário
+- Criação automática de ocorrências em caso de atraso
+- Menu exclusivo do RH
+- Separação dos tipos de funcionários (WIP)
+
 [0.20.2] Cadastro de Novas Empresas - 28 NOV 2025
 - Criada a tela para o cadastro de novas empresas <-- by Mateus Bittencourt
 - Criado o back end e tabela no banco de dados para o cadastro de novas empresas <-- by Ruan Arthur
