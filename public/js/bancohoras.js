@@ -151,39 +151,17 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
 
-        // HTML para o dia
+        // HTML para o dia (tabela)
         const diaHtml = `
-          <div class="bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto">
-            <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
-              <div>
-                <p><span class="font-bold ${diaNome === 'DOM' || diaNome === 'SÁB' ? 'text-red-500' : ''}">${diaNome}</span></p>
-              </div>
-              <div class="text-center">
-                <p><span class="font-bold">Data</span></p>
-                <p>${diaMes.toString().padStart(2, '0')}/${mes.toString().padStart(2, '0')}/${ano}</p>
-              </div>
-              <div class="text-center">
-                <p><span class="font-bold">Entrada</span></p>
-                <p class="${entradaClass}">${entrada}</p>
-              </div>
-              <div class="text-center">
-                <p><span class="font-bold">Saída</span></p>
-                <p class="${saidaClass}">${saida}</p>
-              </div>
-              <div class="text-center">
-                <p><span class="font-bold">Tempo de Serviço</span></p>
-                <p class="${tempoServicoClass}">${tempoServico}</p>
-              </div>
-              <div class="text-center">
-                <p><span class="font-bold">Tempo armazenado</span></p>
-                <p class="${tempoArmazenadoClass}">${tempoArmazenado}</p>
-              </div>
-              <div class="text-center">
-                <p><span class="font-bold">Ocorrências</span></p>
-                ${ocorrencias}
-              </div>
-            </div>
-          </div>
+          <tr class="bg-gray-50">
+            <td class="px-4 py-2 text-center"><span class="font-bold ${diaNome === 'DOM' || diaNome === 'SÁB' ? 'text-red-500' : ''}">${diaNome}</span></td>
+            <td class="px-4 py-2 text-center">${diaMes.toString().padStart(2, '0')}/${mes.toString().padStart(2, '0')}/${ano}</td>
+            <td class="px-4 py-2 text-center ${entradaClass}">${entrada}</td>
+            <td class="px-4 py-2 text-center ${saidaClass}">${saida}</td>
+            <td class="px-4 py-2 text-center ${tempoServicoClass}">${tempoServico}</td>
+            <td class="px-4 py-2 text-center ${tempoArmazenadoClass}">${tempoArmazenado}</td>
+            <td class="px-4 py-2 text-center">${ocorrencias}</td>
+          </tr>
         `;
         containerHistorico.insertAdjacentHTML('beforeend', diaHtml);
       }
