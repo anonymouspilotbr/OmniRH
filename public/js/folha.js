@@ -158,11 +158,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     return diff;
                 }
 
-                // evita criar ocorrências duplicadas localmente (checa texto)
                 function precisaCriarOcorrencia(entry) {
                     if (!entry) return true;
-                    if (!entry.ocorrencias) return true;
-                    return !/atraso/i.test(String(entry.ocorrencias));
+                    if (entry.ocorrencia_criada) return false;
+                    if (entry.ocorrencias && entry.ocorrencias.length > 0) return false;
+                    return true;
                 }
 
                 async function criarOcorrenciaBackend(payload) {
@@ -244,20 +244,25 @@ document.addEventListener("DOMContentLoaded", () => {
                             }
                         }
 
-                        if (diffEntradaMin != null && diffEntradaMin > 5 && precisaCriarOcorrencia(entry)) {
+                        const temOcorrencias = entry.ocorrencias && Array.isArray(entry.ocorrencias) && entry.ocorrencias.length > 0;
+
+                        if (diffEntradaMin != null && diffEntradaMin > 5 && !temOcorrencias) {
                             const payload = {
                                 id_funcionario: usuario_id,
                                 tipo_ocorrencia: "Atraso",
-                                motivo: "Atraso no ponto",
+                                motivo: "Automático (Sistema)",
                                 data: iso, // YYYY-MM-DD
                                 detalhes: `Entrada esperada ${EntEsperada} — registrada ${entrada.substring(0,8)}`,
                                 anexos: null,
                                 gravidade: "Média",
                                 status: "Em análise"
                             };
+
                             criarOcorrenciaBackend(payload).then(res => {
                                 if (res) {
                                     console.info("Ocorrência criada:", res);
+                                    entry.ocorrencias = [res];
+                                    atualizarPonto(); 
                                 }
                             });
                         }

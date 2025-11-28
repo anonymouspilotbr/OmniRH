@@ -8,13 +8,28 @@ async function buscarRegistroPorId(id) {
 async function buscarPorPeriodo(id_funcionario, inicioISO, fimISO) {
   const query = `
     SELECT
-      to_char(data, 'YYYY-MM-DD') as data,
-      to_char(entrada, 'HH24:MI:SS') as entrada,
-      to_char(saida, 'HH24:MI:SS') as saida
-    FROM registros_horas
-    WHERE id_funcionario = $1
-      AND data BETWEEN $2::date AND $3::date
-    ORDER BY data ASC
+      to_char(rh.data, 'YYYY-MM-DD') as data,
+      to_char(rh.entrada, 'HH24:MI:SS') as entrada,
+      to_char(rh.saida, 'HH24:MI:SS') as saida,
+      COALESCE((
+        SELECT json_agg(json_build_object(
+          'id', o.id,
+          'tipo_ocorrencia', o.tipo_ocorrencia,
+          'motivo', o.motivo,
+          'detalhes', o.detalhes,
+          'anexos', o.anexos,
+          'gravidade', o.gravidade,
+          'status', o.status,
+          'data', to_char(o.data, 'YYYY-MM-DD')
+        ))
+        FROM ocorrencias o
+        WHERE o.id_funcionario = $1
+          AND o.data = rh.data
+      ), '[]'::json) as ocorrencias
+    FROM registros_horas rh
+    WHERE rh.id_funcionario = $1
+      AND rh.data BETWEEN $2::date AND $3::date
+    ORDER BY rh.data ASC
   `;
   const res = await pool.query(query, [id_funcionario, inicioISO, fimISO]);
   return res.rows;
