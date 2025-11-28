@@ -6,7 +6,7 @@ async function getFuncionario(userId) {
 }
 
 async function listarFuncionarios() {
-    const funcionarios = await repositorio.listarFuncionarios();
+    const funcionarios = await userRepository.listarFuncionarios();
     return funcionarios;
 }
 
