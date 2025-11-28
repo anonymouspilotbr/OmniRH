@@ -3,7 +3,7 @@ const pool = require('../model/db.js');
 //Funcionários
 async function buscarFuncionario(id) {
   const query = `
-        SELECT id, nome, cargo, email, telefone, departamento, gestor, data_admissao, foto_perfil, regime, salario, horario_entrada, horario_saida 
+        SELECT id, nome, cargo, email, telefone, departamento, gestor, data_admissao, foto_perfil, regime, salario, horario_entrada, horario_saida, tipo 
         FROM funcionario 
         WHERE id = $1
     `;

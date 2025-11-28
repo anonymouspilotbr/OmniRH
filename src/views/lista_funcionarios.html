@@ -6,6 +6,53 @@
         <title>Listar Funcionários</title>
         <script src="https://cdn.tailwindcss.com"></script> 
         <script>
+          function toggleDetalhes(li) {
+            const box = li.querySelector(".user-details");
+            const estáAberto = box.style.display === "block";
+            box.style.display = estáAberto ? "none" : "block";
+          }
+            
+          function fechar(event, btn) {
+            event.stopPropagation();
+            btn.parentElement.style.display = "none";
+          }
+                
+          const API_URL = "https://omnirh.onrender.com/funcionarios";
+            async function carregarUsuarios() {
+              try {
+                const resposta = await fetch(API_URL);
+                const usuarios = await resposta.json();
+            
+                const lista = document.querySelector(".user-list");
+                lista.innerHTML = "";
+            
+                usuarios.forEach(user => {
+                  const li = document.createElement("li");
+                  li.classList.add("user-item");
+                  li.onclick = () => toggleDetalhes(li);
+                  li.innerHTML = `
+                    <div class="user-header">
+                      ${user.nome}
+                    </div>
+            
+                    <div class="user-details">
+                      <p><strong>Nome:</strong> ${user.nome}</p>
+                      <p><strong>Email:</strong> ${user.email}</p>
+                      <p><strong>CPF:</strong> ${user.cpf}</p>
+                      <p><strong>Cargo:</strong> ${user.cargo}</p>
+            
+                      <button class="fechar-btn" onclick="fechar(event, this)">Fechar</button>
+                    </div>
+                  `;
+            
+                  lista.appendChild(li);
+                });
+                
+              } catch (erro) {
+                console.error("Erro ao carregar usuários:", erro);
+              }
+            }
+                
             function toggleDetalhes(li) {
               const box = li.querySelector(".user-details");
               const estáAberto = box.style.display === "block";
@@ -16,60 +63,8 @@
               event.stopPropagation();
               btn.parentElement.style.display = "none";
             }
-            </script>
-            <script>
-                const API_URL = "https://omnirh.onrender.com/funcionarios";
-                
-                async function carregarUsuarios() {
-                  try {
-                    const resposta = await fetch(API_URL);
-                    const usuarios = await resposta.json();
-                
-                    const lista = document.querySelector(".user-list");
-                    lista.innerHTML = "";
-                
-                    usuarios.forEach(user => {
-                      const li = document.createElement("li");
-                      li.classList.add("user-item");
-                      li.onclick = () => toggleDetalhes(li);
-                
-                      li.innerHTML = `
-                        <div class="user-header">
-                          ${user.nome}
-                        </div>
-                
-                        <div class="user-details">
-                          <p><strong>Nome:</strong> ${user.nome}</p>
-                          <p><strong>Email:</strong> ${user.email}</p>
-                          <p><strong>CPF:</strong> ${user.cpf}</p>
-                          <p><strong>Cargo:</strong> ${user.cargo}</p>
-                
-                          <button class="fechar-btn" onclick="fechar(event, this)">Fechar</button>
-                        </div>
-                      `;
-                
-                      lista.appendChild(li);
-                    });
-                
-                  } catch (erro) {
-                    console.error("Erro ao carregar usuários:", erro);
-                  }
-                }
-                
-                function toggleDetalhes(li) {
-                  const box = li.querySelector(".user-details");
-                  const estáAberto = box.style.display === "block";
-                  box.style.display = estáAberto ? "none" : "block";
-                }
-                
-                function fechar(event, btn) {
-                  event.stopPropagation();
-                  btn.parentElement.style.display = "none";
-                }
-                
-                carregarUsuarios();
-                </script>
-                
+            carregarUsuarios();
+        </script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
         <style>
             .bg-gradient-to-r.from-blue-900.to-blue-800.rounded-2xl.p-8.text-white.shadow-xl{
@@ -173,7 +168,7 @@
         <main class="container mx-auto px-4 py-8">
             <!--CONTEÚDO DA PÁGINA-->
             <div class="card-users">
-                <h2>Usuários</h2>
+                <h2 class="text-2xl font-bold">Usuários</h2>
                 <p>Clique em um nome para ver os detalhes</p>
               
                 <ul class="user-list">
