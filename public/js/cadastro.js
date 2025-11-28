@@ -72,27 +72,30 @@ document.getElementById('cadastro-form').addEventListener('submit', async (e) =>
         senha
     };
 
-    try {
-        const response = await fetch('/funcionarios', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(funcionario)
-        });
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+          const response = await fetch('/funcionarios', {
+              method: 'POST',
+              headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+              },
+              body: JSON.stringify(funcionario)
+          });
 
-        const data = await response.json();
+          const data = await response.json();
 
-        if (response.ok) {
-            alert('Funcionário cadastrado com sucesso!');
-            document.getElementById('cadastro-form').reset();
-        } else {
-            alert(`Erro: ${data.error}`);
-        }
+          if (response.ok) {
+              alert('Funcionário cadastrado com sucesso!');
+              document.getElementById('cadastro-form').reset();
+          } else {
+              alert(`Erro: ${data.error}`);
+          }
 
-    } catch (error) {
-        console.error('Erro ao enviar dados:', error);
-        alert('Erro ao conectar com o servidor');
+      } catch (error) {
+          console.error('Erro ao enviar dados:', error);
+          alert('Erro ao conectar com o servidor');
+      }
     }
 });
