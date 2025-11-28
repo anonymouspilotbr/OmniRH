@@ -1,4 +1,4 @@
-const empresaRepository = require("../repository/empresaRepository");
+const empresaRepository = require("../repositorie/empresaRepository");
 
 // Função simples para validar CNPJ
 function validarCNPJ(cnpj) {
