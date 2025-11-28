@@ -273,8 +273,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="grid grid-cols-6 gap-4 w-full text-sm">
                                     <div><p><span class="font-bold ${i===6 ? 'text-red-500':''}">${label}</span></p></div>
                                     <div class="text-center"><p class="font-bold">Data</p><p>${formatarDataBR(dia)}</p></div>
-                                    <div class="text-center"><p class="font-bold">Entrada</p><p class="${entrada === '--:--:--' ? '' : 'text-green-500'}">${entrada}</p></div>
-                                    <div class="text-center"><p class="font-bold">Saída</p><p class="${saida === '--:--:--' ? '' : 'text-green-500'}">${saida}</p></div>
+                                    <div class="text-center"><p class="font-bold">Entrada</p><p class="${classeEntrada}">${entrada}</p></div>
+                                    <div class="text-center"><p class="font-bold">Saída</p><p class="${classeSaida}">${saida}</p></div>
                                     <div class="text-center"><p class="font-bold">Modalidade</p><p>${modalidade}</p></div>
                                     <div class="text-center"><p class="font-bold">Ocorrências</p><p>${ocorrenciasHtml}</p></div>
                                 </div>
