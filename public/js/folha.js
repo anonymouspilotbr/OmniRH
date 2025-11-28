@@ -208,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         const entrada = entry.entrada ?? '--:--:--';
                         const saida = entry.saida ?? '--:--:--';
                         const modalidade = entry && entry.modalidade ? escapeHtml(entry.modalidade) : "PRESENCIAL";
-                        const ocorrencias = entry && entry.ocorrencias ? escapeHtml(entry.ocorrencias) : "<span class='text-green-500'>Sem ocorrências</span>";
                         
                         const diffEntradaMin = minutosDiff(entrada.substring(0,8), EntEsperada); // positivo = atrasado
                         const diffSaidaMin   = minutosDiff(saida.substring(0,8), SaiEsperada);
@@ -233,16 +232,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             classeSaida = "";
                         } else if (diffSaidaMin == null) {
                             classeSaida = "";
-                        } else if (diffSaidaMin > 5) {
-                            if (jornadaRealMin != null && jornadaEsperadaMin != null && (jornadaRealMin - jornadaEsperadaMin) >= 5) {
-                                classeSaida = "text-green-500";
-                            } else {
-                                classeSaida = ""; 
-                            }
+                        } else if (diffSaidaMin < -3) {
+                            classeSaida = "text-red-500";
                         } else if (diffSaidaMin >= -3 && diffSaidaMin <= 5) {
                             classeSaida = "text-black";
-                        } else if (diffSaidaMin < -3) {
-                            classeSaida = "text-green-500";
+                        } else if (diffSaidaMin > 5) {
+                            if (jornadaRealMin - jornadaEsperadaMin >= 5) {
+                                classeSaida = "text-green-500";
+                            } else {
+                                classeSaida = "text-black";
+                            }
                         }
 
                         if (diffEntradaMin != null && diffEntradaMin > 5 && precisaCriarOcorrencia(entry)) {
@@ -263,9 +262,14 @@ document.addEventListener("DOMContentLoaded", () => {
                             });
                         }
 
-                        let ocorrenciasHtml = ocorrencias;
-                        if (typeof ocorrencias === 'string' && /atraso/i.test(ocorrencias)) {
-                            ocorrenciasHtml = `<span class="text-red-500">${ocorrencias}</span>`;
+                        let ocorrenciasHtml = "<span class='text-green-500'>Sem ocorrências</span>";
+                        if (entry.ocorrencias && Array.isArray(entry.ocorrencias) && entry.ocorrencias.length > 0) {
+                            const lista = entry.ocorrencias.map(o => escapeHtml(o.tipo_ocorrencia)).join(", ");
+                            if (/atraso/i.test(lista)) {
+                                ocorrenciasHtml = `<span class='text-red-500'>${lista}</span>`;
+                            } else {
+                                ocorrenciasHtml = `<span class='text-black'>${lista}</span>`;
+                            }
                         }
 
                         html += `
