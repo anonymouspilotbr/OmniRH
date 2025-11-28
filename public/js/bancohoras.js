@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const userRes = await fetch('https://omnirh.onrender.com/me', {
       headers: { 'Authorization': `Bearer ${token}` }
     });
+    if (!userRes.ok) {
+      throw new Error(`Erro ao buscar usuário: ${userRes.status}`);
+    }
     const user = await userRes.json();
     if (!user || !user.id) {
       console.warn('Usuário não encontrado');
@@ -29,6 +32,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const saldoRes = await fetch(`https://omnirh.onrender.com/banco-horas/${userId}?mes=${mes}&ano=${ano}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
+    if (!saldoRes.ok) {
+      throw new Error(`Erro ao buscar saldo: ${saldoRes.status}`);
+    }
     const saldoData = await saldoRes.json();
     const saldo = saldoData.saldo || 0;
 
@@ -42,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Buscar registros
-    const registrosRes = await fetch(`https://omnirh.onrender.com/registros/${userId}`, {
+    const registrosRes = await fetch(`https://omnirh.onrender.com/registro/${userId}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     const registros = await registrosRes.json();

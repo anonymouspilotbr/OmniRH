@@ -70,11 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       if (!data || !data.nome) return console.warn("Usuário não encontrado.");
       if(data.tipo === "RH"){
-        menuControle.classList.remove("hidden");
-        menuListaF.classList.remove("hidden");
+        if (menuControle) menuControle.classList.remove("hidden");
+        if (menuListaF) menuListaF.classList.remove("hidden");
 
-        menuControle.addEventListener('click', paginaMenuControleRH);
-        menuListaF.addEventListener('click', paginaMenuListaF);
+        if (menuControle) menuControle.addEventListener('click', paginaMenuControleRH);
+        if (menuListaF) menuListaF.addEventListener('click', paginaMenuListaF);
       }
     })
   }
