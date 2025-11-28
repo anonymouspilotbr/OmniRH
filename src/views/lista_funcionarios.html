@@ -220,19 +220,6 @@
         </footer>
     </body>
     <script>
-        const userIcon = document.getElementById('usericon');
-        const userMenu = document.getElementById('usermenu');
-
-        userIcon.addEventListener('click', () => {
-            userMenu.classList.toggle('hidden');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!userIcon.contains(e.target) && !userMenu.contains(e.target)) {
-                userMenu.classList.add('hidden');
-            }
-        });
-
         function accessPerfil(){
             window.location.href = "perfil";
         }
