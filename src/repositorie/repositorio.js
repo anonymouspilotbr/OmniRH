@@ -11,6 +11,16 @@ async function buscarFuncionario(id) {
     return result.rows[0];
 }
 
+async function listarFuncionarios() {
+  const query = `
+    SELECT id, nome, email, cpf, cargo 
+    FROM funcionario
+    ORDER BY nome ASC
+  `;
+  const result = await pool.query(query);
+  return result.rows;
+}
+
 async function inserirFuncionario({ nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao, regime, salario, horario_entrada, horario_saida }) {
     const query = `
         INSERT INTO funcionario (nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao, regime, salario, horario_entrada, horario_saida)
@@ -98,4 +108,5 @@ module.exports = {
   atualizarFoto, 
   atualizarContato,
   buscarJornada,
+  listarFuncionarios,
 };

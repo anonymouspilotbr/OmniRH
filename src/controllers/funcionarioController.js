@@ -1,10 +1,8 @@
-const { registrarFuncionario } = require('../service/userService.js');
-const { getFuncionario } = require('../service/userService.js');
-const { atualizarContato } = require('../service/userService.js');
+const service = require('../service/userService.js');
 
 async function getMe(req, res) {
     try {
-        const funcionario = await getFuncionario(req.user.id);
+        const funcionario = await service.getFuncionario(req.user.id);
         if (!funcionario) {
             return res.status(404).json({ msg: 'Usuário não encontrado.' });
         }
@@ -15,9 +13,19 @@ async function getMe(req, res) {
     }
 }
 
+async function listar(req, res) {
+    try {
+        const funcionarios = await service.listarFuncionarios();
+        res.json(funcionarios);
+    } catch (err) {
+        console.error("Erro ao listar funcionários:", err);
+        res.status(500).json({ erro: "Erro ao listar funcionários" });
+    }
+}
+
 async function criarFuncionario(req, res) {
     try {
-        const funcionario = await registrarFuncionario(req.body);
+        const funcionario = await service.registrarFuncionario(req.body);
         res.status(201).json({ message: 'Funcionário cadastrado com sucesso', funcionario });
     } catch (error) {
         console.error(error);
@@ -34,7 +42,7 @@ async function editarContato(req, res) {
     }
 
     try{
-        const novosDados = await atualizarContato(userId, { email, telefone });
+        const novosDados = await service.atualizarContato(userId, { email, telefone });
         res.json({ msg: 'Contato atualizado com sucesso', usuario: novosDados });
     } catch (err) {
         console.error(err);
@@ -42,4 +50,4 @@ async function editarContato(req, res) {
     }
 }
 
-module.exports = { criarFuncionario, getMe, editarContato };
+module.exports = { criarFuncionario, getMe, listar, editarContato };

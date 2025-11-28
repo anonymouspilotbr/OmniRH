@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <td class="py-3">${formatarData(oc.data)}</td>
                             <td class="py-3">${oc.tipo_ocorrencia || "Outro"}</td>
                             <td class="py-3">${oc.motivo || "Outro"}</td>
-                            <td class="py-3">${oc.status || "Em análise"}</td>
+                            <td class="py-3">${badgeStatus(oc.status) || "Em análise"}</td>
                         `;
                         corpoTabela.appendChild(tr);
                     });
@@ -62,6 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!dataISO) return "-";
                 const d = new Date(dataISO);
                 return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+            }
+
+            function badgeStatus(status) {
+                const map = {
+                    "em análise": "bg-yellow-100 text-yellow-700 border border-yellow-300",
+                    "aprovado": "bg-green-100 text-green-700 border border-green-300",
+                    "rejeitado": "bg-red-100 text-red-700 border border-red-300"
+                };
+
+                return `<span class="px-3 py-1 rounded-lg text-sm font-medium ${map[status]}">
+                            ${status.charAt(0).toUpperCase() + status.slice(1)}
+                        </span>`;
             }
 
             function mostrarLista() {

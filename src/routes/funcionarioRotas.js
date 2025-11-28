@@ -5,6 +5,7 @@ const funcionario = require('../controllers/funcionarioController.js');
 const auth = require('../controllers/authController.js');
 
 router.post('/funcionarios', funcionario.criarFuncionario);
+router.get("/funcionarios", funcionario.listar);
 router.get('/me', auth.autenticarToken, funcionario.getMe);
 router.put('/me/contato', auth.autenticarToken, funcionario.editarContato);
 
