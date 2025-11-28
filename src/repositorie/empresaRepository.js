@@ -9,7 +9,8 @@ module.exports = {
     const sql = `
       INSERT INTO empresas 
       (nome, cnpj, setor, endereco, email, telefone, funcionarios, status, logo)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      RETURNING id
     `;
 
     const params = [
@@ -25,8 +26,7 @@ module.exports = {
     ];
 
     const result = await query(sql, params);
-
-    return { id: result.insertId, ...dados };
+    return { id: result.rows[0].id, ...dados };
   },
 
   async listar() {
@@ -35,31 +35,34 @@ module.exports = {
       FROM empresas
       ORDER BY id DESC
     `;
-    return await query(sql);
+
+    const res = await query(sql);
+    return res.rows;
   },
 
   async buscarPorId(id) {
     const sql = `
       SELECT id, nome, cnpj, setor, endereco, email, telefone, funcionarios, status, logo
       FROM empresas 
-      WHERE id = ?
+      WHERE id = $1
       LIMIT 1
     `;
-    const rows = await query(sql, [id]);
-    return rows[0] || null;
+    const res = await query(sql, [id]);
+    return res.rows[0] || null;
   },
 
   async buscarPorCNPJ(cnpj) {
-    const sql = `SELECT id FROM empresas WHERE cnpj = ? LIMIT 1`;
-    const rows = await query(sql, [cnpj]);
-    return rows[0] || null;
+    const sql = `SELECT id FROM empresas WHERE cnpj = $1 LIMIT 1`;
+    const res = await query(sql, [cnpj]);
+    return res.rows[0] || null;
   },
 
   async atualizar(id, dados) {
     const sql = `
       UPDATE empresas 
-      SET nome=?, cnpj=?, setor=?, endereco=?, email=?, telefone=?, funcionarios=?, status=?, logo=?
-      WHERE id = ?
+      SET nome=$1, cnpj=$2, setor=$3, endereco=$4, email=$5, telefone=$6, funcionarios=$7, status=$8, logo=$9
+      WHERE id = $10
+      RETURNING *
     `;
 
     const params = [
@@ -75,13 +78,12 @@ module.exports = {
       id
     ];
 
-    await query(sql, params);
-
-    return this.buscarPorId(id);
+    const res = await query(sql, params);
+    return res.rows[0];
   },
 
   async remover(id) {
-    const sql = `DELETE FROM empresas WHERE id = ?`;
+    const sql = `DELETE FROM empresas WHERE id = $1`;
     await query(sql, [id]);
     return true;
   }
