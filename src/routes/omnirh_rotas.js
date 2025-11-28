@@ -17,5 +17,8 @@ router.get('/registro-recessos', OmniRH_Controllers.recessosView);
 router.get('/recessos-RH', OmniRH_Controllers.recessosRHView);
 router.get('/esqueci-senha', OmniRH_Controllers.esqueciSenhaView);
 router.get('/reset-senha', OmniRH_Controllers.resetarSenhaView);
+router.get('/cadastro-empresas', OmniRH_Controllers.cadEmpresasView);
+router.get('/dashboard', OmniRH_Controllers.visaoGeralView);
+router.get('/lista-funcionarios', OmniRH_Controllers.listaFuncionariosView);
 
 module.exports = router;

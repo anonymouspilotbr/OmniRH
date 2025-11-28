@@ -60,6 +60,18 @@ function resetarSenhaView(req, res){
     res.render('resetar_senha.html');
 }
 
+function cadEmpresasView(req, res){
+    res.render('Cadastrar_Empresa.html');
+}
+
+function visaoGeralView(req, res){
+    res.render('visaoGeralAdmin.html');
+}
+
+function listaFuncionariosView(req, res){
+    res.render('lista_funcionarios.html');
+}
+
 module.exports = {
     loginView,
     homeView,
@@ -75,4 +87,7 @@ module.exports = {
     ocorrenciasFuncView,
     esqueciSenhaView,
     resetarSenhaView,
+    cadEmpresasView,
+    visaoGeralView,
+    listaFuncionariosView,
 }
