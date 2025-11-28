@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       //CABEÇALHO
       const nomeHeader = document.querySelector("header p.font-semibold");
-      const cargoHeader = document.querySelector("header p.text-blue-200");
+      const cargoHeader = document.getElementById('cargoUsuario');
       if (nomeHeader) nomeHeader.textContent = data.nome;
       if (cargoHeader) cargoHeader.textContent = data.cargo;
 

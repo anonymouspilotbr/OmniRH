@@ -25,6 +25,12 @@ async function listar(req, res) {
 
 async function criarFuncionario(req, res) {
     try {
+        const usuarioLogado = req.user;
+
+        if (!usuarioLogado) {
+            return res.status(401).json({ error: "Usuário não autenticado" });
+        }
+        req.body.id_empresa = usuarioLogado.id_empresa;
         const funcionario = await service.registrarFuncionario(req.body);
         res.status(201).json({ message: 'Funcionário cadastrado com sucesso', funcionario });
     } catch (error) {
