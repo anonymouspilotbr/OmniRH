@@ -1,3 +1,94 @@
+//MENU LATERAL
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  sidebar.classList.toggle('-translate-x-full');
+  overlay.classList.toggle('hidden');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.add('-translate-x-full');
+  document.getElementById('overlay').classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const menuButton = document.getElementById('menuButton');
+  const closeButton = document.getElementById('closeButton');
+  const overlay = document.getElementById('overlay');
+  
+  if (menuButton) menuButton.addEventListener('click', toggleSidebar);
+  if (closeButton) closeButton.addEventListener('click', closeSidebar);
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+});
+
+//Páginas do Menu:
+function paginaMenuHome(){
+  window.location.href = "home";
+}
+function paginaMenuRecessos(){
+  window.location.href = "registro-recessos";
+}
+function paginaMenuLicencas(){
+  window.location.href = "registro-licencas";
+}
+function paginaMenuHoras(){
+  window.location.href = "horas";
+}
+function paginaMenuChamados(){
+  window.location.href = "chamados";
+}
+function paginaMenuControleRH(){
+  window.location.href = "controle-rh";
+}
+function paginaMenuListaF(){
+  window.location.href = "lista-funcionarios";
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const menuHome = document.getElementById('menu-home');
+  const menuREC = document.getElementById('menu-recesso');
+  const menuLIC = document.getElementById('menu-licencas');
+  const menuHoras = document.getElementById('menu-horas');
+  const menuControle = document.getElementById('menu-painel');
+  const menuListaF = document.getElementById('menu-lista');
+  const menuChamados = document.getElementById('menu-chamados');
+
+  if (menuHome) menuHome.addEventListener('click', paginaMenuHome);
+  if (menuREC) menuREC.addEventListener('click', paginaMenuRecessos);
+  if (menuLIC) menuLIC.addEventListener('click', paginaMenuLicencas);
+  if (menuHoras) menuHoras.addEventListener('click', paginaMenuHoras);
+  if (menuChamados) menuChamados.addEventListener('click', paginaMenuChamados);
+
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    fetch("https://omnirh.onrender.com/me", {
+      headers: { "Authorization": `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data || !data.nome) return console.warn("Usuário não encontrado.");
+      if(data.tipo === "RH"){
+        menuControle.classList.remove("hidden");
+        menuListaF.classList.remove("hidden");
+
+        menuControle.addEventListener('click', paginaMenuControleRH);
+        menuListaF.addEventListener('click', paginaMenuListaF);
+      }
+    })
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const botaoREC = document.getElementById('botao-recesso');
+  const botaoLIC = document.getElementById('botao-licenca');
+
+  if (botaoREC) botaoREC.addEventListener('click', paginaMenuRecessos);
+  if (botaoLIC) botaoLIC.addEventListener('click', paginaMenuLicencas);
+});
+
+//NOME USUARIO
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
 
@@ -8,84 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(data => {
       if (!data || !data.nome) return console.warn("Usuário não encontrado.");
-
-      //MENU LATERAL
-      function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        sidebar.classList.toggle('-translate-x-full');
-        overlay.classList.toggle('hidden');
-      }
-
-      function closeSidebar() {
-        document.getElementById('sidebar').classList.add('-translate-x-full');
-        document.getElementById('overlay').classList.add('hidden');
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const menuButton = document.getElementById('menuButton');
-        const closeButton = document.getElementById('closeButton');
-        const overlay = document.getElementById('overlay');
-        
-        if (menuButton) menuButton.addEventListener('click', toggleSidebar);
-        if (closeButton) closeButton.addEventListener('click', closeSidebar);
-        if (overlay) overlay.addEventListener('click', closeSidebar);
-      });
-
-      //Páginas do Menu:
-      function paginaMenuHome(){
-        window.location.href = "home";
-      }
-      function paginaMenuRecessos(){
-        window.location.href = "registro-recessos";
-      }
-      function paginaMenuLicencas(){
-        window.location.href = "registro-licencas";
-      }
-      function paginaMenuHoras(){
-        window.location.href = "horas";
-      }
-      function paginaMenuChamados(){
-        window.location.href = "chamados";
-      }
-      function paginaMenuControleRH(){
-        window.location.href = "controle-rh";
-      }
-      function paginaMenuListaF(){
-        window.location.href = "lista-funcionarios";
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const menuHome = document.getElementById('menu-home');
-        const menuREC = document.getElementById('menu-recesso');
-        const menuLIC = document.getElementById('menu-licencas');
-        const menuHoras = document.getElementById('menu-horas');
-        const menuControle = document.getElementById('menu-painel');
-        const menuListaF = document.getElementById('menu-lista');
-        const menuChamados = document.getElementById('menu-chamados');
-
-        if (menuHome) menuHome.addEventListener('click', paginaMenuHome);
-        if (menuREC) menuREC.addEventListener('click', paginaMenuRecessos);
-        if (menuLIC) menuLIC.addEventListener('click', paginaMenuLicencas);
-        if (menuHoras) menuHoras.addEventListener('click', paginaMenuHoras);
-        if (menuChamados) menuChamados.addEventListener('click', paginaMenuChamados);
-
-        if(data.tipo === "RH"){
-          menuControle.classList.remove("hidden");
-          menuListaF.classList.remove("hidden");
-
-          menuControle.addEventListener('click', paginaMenuControleRH);
-          menuListaF.addEventListener('click', paginaMenuListaF);
-        }
-      });
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const botaoREC = document.getElementById('botao-recesso');
-        const botaoLIC = document.getElementById('botao-licenca');
-
-        if (botaoREC) botaoREC.addEventListener('click', paginaMenuRecessos);
-        if (botaoLIC) botaoLIC.addEventListener('click', paginaMenuLicencas);
-      });
 
       //CABEÇALHO
       const nomeHeader = document.querySelector("header p.font-semibold");
