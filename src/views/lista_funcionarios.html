@@ -137,7 +137,7 @@
         </style>
     </head>
     <body class="bg-gray-50 min-h-screen">
-        <header class="bg-sky-600 text-white shadow-lg"> 
+        <header class="bg-blue-600 text-white shadow-lg"> 
             <div class="container mx-auto px-4 py-6"> 
                 <div class="flex items-center justify-between"> 
                     <div class="flex items-center space-x-4"> 
@@ -186,27 +186,27 @@
         <main class="container mx-auto px-4 py-8">
             <!--CONTEÚDO DA PÁGINA-->
             <div class="card-users">
-                <h2 class="text-2xl font-bold">Usuários</h2>
-                <p>Clique em um nome para ver os detalhes</p>
-              
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold">Usuários</h2>
+                        <p class="text-blue-200">Clique em um nome para ver os detalhes</p>
+                    </div>
+                    <button id="btnNovoFuncionario" class="px-5 py-2 bg-white text-blue-600 font-semibold rounded-lg shadow hover:bg-gray-200 transition">Cadastrar Funcionário</button>
+                </div>      
                 <ul class="user-list">
                   <li class="user-item" onclick="toggleDetalhes(this)">
                     <div class="user-header">
                       João Silva
                     </div>
-              
                     <div class="user-details">
                       <p><strong>Nome:</strong> João Silva</p>
                       <p><strong>Email:</strong> joao.silva@example.com</p>
                       <p><strong>CPF:</strong> 123.456.789-00</p>
                       <p><strong>Cargo:</strong> Analista de Sistemas</p>
-              
-                    
                     </div>
                   </li>
                 </ul>
-              </div>
-              
+            </div>
         </main>
         <footer class="bg-gray-800 text-white py-8 mt-12">
             <div class="container mx-auto px-4">
@@ -242,6 +242,9 @@
         function sair(){
             window.location.href = "/";
         }
+        document.getElementById("btnNovoFuncionario").addEventListener("click", () => {
+            window.location.href = "cadastro";
+        });
     </script>
     <script src="/js/front.js"></script>
 </html>
