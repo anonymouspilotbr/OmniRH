@@ -1,5 +1,6 @@
 const bh_service = require('../service/bancoHorasService');
 const registroRepository = require('../repositorie/registroRepository');
+const registroService = require('../service/registroService');
 
 // Configurações globais
 const JORNADA_DIARIA = 8; // Horas por dia
@@ -97,7 +98,20 @@ async function registrarSaida(req, res) {
   }
 }
 
-module.exports = { consultar, ajustar, registrarEntrada, registrarSaida };
+async function listarRegistros(req, res) {
+  const { usuario_id } = req.params;
+  const dataInicio = req.query.dataInicio || new Date().toISOString().split('T')[0]; // Default to today if not provided
+
+  try {
+    const registros = await registroService.listarSemana(usuario_id, dataInicio);
+    res.json(registros);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao listar registros' });
+  }
+}
+
+module.exports = { consultar, ajustar, registrarEntrada, registrarSaida, listarRegistros };
 
 /*const app = express();
 const PORT = 3000;
