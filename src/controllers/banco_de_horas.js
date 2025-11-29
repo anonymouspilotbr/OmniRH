@@ -1,4 +1,9 @@
 const bh_service = require('../service/bancoHorasService');
+const registroRepository = require('../repositorie/registroRepository');
+
+// Configurações globais
+const JORNADA_DIARIA = 8; // Horas por dia
+const MAX_HORAS_EXTRAS_MES = 40; // Máximo de horas extras por mês
 
 async function consultar(req, res) {
   const { usuario_id } = req.params;
@@ -35,7 +40,64 @@ async function ajustar(req, res) {
   }
 }
 
-module.exports = { consultar, ajustar };
+// Endpoint: Registrar entrada (início do dia)
+async function registrarEntrada(req, res) {
+  const { usuario_id, entrada } = req.body;
+  if (!usuario_id || !entrada) {
+    return res.status(400).json({ error: 'Dados incompletos' });
+  }
+
+  const hoje = new Date();
+  const mes = hoje.getMonth() + 1;
+  const ano = hoje.getFullYear();
+
+  try {
+    // Verificar se o máximo mensal foi atingido
+    const maxAtingido = await bh_service.verificarMaximoMensal(usuario_id, mes, ano);
+    if (maxAtingido) {
+      return res.status(403).json({ error: 'Máximo de horas extras mensais atingido' });
+    }
+
+    // Registrar entrada usando o registroRepository
+    const resultado = await registroRepository.registrarEntrada(usuario_id, entrada);
+    res.status(201).json({ message: 'Entrada registrada', id: resultado.id });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao registrar entrada' });
+  }
+}
+
+// Endpoint: Registrar saída (fim do dia) e calcular horas
+async function registrarSaida(req, res) {
+  const { registro_id, saida } = req.body;
+  if (!registro_id || !saida) {
+    return res.status(400).json({ error: 'Dados incompletos' });
+  }
+
+  try {
+    // Buscar registro
+    const registro = await registroRepository.buscarPorId(registro_id);
+    if (!registro) {
+      return res.status(404).json({ error: 'Registro não encontrado' });
+    }
+
+    // Calcular horas trabalhadas e extras
+    const { horas, extras } = bh_service.calcularHoras(registro.entrada, saida);
+
+    // Atualizar registro com saída e horas calculadas
+    await registroRepository.registrarSaida(registro_id, saida, horas, extras);
+
+    // Atualizar banco de horas
+    await bh_service.atualizarSaldo(registro.id_funcionario, new Date(registro.data).getMonth() + 1, new Date(registro.data).getFullYear(), extras);
+
+    res.json({ message: 'Saída registrada e horas calculadas' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao registrar saída' });
+  }
+}
+
+module.exports = { consultar, ajustar, registrarEntrada, registrarSaida };
 
 /*const app = express();
 const PORT = 3000;
