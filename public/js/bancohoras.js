@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const usuarioId = userData.id;
+        const EntEsperada = user.horario_entrada;
+        const SaiEsperada = user.horario_saida;
 
         // Fetch balance
         fetch(`/banco-horas/${usuarioId}`)
@@ -32,6 +34,19 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error fetching balance:', error));
 
         // Fetch records for the current week
+        function parseTimeToMinutes(t) {
+            if (!t || t === '--:--:--') return null;
+            const parts = t.split(':').map(Number);
+            return parts[0] * 60 + (parts[1] || 0);
+        }
+        
+        function minutosDiff(real, esperado) {
+            const mReal = parseTimeToMinutes(real);
+            const mEsp  = parseTimeToMinutes(esperado);
+            if (mReal == null || mEsp == null) return null;
+            return mReal - mEsp; // positivo = atraso
+        }
+        
         const today = new Date();
         const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
         const dataInicio = startOfWeek.toISOString().split('T')[0];
@@ -60,15 +75,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const entrada = registro.entrada || '--:--:--';
                     const saida = registro.saida || '--:--:--';
+                    const diffEntrada = minutosDiff(entrada, entradaEsperada);
+                    const diffSaida   = minutosDiff(saida, saidaEsperada);
+                    
                     const tempoServico = registro.horas_trabalhadas != null ? `${Math.floor(registro.horas_trabalhadas)}h${Math.round((registro.horas_trabalhadas % 1) * 60)}m` : '--:--:--';
                     const tempoArmazenado = registro.horas_extras != null ? `${Math.floor(registro.horas_extras)}h${Math.round((registro.horas_extras % 1) * 60)}m` : '--:--:--';
 
+                    let classeEntrada = "";
+                    let classeSaida = "";
+
+                    if (entrada === "--:--:--") {
+                        classeEntrada = "";
+                    } else if (diffEntrada > 5) {
+                        classeEntrada = "text-red-500";    // atraso
+                    } else if (diffEntrada < -3) {
+                        classeEntrada = "text-green-500";  // chegou adiantado
+                    } else {
+                        classeEntrada = "text-black";      // pontual
+                    }
+                    if (saida === "--:--:--") {
+                        classeSaida = "";
+                    } else if (diffSaida < -3) {
+                        classeSaida = "text-red-500";      // saiu antes
+                    } else if (diffSaida > 5) {
+                        classeSaida = "text-green-500";    // ficou mais tempo
+                    } else {
+                        classeSaida = "text-black";        // pontual
+                    }
+                    
                     // Determine occurrences (simplified, based on atraso or something)
                     let ocorrencias = 'Sem ocorrências';
                     let ocorrenciasClass = 'text-green-500';
                     if (registro.atraso) {
                         ocorrencias = 'Atraso - Não Resolvida';
                         ocorrenciasClass = 'text-red-500';
+                    }
+                    if (registro.ocorrencias && registro.ocorrencias.length > 0) {
+                        const lista = registro.ocorrencias.map(o => o.tipo_ocorrencia).join(", ");
+                        if (/atraso/i.test(lista)) {
+                            ocorrenciasClass = "text-red-500";
+                        } else {
+                            ocorrenciasClass = "text-black";
+                        }
+                        ocorrencias = lista;
                     }
 
                     const dayDiv = document.createElement('div');
@@ -84,11 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="text-center">
                                 <p><span class="font-bold">Entrada</span></p>
-                                <p>${entrada}</p>
+                                <p class="${classeEntrada}">${entrada}</p>
                             </div>
                             <div class="text-center">
                                 <p><span class="font-bold">Saída</span></p>
-                                <p>${saida}</p>
+                                <p class="${classeSaida}>${saida}</p>
                             </div>
                             <div class="text-center">
                                 <p><span class="font-bold">Tempo de Serviço</span></p>
@@ -111,4 +160,5 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(err => console.error("Error fetching user data:", err));
 });
+
 
