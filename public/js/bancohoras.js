@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const usuarioId = userData.id;
 
         // Fetch balance
-        fetch(`https://omnirh.onrender.com/banco-horas/${usuarioId}`)
+        fetch(`/banco-horas/${usuarioId}`)
             .then(response => response.json())
             .then(data => {
                 const saldo = data.saldo;
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
         const dataInicio = startOfWeek.toISOString().split('T')[0];
 
-        fetch(`https://omnirh.onrender.com/banco-horas/registros/${usuarioId}?dataInicio=${dataInicio}`)
+        fetch(`/banco-horas/registros/${usuarioId}?dataInicio=${dataInicio}`)
             .then(response => response.json())
             .then(registros => {
                 const historyContainer = document.querySelector('.space-y-2');
