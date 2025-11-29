@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const entrada = registro.entrada || '--:--:--';
                     const saida = registro.saida || '--:--:--';
-                    const tempoServico = registro.horas_trabalhadas ? `${Math.floor(registro.horas_trabalhadas)}h${Math.round((registro.horas_trabalhadas % 1) * 60)}m` : '--:--:--';
-                    const tempoArmazenado = registro.horas_extras ? `${Math.floor(registro.horas_extras)}h${Math.round((registro.horas_extras % 1) * 60)}m` : '--:--:--';
+                    const tempoServico = registro.horas_trabalhadas != null ? `${Math.floor(registro.horas_trabalhadas)}h${Math.round((registro.horas_trabalhadas % 1) * 60)}m` : '--:--:--';
+                    const tempoArmazenado = registro.horas_extras != null ? `${Math.floor(registro.horas_extras)}h${Math.round((registro.horas_extras % 1) * 60)}m` : '--:--:--';
 
                     // Determine occurrences (simplified, based on atraso or something)
                     let ocorrencias = 'Sem ocorrências';
@@ -111,3 +111,4 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(err => console.error("Error fetching user data:", err));
 });
+
