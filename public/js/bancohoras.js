@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const entrada = registro.entrada || '--:--:--';
                     const saida = registro.saida || '--:--:--';
-                    const diffEntrada = minutosDiff(entrada, entradaEsperada);
-                    const diffSaida   = minutosDiff(saida, saidaEsperada);
+                    const diffEntrada = minutosDiff(entrada, EntEsperada);
+                    const diffSaida   = minutosDiff(saida, SaiEsperada);
                     
                     const tempoServico = registro.horas_trabalhadas != null ? `${Math.floor(registro.horas_trabalhadas)}h${Math.round((registro.horas_trabalhadas % 1) * 60)}m` : '--:--:--';
                     const tempoArmazenado = registro.horas_extras != null ? `${Math.floor(registro.horas_extras)}h${Math.round((registro.horas_extras % 1) * 60)}m` : '--:--:--';
@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(err => console.error("Error fetching user data:", err));
 });
+
 
 
 
