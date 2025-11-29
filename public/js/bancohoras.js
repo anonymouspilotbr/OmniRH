@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const usuarioId = userData.id;
-        const EntEsperada = user.horario_entrada;
-        const SaiEsperada = user.horario_saida;
+        const EntEsperada = userData.horario_entrada;
+        const SaiEsperada = userData.horario_saida;
 
         // Fetch balance
         fetch(`/banco-horas/${usuarioId}`)
@@ -160,5 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(err => console.error("Error fetching user data:", err));
 });
+
 
 
