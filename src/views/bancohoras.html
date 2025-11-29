@@ -1,369 +1,113 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Banco de Horas</title>
-        <script src="https://cdn.tailwindcss.com"></script> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
-        <style>
-            .container.mx-auto.px-4.py-8{
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-            }
-            div.mb-12{
-                margin-bottom: 1rem;
-            }
-            .bg-white.text-center.shadow-lg.px-4.py-2.rounded-lg.shadow-md.w-fit.mx-auto{
-                padding-left: 8rem;
-                padding-right: 8rem;
-            }
-        </style>
-    </head>
-    <body class="bg-gray-50 min-h-screen">
-        <header class="bg-blue-600 text-white shadow-lg"> 
-            <div class="container mx-auto px-4 py-6"> 
-                <div class="flex items-center justify-between"> 
-                    <div class="flex items-center space-x-4"> 
-                        <button id="menuButton">
-                            <i class="fa-solid fa-bars"></i>
-                        </button>
-                        <div> 
-                            <h1 class="text-2xl font-bold">OmniRH</h1> 
-                            <p class="text-blue-100 text-sm">Banco de Horas do Funcionário</p> 
-                        </div> 
-                    </div> 
-                    <div class="flex items-center space-x-4"> 
-                        <div class="text-right"> 
-                            <p class="font-semibold">João Silva</p> 
-                            <p id="cargoUsuario" class="text-blue-200 text-sm">Recursos Humanos</p> 
-                        </div> 
-                        <div class="relative w-12 h-12 bg-blue-500 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">
-                            <i id="headerIcon" class="fas fa-user text-white text-xl"></i>
-                            <img id="headerFoto" class="hidden w-full h-full object-cover" alt="Foto do usuário">
-                            <button id="usericon" class="absolute inset-0 z-10 w-full h-full bg-transparent cursor-pointer"></button>
-                        </div>
-                        <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40 z-50">
-                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
-                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="ajuda()">Ajuda</button>
-                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="sair()">Sair</button>
-                        </div>
-                    </div> 
-                </div> 
-            </div> 
-        </header>
-        <aside id="sidebar" class="fixed top-0 left-0 h-full w-56 bg-blue-600 text-white p-4 space-y-2 transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
-            <div class="flex items-center justify-between py-2">
-                <h2 class="text-xl font-semibold">OmniRH</h2>
-                <button id="closeButton">
-                    <i class="fa-solid fa-rectangle-xmark"></i>
-                </button>
-            </div>
-            <button id="menu-home" class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-file"></i> Folha de Ponto</button>
-            <button id="menu-recesso" class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-umbrella-beach"></i> Solicitar Recessos</button>
-            <button id="menu-licencas" class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-file-signature"></i> Licenças</button>
-            <button id="menu-horas" class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-clock"></i> Banco de Horas</button>
-            <button id="menu-painel" class="hidden text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-wrench"></i> Painel de Controle</button>
-            <button id="menu-lista" class="hidden text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-list"></i> Gerenciar Funcionários</button>
-        </aside>
-        <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
-        <main class="container mx-auto px-4 py-8">
-            <div class="bg-gray-50 shadow-lg rounded-2xl shadow-lg p-6 space-y-4">
-                <div class="bg-white text-center shadow-lg px-4 py-2 rounded-lg shadow-md w-fit mx-auto">
-                    <p class="font-bold text-2xl">Horas Armazenadas neste mês:</p>
-                    <h3 class="font-semibold text-6xl">03h21m</h3>
-                    <p>Tempo total: 04h36m</p>
-                </div>
-                <div class="flex items-center justify-center gap-4">
-                    <div>
-                        <button onclick="window.location.href='recessos-funcionario'" class="bg-gray-200 hover:bg-gray-300 text-black px-3 py-2 rounded-md">
-                            <i class="fa-solid fa-mug-saucer"></i>
-                            Solicitar recesso
-                        </button>
-                    </div>
-                    <div>
-                        <button class="bg-gray-200 hover:bg-gray-300 text-black px-3 py-2 rounded-md">
-                            <i class="fa-solid fa-money-bill-1-wave"></i>
-                            Solicitar remuneração extra
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl shadow-lg p-6 w-fit mx-auto">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-2xl font-bold text-gray-800">
-                            <i class="fas fa-history mr-3"></i>
-                            Histórico
-                        </h3>
-                    </div>
-                    <div class="flex space-x-2 mb-2">
-                        <div class="bg-indigo-50 text-gray-900 px-4 py-2 rounded-md font-bold">
-                            24 a 30 de agosto de 2025
-                        </div>
-                        <div class="flex gap-1 ml-2">
-                            <button class="bg-gray-100 hover:bg-gray-200 text-black px-3 py-2 rounded-md">
-                                <i class="fa-solid fa-calendar"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto">
-                            <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
-                                <div>
-                                    <p><span class="font-bold text-red-500">DOM</span></p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Data</span></p>
-                                    <p>24/08/2025</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Entrada</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Saída</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo de Serviço</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo armazenado</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Ocorrências</span></p>
-                                    <p class="text-green-500">Sem ocorrências</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto">
-                            <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
-                                <div>
-                                    <p><span class="font-bold">SEG</span></p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Data</span></p>
-                                    <p>25/08/2025</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Entrada</span></p>
-                                    <p class="text-green-500">07:58:12</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Saída</span></p>
-                                    <p class="text-green-500">18:01:23</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo de Serviço</span></p>
-                                    <p class="text-green-500">10:03:11</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo armazenado</span></p>
-                                    <p class="text-green-500">00:03:11</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Ocorrências</span></p>
-                                    <p class="text-green-500">Sem ocorrências</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto">
-                            <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
-                                <div>
-                                    <p><span class="font-bold">TER</span></p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Data</span></p>
-                                    <p>26/08/2025</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Entrada</span></p>
-                                    <p>08:01:04</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Saída</span></p>
-                                    <p>18:00:56</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo de Serviço</span></p>
-                                    <p class="text-green-500">09:59:52</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo armazenado</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Ocorrências</span></p>
-                                    <p class="text-green-500">Sem ocorrências</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto">
-                            <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
-                                <div>
-                                    <p><span class="font-bold">QUA</span></p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Data</span></p>
-                                    <p>27/08/2025</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Entrada</span></p>
-                                    <p class="text-green-500">07:56:41</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Saída</span></p>
-                                    <p class="text-yellow-500">19:58:23</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo de Serviço</span></p>
-                                    <p class="text-green-500">12:01:42</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo armazenado</span></p>
-                                    <p class="text-green-500">02:01:42</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Ocorrências</span></p>
-                                    <p class="text-yellow-500">Horário Alternativo</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto">
-                            <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
-                                <div>
-                                    <p><span class="font-bold">QUI</span></p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Data</span></p>
-                                    <p>28/08/2025</p>
-                                </div>
-                               <div class="text-center">
-                                    <p><span class="font-bold">Entrada</span></p>
-                                    <p class="text-green-500">07:57:37</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Saída</span></p>
-                                    <p class="text-green-500">18:00:58</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo de Serviço</span></p>
-                                    <p class="text-green-500">10:03:21</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo armazenado</span></p>
-                                    <p class="text-green-500">00:03:21</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Ocorrências</span></p>
-                                    <p class="text-green-500">Sem ocorrências</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto">
-                            <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
-                                <div>
-                                    <p><span class="font-bold">SEX</span></p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Data</span></p>
-                                    <p>29/08/2025</p>
-                                </div>
-                               <div class="text-center">
-                                    <p><span class="font-bold">Entrada</span></p>
-                                    <p class="text-red-500">08:45:07</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Saída</span></p>
-                                    <p>18:01:00</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo de Serviço</span></p>
-                                    <p class="text-red-500">09:15:53</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo armazenado</span></p>
-                                    <p class="text-red-500">-00:44:07</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Ocorrências</span></p>
-                                    <p class="text-red-500">
-                                        <i class="fa-solid fa-circle-exclamation"></i>
-                                        Atraso - Não Resolvida
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto">
-                            <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
-                                <div>
-                                    <p><span class="font-bold text-red-500">SÁB</span></p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Data</span></p>
-                                    <p>30/08/2025</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Entrada</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Saída</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo de Serviço</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Tempo armazenado</span></p>
-                                    <p>--:--:--</p>
-                                </div>
-                                <div class="text-center">
-                                    <p><span class="font-bold">Ocorrências</span></p>
-                                    <p class="text-green-500">Sem ocorrências</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <footer class="bg-gray-800 text-white py-8 mt-12">
-            <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div>
-                        <h4 class="font-semibold mb-4">OmniRH</h4>
-                        <p class="text-gray-400">Gestão eficiente de recursos humanos</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-4">Contato</h4>
-                        <p class="text-gray-400">rh@empresa.com</p>
-                        <p class="text-gray-400">(11) 9999-9999</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-4">Links Úteis</h4>
-                        <a href="#" class="block text-gray-400 hover:text-white mb-2">Política de Recessos</a>
-                        <a href="#" class="block text-gray-400 hover:text-white">Portal do Colaborador</a>
-                    </div>
-                </div>
-                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-                    <p>© 2025 OmniRH. Todos os direitos reservados.</p>
-                </div>
-            </div>
-        </footer>
-    </body>
-    <script>
-        function accessPerfil(){
-            window.location.href = "perfil";
+document.addEventListener('DOMContentLoaded', function() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.warn("No token found, cannot fetch user data");
+        return;
+    }
+
+    // Fetch user data to get ID
+    fetch("https://omnirh.onrender.com/me", {
+        headers: { "Authorization": `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(userData => {
+        if (!userData || !userData.id) {
+            console.warn("User data not found");
+            return;
         }
-        function ajuda(){
-            window.location.href = "registro-chamados";
-        }
-        function sair(){
-            window.location.href = "/";
-        }
-    </script>
-    <script src="/js/front.js"></script>
-</html>
+
+        const usuarioId = userData.id;
+
+        // Fetch balance
+        fetch(`/banco-horas/${usuarioId}`)
+            .then(response => response.json())
+            .then(data => {
+                const saldo = data.saldo;
+                const horas = Math.floor(saldo);
+                const minutos = Math.round((saldo - horas) * 60);
+                const saldoEl = document.querySelector('.bg-white.text-center.shadow-lg.px-4.py-2.rounded-lg.shadow-md.w-fit.mx-auto h3');
+                if (saldoEl) saldoEl.textContent = `${horas}h${minutos}m`;
+            })
+            .catch(error => console.error('Error fetching balance:', error));
+
+        // Fetch records for the current week
+        const today = new Date();
+        const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+        const dataInicio = startOfWeek.toISOString().split('T')[0];
+
+        fetch(`/banco-horas/registros/${usuarioId}?dataInicio=${dataInicio}`)
+            .then(response => response.json())
+            .then(registros => {
+                // If there are multiple elements with the same ID in the DOM,
+                // pick the one that is not inside a sidebar (common cause of wrong placement).
+                const historyContainers = Array.from(document.querySelectorAll('#historyContainer'));
+                const historyContainer = historyContainers.find(el => !el.closest('.sidebar, #sidebar, nav, aside, .aside, .side')) || historyContainers[0];
+
+                if (!historyContainer) {
+                    console.warn('historyContainer not found');
+                    return;
+                }
+
+                historyContainer.innerHTML = ''; // Clear existing static data
+
+                registros.forEach(registro => {
+                    const date = new Date(registro.data);
+                    const dayName = date.toLocaleDateString('pt-BR', { weekday: 'short' }).toUpperCase();
+                    const day = date.getDate();
+                    const month = date.getMonth() + 1;
+                    const year = date.getFullYear();
+
+                    const entrada = registro.entrada || '--:--:--';
+                    const saida = registro.saida || '--:--:--';
+                    const tempoServico = registro.horas_trabalhadas ? `${Math.floor(registro.horas_trabalhadas)}h${Math.round((registro.horas_trabalhadas % 1) * 60)}m` : '--:--:--';
+                    const tempoArmazenado = registro.horas_extras ? `${Math.floor(registro.horas_extras)}h${Math.round((registro.horas_extras % 1) * 60)}m` : '--:--:--';
+
+                    // Determine occurrences (simplified, based on atraso or something)
+                    let ocorrencias = 'Sem ocorrências';
+                    let ocorrenciasClass = 'text-green-500';
+                    if (registro.atraso) {
+                        ocorrencias = 'Atraso - Não Resolvida';
+                        ocorrenciasClass = 'text-red-500';
+                    }
+
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto';
+                    dayDiv.innerHTML = `
+                        <div class="grid grid-cols-7 gap-4 w-full items-center">
+                            <div>
+                                <p><span class="font-bold">${dayName}</span></p>
+                            </div>
+                            <div class="text-center">
+                                <p><span class="font-bold">Data</span></p>
+                                <p>${day}/${month}/${year}</p>
+                            </div>
+                            <div class="text-center">
+                                <p><span class="font-bold">Entrada</span></p>
+                                <p>${entrada}</p>
+                            </div>
+                            <div class="text-center">
+                                <p><span class="font-bold">Saída</span></p>
+                                <p>${saida}</p>
+                            </div>
+                            <div class="text-center">
+                                <p><span class="font-bold">Tempo de Serviço</span></p>
+                                <p>${tempoServico}</p>
+                            </div>
+                            <div class="text-center">
+                                <p><span class="font-bold">Tempo armazenado</span></p>
+                                <p>${tempoArmazenado}</p>
+                            </div>
+                            <div class="text-center">
+                                <p><span class="font-bold">Ocorrências</span></p>
+                                <p class="${ocorrenciasClass}">${ocorrencias}</p>
+                            </div>
+                        </div>
+                    `;
+                    historyContainer.appendChild(dayDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching records:', error));
+    })
+    .catch(err => console.error("Error fetching user data:", err));
+});
