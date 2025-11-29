@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const saldo = data.saldo;
                 const horas = Math.floor(saldo);
                 const minutos = Math.round((saldo - horas) * 60);
-                document.querySelector('.bg-white.text-center.shadow-lg.px-4.py-2.rounded-lg.shadow-md.w-fit.mx-auto h3').textContent = `${horas}h${minutos}m`;
+                const saldoEl = document.querySelector('.bg-white.text-center.shadow-lg.px-4.py-2.rounded-lg.shadow-md.w-fit.mx-auto h3');
+                if (saldoEl) saldoEl.textContent = `${horas}h${minutos}m`;
             })
             .catch(error => console.error('Error fetching balance:', error));
 
@@ -38,7 +39,16 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/banco-horas/registros/${usuarioId}?dataInicio=${dataInicio}`)
             .then(response => response.json())
             .then(registros => {
-                const historyContainer = document.querySelector('.space-y-2');
+                // If there are multiple elements with the same ID in the DOM,
+                // pick the one that is not inside a sidebar (common cause of wrong placement).
+                const historyContainers = Array.from(document.querySelectorAll('#historyContainer'));
+                const historyContainer = historyContainers.find(el => !el.closest('.sidebar, #sidebar, nav, aside, .aside, .side')) || historyContainers[0];
+
+                if (!historyContainer) {
+                    console.warn('historyContainer not found');
+                    return;
+                }
+
                 historyContainer.innerHTML = ''; // Clear existing static data
 
                 registros.forEach(registro => {
@@ -64,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const dayDiv = document.createElement('div');
                     dayDiv.className = 'bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto';
                     dayDiv.innerHTML = `
-                        <div class="flex items-center justify-between grid grid-cols-7 gap-4 w-full">
+                        <div class="grid grid-cols-7 gap-4 w-full items-center">
                             <div>
                                 <p><span class="font-bold">${dayName}</span></p>
                             </div>
