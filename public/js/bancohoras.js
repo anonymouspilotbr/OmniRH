@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const dayDiv = document.createElement('div');
                     dayDiv.className = 'bg-gray-50 rounded-2xl shadow-lg p-6 w-full mx-auto';
                     dayDiv.innerHTML = `
-                        <div class="grid grid-cols-7 gap-4 w-full items-center">
+                        <div class="grid grid-cols-8 gap-4 w-full items-center">
                             <div>
                                 <p><span class="font-bold">${dayName}</span></p>
                             </div>

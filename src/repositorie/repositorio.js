@@ -21,13 +21,13 @@ async function listarFuncionarios() {
   return result.rows;
 }
 
-async function inserirFuncionario({ nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao, regime, salario, horario_entrada, horario_saida }) {
+async function inserirFuncionario({ nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao, regime, salario, horario_entrada, horario_saida, id_empresa }) {
     const query = `
-        INSERT INTO funcionario (nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao, regime, salario, horario_entrada, horario_saida)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        INSERT INTO funcionario (nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao, regime, salario, horario_entrada, horario_saida, id_empresa)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
         RETURNING *;
     `;
-    const values = [nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao, regime, salario, horario_entrada, horario_saida];
+    const values = [nome, cpf, email, cargo, senha, telefone, departamento, gestor, data_admissao, regime, salario, horario_entrada, horario_saida, id_empresa];
     const result = await pool.query(query, values);
     return result.rows[0];
 }
