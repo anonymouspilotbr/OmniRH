@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         const temOcorrencias = entry.ocorrencias && Array.isArray(entry.ocorrencias) && entry.ocorrencias.length > 0;
 
-                        if (diffEntradaMin != null && diffEntradaMin > 5 && precisaCriarOcorrencia(entry)) {
+                        if (diffEntradaMin != null && diffEntradaMin > 5) {
                             const payload = {
                                 id_funcionario: usuario_id,
                                 tipo_ocorrencia: "Atraso",
