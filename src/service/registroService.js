@@ -41,22 +41,6 @@ function tempoParaMinutos(hhmm) {
   return h * 60 + m;
 }
 
-/*function calcularHoras(entrada, saida) {
-  if (!saida) return { horas: 0.0, extras: 0.0 };
-
-  const [hE, mE, sE] = entrada.split(":").map(Number);
-  const [hS, mS, sS] = saida.split(":").map(Number);
-
-  const entradaSeg = hE * 3600 + mE * 60 + sE;
-  const saidaSeg = hS * 3600 + mS * 60 + sS;
-
-  let diffHoras = (saidaSeg - entradaSeg) / 3600;
-  if (diffHoras < 0) diffHoras += 24; 
-
-  const extras = Math.max(0, diffHoras - jornadaEsperada);
-  return { horas: diffHoras, extras };
-}*/
-
 function agoraBrasil() {
   const dataLocal = new Date().toLocaleString("pt-BR", {
     timeZone: "America/Sao_Paulo"
@@ -92,7 +76,8 @@ async function registrarPonto(id_funcionario) {
     const compara = compararJornada(EntEsperada, SaiEsperada, entradaFormatada, horaSaida);
 
     const jornadaRealMin = tempoParaMinutos(compara.jornadaReal);
-    const extrasMin = tempoParaMinutos(compara.horaExtra);
+    const jornadaEsperadaMin = tempoParaMinutos(compara.jornadaEsperada);
+    const extrasMin = Math.max(0, jornadaRealMin - jornadaEsperadaMin);
 
     const horasTrabalhadas = jornadaRealMin / 60;
     const horasExtras = extrasMin / 60;
