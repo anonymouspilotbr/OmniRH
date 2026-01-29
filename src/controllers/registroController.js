@@ -41,8 +41,6 @@ async function listarSemana(req, res) {
 }
 
 module.exports = { 
-  /*registrarEntrada, 
-  registrarSaida, */
   registrarPonto,
   listar,
   listarSemana,

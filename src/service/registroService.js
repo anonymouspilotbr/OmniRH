@@ -4,7 +4,6 @@ const repositorio_funcionario = require('../repositorie/repositorio');
 const repositorio_ocorrencias = require('../repositorie/ocorrenciasRepository');
 
 const JORNADA_DIARIA = 8;
-const MAX_HORAS_EXTRAS_MES = 40;
 
 function compararJornada(entradaEsperada, saidaEsperada, entradaReal, saidaReal) {
   const EntEsperada = new Date(`2000-01-01T${entradaEsperada}`);

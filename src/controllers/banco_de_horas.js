@@ -2,10 +2,6 @@ const bh_service = require('../service/bancoHorasService');
 const registroRepository = require('../repositorie/registroRepository');
 const registroService = require('../service/registroService');
 
-// Configurações globais
-const JORNADA_DIARIA = 8; // Horas por dia
-const MAX_HORAS_EXTRAS_MES = 40; // Máximo de horas extras por mês
-
 async function consultar(req, res) {
   const { usuario_id } = req.params;
   const mes = parseInt(req.query.mes) || new Date().getMonth() + 1;
@@ -350,8 +346,4 @@ app.get('/registros/:usuario_id', (req, res) => {
     res.json(rows);
   });
 });
-
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
-});*/
+*/

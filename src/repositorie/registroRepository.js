@@ -11,6 +11,8 @@ async function buscarPorPeriodo(id_funcionario, inicioISO, fimISO) {
       to_char(rh.data, 'YYYY-MM-DD') as data,
       to_char(rh.entrada, 'HH24:MI:SS') as entrada,
       to_char(rh.saida, 'HH24:MI:SS') as saida,
+      rh.horas_trabalhadas,
+      rh.horas_extras,
       COALESCE((
         SELECT json_agg(json_build_object(
           'id', o.id,
