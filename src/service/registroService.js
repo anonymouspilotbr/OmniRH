@@ -3,8 +3,6 @@ const repositorio_banco = require('../repositorie/bancoRepository');
 const repositorio_funcionario = require('../repositorie/repositorio');
 const repositorio_ocorrencias = require('../repositorie/ocorrenciasRepository');
 
-const JORNADA_DIARIA = 8;
-
 function compararJornada(entradaEsperada, saidaEsperada, entradaReal, saidaReal) {
   const EntEsperada = new Date(`2000-01-01T${entradaEsperada}`);
   const SaiEsperada = new Date(`2000-01-01T${saidaEsperada}`);
@@ -38,7 +36,12 @@ function msParaHorasMinutos(ms) {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
-function calcularHoras(entrada, saida) {
+function tempoParaMinutos(hhmm) {
+  const [h, m] = hhmm.split(":").map(Number);
+  return h * 60 + m;
+}
+
+/*function calcularHoras(entrada, saida) {
   if (!saida) return { horas: 0.0, extras: 0.0 };
 
   const [hE, mE, sE] = entrada.split(":").map(Number);
@@ -50,9 +53,9 @@ function calcularHoras(entrada, saida) {
   let diffHoras = (saidaSeg - entradaSeg) / 3600;
   if (diffHoras < 0) diffHoras += 24; 
 
-  const extras = Math.max(0, diffHoras - JORNADA_DIARIA);
+  const extras = Math.max(0, diffHoras - jornadaEsperada);
   return { horas: diffHoras, extras };
-}
+}*/
 
 function agoraBrasil() {
   const dataLocal = new Date().toLocaleString("pt-BR", {
@@ -80,22 +83,28 @@ async function registrarPonto(id_funcionario) {
 
   if (registroHoje.saida == null) {
     const { hora: horaSaida } = agoraBrasil();
-
     const entradaFormatada = String(registroHoje.entrada).substring(0, 8);
-    const { horas, extras } = calcularHoras(entradaFormatada, horaSaida);
 
     const funcionario = await repositorio_funcionario.buscarFuncionario(id_funcionario);
     const EntEsperada = funcionario.horario_entrada;
     const SaiEsperada = funcionario.horario_saida;
 
     const compara = compararJornada(EntEsperada, SaiEsperada, entradaFormatada, horaSaida);
-    
-    await repositorio_registro.registrarSaida(registroHoje.id, horaSaida, horas, extras);
 
-    const data = new Date(registroHoje.data);
-    const mes = data.getMonth() + 1;
-    const ano = data.getFullYear();
-    await repositorio_banco.atualizarSaldo(id_funcionario, mes, ano, extras);
+    const jornadaRealMin = tempoParaMinutos(compara.jornadaReal);
+    const extrasMin = tempoParaMinutos(compara.horaExtra);
+
+    const horasTrabalhadas = jornadaRealMin / 60;
+    const horasExtras = extrasMin / 60;
+    
+    await repositorio_registro.registrarSaida(registroHoje.id, horaSaida, horasTrabalhadas, horasExtras);
+
+    if(horasExtras > 0){
+      const data = new Date(registroHoje.data);
+      const mes = data.getMonth() + 1;
+      const ano = data.getFullYear();
+      await repositorio_banco.atualizarSaldo(id_funcionario, mes, ano, horasExtras);
+    }
 
     const atrasoMin = tempoParaMinutos(compara.atrasoEntrada);
     if(atrasoMin > 5){
