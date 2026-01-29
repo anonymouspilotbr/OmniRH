@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         const temOcorrencias = entry.ocorrencias && Array.isArray(entry.ocorrencias) && entry.ocorrencias.length > 0;
 
-                        if (diffEntradaMin != null && diffEntradaMin > 5 && !temOcorrencias) {
+                        if (diffEntradaMin != null && diffEntradaMin > 5 && precisaCriarOcorrencia(entry)) {
                             const payload = {
                                 id_funcionario: usuario_id,
                                 tipo_ocorrencia: "Atraso",
@@ -262,6 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 if (res) {
                                     console.info("Ocorrência criada:", res);
                                     entry.ocorrencias = [res];
+                                    entry.ocorrencia_criada = true;
                                     atualizarPonto(); 
                                 }
                             });
