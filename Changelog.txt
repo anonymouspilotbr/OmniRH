@@ -1,5 +1,9 @@
 Changelog
  
+[0.20.4] Correções - 29 JAN 2026
+- Correções na página do Banco de Horas e Folha de Ponto
+- Refatoração do Service do Registro de Horas 
+
 [0.20.3] Desenvolvimento Folha de Ponto II - 28 NOV 2025
 - Feita a comunicação visual de acordo com a pontualidade do funcionário
 - Criação automática de ocorrências em caso de atraso
