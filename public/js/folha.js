@@ -158,34 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     return diff;
                 }
 
-                function precisaCriarOcorrencia(entry) {
-                    if (!entry) return true;
-                    if (entry.ocorrencia_criada) return false;
-                    if (entry.ocorrencias && entry.ocorrencias.length > 0) return false;
-                    return true;
-                }
-
-                async function criarOcorrenciaBackend(payload) {
-                    try {
-                        const r = await fetch("/ocorrencias", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token}`
-                            },
-                            body: JSON.stringify(payload)
-                        });
-                        if (!r.ok) {
-                            console.error("Falha ao criar ocorrência:", await r.text());
-                            return null;
-                        }
-                        return await r.json();
-                    } catch (e) {
-                        console.error("Erro ao criar ocorrência:", e);
-                        return null;
-                    }
-                }
-
                 function renderizarSemana(dados = [], dataDomingo){
                     const map = {};
                     (dados || []).forEach(item => {
@@ -258,14 +230,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 status: "Em análise"
                             };
 
-                            criarOcorrenciaBackend(payload).then(res => {
-                                if (res) {
-                                    console.info("Ocorrência criada:", res);
-                                    entry.ocorrencias = [res];
-                                    entry.ocorrencia_criada = true;
-                                    atualizarPonto(); 
-                                }
-                            });
                         }
 
                         let ocorrenciasHtml = "<span class='text-green-500'>Sem ocorrências</span>";
