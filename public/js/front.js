@@ -44,6 +44,12 @@ function paginaMenuControleRH(){
 function paginaMenuListaF(){
   window.location.href = "lista-funcionarios";
 }
+function paginaMenuDashboard(){
+  window.location.href = "dashboard";
+}
+function paginaMenuCadastroEmpresas(){
+  window.location.href = "cadastro-empresas";
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const menuHome = document.getElementById('menu-home');
@@ -53,12 +59,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuControle = document.getElementById('menu-painel');
   const menuListaF = document.getElementById('menu-lista');
   const menuChamados = document.getElementById('menu-chamados');
+  const menuDashboard = document.getElementById('menu-dashboard');
+  const menuEmpresas = document.getElementById('menu-empresas');
 
   if (menuHome) menuHome.addEventListener('click', paginaMenuHome);
   if (menuREC) menuREC.addEventListener('click', paginaMenuRecessos);
   if (menuLIC) menuLIC.addEventListener('click', paginaMenuLicencas);
   if (menuHoras) menuHoras.addEventListener('click', paginaMenuHoras);
-  if (menuChamados) menuChamados.addEventListener('click', paginaMenuChamados);
 
   const token = localStorage.getItem("token");
 
@@ -75,6 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (menuControle) menuControle.addEventListener('click', paginaMenuControleRH);
         if (menuListaF) menuListaF.addEventListener('click', paginaMenuListaF);
+      } else if(data.tipo === "ADMIN"){
+        if (menuDashboard) menuDashboard.classList.remove("hidden");
+        if (menuEmpresas) menuEmpresas.classList.remove("hidden");
+        if (menuChamados) menuChamados.classList.remove("hidden");
+
+        if (menuDashboard) menuDashboard.addEventListener('click', paginaMenuDashboard);
+        if (menuEmpresas) menuEmpresas.addEventListener('click', paginaMenuCadastroEmpresas);
+        if (menuChamados) menuChamados.addEventListener('click', paginaMenuChamados);
       }
     })
   }
