@@ -1,5 +1,9 @@
 Changelog
  
+[0.20.5] Desenvolvimento Telas do Administrador - 09 ABR 2026
+- Refatoração do Painel Principal (Dashboard)
+- Implementação do Menu do Administrador
+
 [0.20.4] Correções - 29 JAN 2026
 - Correções na página do Banco de Horas e Folha de Ponto
 - Refatoração do Service do Registro de Horas 

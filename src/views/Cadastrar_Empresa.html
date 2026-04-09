@@ -55,7 +55,7 @@
         <header class="bg-sky-600 text-white shadow-lg">
              <div class="container mx-auto px-4 py-4 flex items-center justify-between">
                  <div class="flex items-center gap-4">
-                     <button id="menuButton" class="p-2 text-gray-600 hover:bg-gray-100 rounded-md"><i class="fa-solid fa-bars"></i></button>
+                     <button id="menuButton" class="p-2 text-white hover:bg-sky-400 rounded-md"><i class="fa-solid fa-bars"></i></button>
                      <div>
                         <h1 class="text-2xl font-bold">OmniRH</h1>
                         <p class="text-sm text-blue-100">Painel do Administrador — Gestão de Empresas</p>
@@ -67,18 +67,41 @@
                          <i class="fa-solid fa-plus"></i> Cadastrar
                      </button>
  
-                     <div class="text-right hidden md:block">
-                        <p class="font-semibold">Administrador</p>
-                        <p class="text-sm text-blue-100">Admin</p>
-                     </div>
- 
-                     <div class="w-10 h-10 avatar-placeholder">
-                         <i class="fas fa-user"></i>
-                     </div>
+                     <div class="text-right"> 
+                        <p class="font-semibold">Jaime Miranda</p> 
+                        <p id="cargoUsuario" class="text-sky-200 text-sm">TI - Suporte Técnico</p> 
+                    </div> 
+                    <div class="relative w-12 h-12 bg-sky-500 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">
+                        <i id="headerIcon" class="fas fa-user text-white text-xl"></i>
+                        <img id="headerFoto" class="hidden w-full h-full object-cover" alt="Foto do usuário">
+                        <button id="usericon" class="absolute inset-0 z-10 w-full h-full bg-transparent cursor-pointer"></button>
+                    </div>
+                    <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40 z-50">
+                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
+                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="ajuda()">Ajuda</button>
+                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="sair()">Sair</button>
+                    </div>
                  </div>
              </div>
          </header>
-
+         <aside id="sidebar" class="fixed top-0 left-0 h-full w-56 bg-sky-600 text-white p-4 space-y-2 transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="flex items-center justify-between py-2">
+                <h2 class="text-xl font-semibold">OmniRH</h2>
+                <button id="closeButton">
+                    <i class="fa-solid fa-rectangle-xmark"></i>
+                </button>
+            </div>
+            <button id="menu-home" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-file"></i> Folha de Ponto</button>
+            <button id="menu-recesso" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-umbrella-beach"></i> Solicitar Recessos</button>
+            <button id="menu-licencas" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-file-signature"></i> Licenças</button>
+            <button id="menu-horas" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-clock"></i> Banco de Horas</button>
+            <button id="menu-painel" class="hidden text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-wrench"></i> Painel de Controle RH</button>
+            <button id="menu-lista" class="hidden text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-list"></i> Gerenciar Funcionários</button>
+            <button id="menu-dashboard" class="hidden text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa fa-tachometer"></i> Painel principal</button>
+            <button id="menu-chamados" class="hidden text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-bell"></i> Sistema de Chamados</button>
+            <button id="menu-empresas" class="hidden text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-briefcase"></i> Gerenciar Empresas</button>
+        </aside>
+        <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
         <main class="container mx-auto px-4 py-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- Formulário (oculto por padrão) -->
