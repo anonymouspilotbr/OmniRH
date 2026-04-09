@@ -19,10 +19,36 @@
                     </button>
                     <div> 
                         <h1 class="text-2xl font-bold">OmniRH</h1> 
-                        <p class="text-sky-100 text-sm">Sistema de Ordens de Serviço</p> 
+                        <p class="text-sky-100 text-sm">Visão Geral do Administrador</p> 
                     </div> 
                 </div> 
                 <div class="flex items-center space-x-4"> 
+                    <div class="relative">
+                        <button id="notificationButton" class="relative">
+                            <i class="fa-solid fa-bell text-xl"></i>
+
+                            <!-- Badge (contador) -->
+                            <span id="notificationCount"
+                                class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+                                2
+                            </span>
+                        </button>
+
+                        <!-- Dropdown -->
+                        <div id="notificationMenu" class="hidden absolute right-0 mt-3 w-80 bg-white text-gray-800 rounded-xl shadow-lg z-50">
+                            <div class="p-4 border-b font-semibold">
+                                Notificações
+                            </div>
+                            <ul id="notificationList" class="max-h-64 overflow-y-auto">
+                                <!-- JS vai preencher -->
+                            </ul>
+                            <div class="p-2 text-center border-t">
+                                <button class="text-blue-600 hover:underline text-sm">
+                                    Ver todas
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-right"> 
                         <p class="font-semibold">Jaime Miranda</p> 
                         <p id="cargoUsuario" class="text-sky-200 text-sm">TI - Suporte Técnico</p> 
@@ -64,79 +90,26 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
                 <i class="bi bi-people-fill text-primary metric-icon"></i>
-                <h2 class="fw-bold mt-2">128</h2>
-                <span>Total de Colaboradores</span>
+                <h2 class="text-6xl font-bold text-black">128</h2>
+                <span>Usuários cadastrados</span>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
-                <i class="bi bi-person-plus-fill text-success metric-icon"></i>
-                <h2 class="fw-bold mt-2">4</h2>
-                <span>Contratações no mês</span>
+                <i class="bi bi-buildings-fill"></i>
+                <h2 class="text-6xl font-bold text-black">2</h2>
+                <span>Empresas cadastradas</span>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
-                <i class="bi bi-airplane-fill text-warning metric-icon"></i>
-                <h2 class="fw-bold mt-2">12</h2>
-                <span>Em Férias</span>
+                <i class="bi bi-tools"></i>
+                <h2 class="text-6xl font-bold text-black">12</h2>
+                <span>Chamados abertos</span>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
-                <i class="bi bi-person-dash text-danger metric-icon"></i>
-                <h2 class="fw-bold mt-2">1</h2>
-                <span>Desligamentos no mês</span>
+                <i class="bi bi-hourglass"></i>
+                <h2 class="text-6xl font-bold text-black">1</h2>
+                <span>Chamados em andamento</span>
             </div>
         </div>
     </main>
-    <div class="container">
-
-        <!-- Métricas 
-        <h4 class="section-title">Indicadores Gerais</h4>
-        <div class="row g-4">
-            <div class="col-md-3">
-                <div class="card-custom text-center">
-                    <i class="bi bi-people-fill text-primary metric-icon"></i>
-                    <h2 class="fw-bold mt-2">128</h2>
-                    <span>Total de Colaboradores</span>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card-custom text-center">
-                    <i class="bi bi-person-plus-fill text-success metric-icon"></i>
-                    <h2 class="fw-bold mt-2">4</h2>
-                    <span>Contratações no mês</span>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card-custom text-center">
-                    <i class="bi bi-airplane-fill text-warning metric-icon"></i>
-                    <h2 class="fw-bold mt-2">12</h2>
-                    <span>Em Férias</span>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card-custom text-center">
-                    <i class="bi bi-person-dash text-danger metric-icon"></i>
-                    <h2 class="fw-bold mt-2">1</h2>
-                    <span>Desligamentos no mês</span>
-                </div>
-            </div>
-
-        </div>-->
-
-        <!-- Alertas -->
-        <h4 class="section-title">Alertas Importantes</h4>
-        <div class="card-custom">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item border-0">
-                    ✳ Carlos Pereira — Férias em 03/12
-                </li>
-                <li class="list-group-item border-0 text-warning">
-                    ⚠ Documento pendente — Ana Paula
-                </li>
-            </ul>
-        </div>
-
-    </div>
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
