@@ -33,34 +33,40 @@
                         </div>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <div class="text-right">
-                            <p class="font-semibold">Funcionário</p>
-                            <p id="cargoUsuario" class="text-sky-200 text-sm">Colaborador</p>
+                        <div class="text-right"> 
+                            <p id="nomeUsuario" class="font-semibold">João Silva</p> 
+                            <p id="cargoUsuario" class="text-blue-200 text-sm">Recursos Humanos</p> 
+                        </div> 
+                        <div class="relative w-12 h-12 bg-blue-500 rounded-full overflow-hidden flex items-center justify-center bg-blue-500">
+                            <i id="headerIcon" class="fas fa-user text-white text-xl"></i>
+                            <img id="headerFoto" class="hidden w-full h-full object-cover" alt="Foto do usuário">
+                            <button id="usericon" class="absolute inset-0 z-10 w-full h-full bg-transparent cursor-pointer"></button>
                         </div>
-                        <div class="w-12 h-12 bg-sky-500 rounded-full flex items-center justify-center">
-                            <button id="usericon">
-                                <i class="fas fa-user text-white text-xl"></i>
-                            </button>
-                            <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40">
-                                <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
-                                <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Ajuda</button>
-                                <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="sair()">Sair</button>
-                            </div>
+                        <div id="usermenu" class="hidden absolute top-24 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-40 z-50">
+                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="accessPerfil()">Perfil</button>
+                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="ajuda()">Ajuda</button>
+                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" onclick="sair()">Sair</button>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-        <aside id="sidebar" class="fixed top-0 left-0 h-full w-56 bg-sky-600 text-white p-4 space-y-2 transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-sky-600 text-white p-4 space-y-2 transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
             <div class="flex items-center justify-between py-2">
                 <h2 class="text-xl font-semibold">OmniRH</h2>
                 <button id="closeButton">
                     <i class="fa-solid fa-rectangle-xmark"></i>
                 </button>
             </div>
-            <button id="menu-inicial" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition" onclick="accessHome()"><i class="fa-solid fa-house"></i> Painel principal</button>
-            <button id="menu-abrir-chamado" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-plus"></i> Abrir Chamado</button>
-            <button id="menu-meus-chamados" class="text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-list"></i> Meus Chamados</button>
+            <button id="menu-home" class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-file"></i> Folha de Ponto</button>
+            <button id="menu-recesso" class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-umbrella-beach"></i> Solicitar Recessos</button>
+            <button id="menu-licencas" class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-file-signature"></i> Licenças</button>
+            <button id="menu-horas" class="text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-clock"></i> Banco de Horas</button>
+            <button id="menu-painel" class="hidden text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-wrench"></i> Painel de Controle RH</button>
+            <button id="menu-lista" class="hidden text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-list"></i> Gerenciar Funcionários</button>
+            <button id="menu-dashboard" class="hidden text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa fa-tachometer"></i> Painel principal</button>
+            <button id="menu-chamados" class="hidden text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-bell"></i> Sistema de Chamados</button>
+            <button id="menu-empresas" class="hidden text-left px-4 py-2 rounded-lg hover:bg-blue-500 transition"><i class="fa-solid fa-briefcase"></i> Gerenciar Empresas</button>
         </aside>
         <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
         <main class="px-4 py-8">
