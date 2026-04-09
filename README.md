@@ -1,6 +1,8 @@
 # OmniRH
 
-Aplicação Web de controle de Ponto e gestão de RH
+Aplicação Web de controle de Ponto e gestão de RH <br>
+Projeto desenvolvido em grupo para as disciplinas de Análise e Projeto de Software e Soluções Computacionais <br>
+Site: https://omnirh.onrender.com <br>
 
 Link do Documento de Visão: <br> https://docs.google.com/document/d/1gowGs9O6O6Ec7O_ncKhXerJh_2IdsMYb-Y4B68TJSF0/edit?usp=sharing <br>
 Link do Documento de Requisitos de Software:<br> https://docs.google.com/document/d/1rkXAv6VYgJNEIfaVgxsvc7SODfhUN_70FhQeCJTwWT4/edit?usp=sharing <br>
