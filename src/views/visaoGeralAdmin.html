@@ -4,43 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OmniRH | Visão Geral</title>
-    <!-- BOOTSTRAP -->
     <script src="https://cdn.tailwindcss.com"></script> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- ICONES -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-        body { background: #f1f4f9; }
-        header {
-            color: #fff;
-        }
-        header h5 { font-weight: bold; }
-        .section-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 30px;
-            margin-bottom: 18px;
-        }
-        .card-custom {
-            background: #fff;
-            border-radius: 12px;
-            padding: 22px;
-            box-shadow: 0 2px 14px rgba(0,0,0,0.08);
-        }
-        .metric-icon {
-            font-size: 32px;
-        }
-        footer {
-            background: #1a2533;
-            color: #d1d7de;
-        }
-        footer hr { border-color: rgba(255,255,255,.1); }
-        footer a { color: #fff; opacity:.8; text-decoration:none; }
-        footer a:hover { opacity:1; }
-    </style>
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen">
     <header class="bg-sky-600 text-white shadow-lg"> 
         <div class="container mx-auto px-4 py-6"> 
             <div class="flex items-center justify-between"> 
@@ -90,12 +59,36 @@
         <button id="menu-empresas" class="hidden text-left px-4 py-2 rounded-lg hover:bg-sky-500 transition"><i class="fa-solid fa-briefcase"></i> Gerenciar Empresas</button>
     </aside>
     <div id="overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
+    <main class="container mx-auto px-4 py-8">
+        <h4 class="text-2xl font-bold text-black">Indicadores Gerais</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                <i class="bi bi-people-fill text-primary metric-icon"></i>
+                <h2 class="fw-bold mt-2">128</h2>
+                <span>Total de Colaboradores</span>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                <i class="bi bi-person-plus-fill text-success metric-icon"></i>
+                <h2 class="fw-bold mt-2">4</h2>
+                <span>Contratações no mês</span>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                <i class="bi bi-airplane-fill text-warning metric-icon"></i>
+                <h2 class="fw-bold mt-2">12</h2>
+                <span>Em Férias</span>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                <i class="bi bi-person-dash text-danger metric-icon"></i>
+                <h2 class="fw-bold mt-2">1</h2>
+                <span>Desligamentos no mês</span>
+            </div>
+        </div>
+    </main>
     <div class="container">
 
-        <!-- Métricas -->
+        <!-- Métricas 
         <h4 class="section-title">Indicadores Gerais</h4>
         <div class="row g-4">
-
             <div class="col-md-3">
                 <div class="card-custom text-center">
                     <i class="bi bi-people-fill text-primary metric-icon"></i>
@@ -128,7 +121,7 @@
                 </div>
             </div>
 
-        </div>
+        </div>-->
 
         <!-- Alertas -->
         <h4 class="section-title">Alertas Importantes</h4>
@@ -144,32 +137,29 @@
         </div>
 
     </div>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <h6 class="text-white fw-bold">OmniRH</h6>
-                <p>Gestão eficiente de recursos humanos</p>
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="font-semibold mb-4">OmniRH</h4>
+                    <p class="text-gray-400">Gestão eficiente de recursos humanos</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contato</h4>
+                    <p class="text-gray-400">rh@empresa.com</p>
+                    <p class="text-gray-400">(11) 9999-9999</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Suporte OmniRH</h4>
+                    <p class="text-gray-400">omnirh.suporte@gmail.com</p>
+                    <p class="text-gray-400">(61) 98765-4321</p>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h6 class="fw-bold text-white">Contato</h6>
-                <p>rh@empresa.com<br>(11) 9999-9999</p>
-            </div>
-            <div class="col-md-4">
-                <h4 class="font-semibold mb-4">Suporte OmniRH</h4>
-                <p class="text-gray-400">omnirh.suporte@gmail.com</p>
-                <p class="text-gray-400">(61) 98765-4321</p>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>© 2025 OmniRH. Todos os direitos reservados.</p>
             </div>
         </div>
-
-        <hr>
-        <p class="text-center m-0">© 2025 OmniRH. Todos os direitos reservados.</p>
     </footer>
-
-    <!-- BOOTSTRAP JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/front.js"></script>
-
 </body>
 </html>
