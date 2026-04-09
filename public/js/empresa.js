@@ -9,11 +9,13 @@
   const editIndexInput = document.getElementById('editIndex');
   const searchInput = document.getElementById('search');
   const formSection = document.getElementById('formSection');
+  const contentSection = document.getElementById('contentSection');
   const openFormBtn = document.getElementById('openFormBtn');
   const submitBtn = document.getElementById('submitBtn');
   const cancelBtn = document.getElementById('cancelBtn');
   const formTitle = document.getElementById('formTitle');
   const emptyState = document.getElementById('emptyState');
+  const mainGrid = document.getElementById('mainGrid');
 
   // helpers API
   async function apiGet(path) {
@@ -167,6 +169,11 @@
   function openForm({ mode }) {
     form.reset();
     formSection.classList.remove('hidden');
+    mainGrid.classList.remove("grid-cols-1");
+    mainGrid.classList.add("lg:grid-cols-3");
+
+    formSection.classList.add("lg:col-span-1");
+    contentSection.classList.add("lg:col-span-2");
 
     if (mode === 'edit') {
       formTitle.textContent = "Editar empresa";
@@ -182,6 +189,12 @@
 
   cancelBtn.onclick = () => {
     formSection.classList.add('hidden');
+    mainGrid.classList.remove("lg:grid-cols-3");
+    mainGrid.classList.add("grid-cols-1");
+
+    formSection.classList.remove("lg:col-span-1");
+    contentSection.classList.remove("lg:col-span-2");
+    
     editIndexInput.value = '';
   };
 
