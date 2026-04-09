@@ -52,7 +52,7 @@
     </head>
     <body class="bg-gray-50 min-h-screen">
         <!-- Header -->
-        <header class="bg-blue-600 text-white shadow-lg">
+        <header class="bg-sky-600 text-white shadow-lg">
              <div class="container mx-auto px-4 py-4 flex items-center justify-between">
                  <div class="flex items-center gap-4">
                      <button id="menuButton" class="p-2 text-gray-600 hover:bg-gray-100 rounded-md"><i class="fa-solid fa-bars"></i></button>
@@ -202,193 +202,30 @@
             </div>
         </div>
 
-        <footer class="bg-white border-t mt-12 py-6">
-            <div class="container mx-auto px-4 text-center muted">
-                <p>© 2025 OmniRH. Administração de Empresas.</p>
+        <footer class="bg-gray-800 text-white py-8 mt-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-4">OmniRH</h4>
+                        <p class="text-gray-400">Gestão eficiente de recursos humanos</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Contato</h4>
+                        <p class="text-gray-400">rh@empresa.com</p>
+                        <p class="text-gray-400">(11) 9999-9999</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Suporte OmniRH</h4>
+                        <p class="text-gray-400">omnirh.suporte@gmail.com</p>
+                        <p class="text-gray-400">(61) 98765-4321</p>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                    <p>© 2025 OmniRH. Todos os direitos reservados.</p>
+                </div>
             </div>
         </footer>
-
-        <script>
-            /*// armazenamento local simples (localStorage)
-            const form = document.getElementById('empresaForm');
-            const empresasListEl = document.getElementById('empresasList');
-            const totalEmpresasEl = document.getElementById('totalEmpresas');
-            const previewModal = document.getElementById('previewModal');
-            const previewContent = document.getElementById('previewContent');
-            const editIndexInput = document.getElementById('editIndex');
-            const searchInput = document.getElementById('search');
-            const formSection = document.getElementById('formSection');
-            const openFormBtn = document.getElementById('openFormBtn');
-            const submitBtn = document.getElementById('submitBtn');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const formTitle = document.getElementById('formTitle');
-            const emptyState = document.getElementById('emptyState');
-
-            function loadEmpresas() { return JSON.parse(localStorage.getItem('omni_empresas') || '[]'); }
-            function saveEmpresas(list) { localStorage.setItem('omni_empresas', JSON.stringify(list)); }
-
-            function updateEmptyState() {
-                const has = loadEmpresas().length > 0;
-                emptyState.classList.toggle('hidden', has);
-            }
-
-            function renderList(filter = '') {
-                const empresas = loadEmpresas();
-                const filtered = empresas.filter(e => (e.nome || '').toLowerCase().includes(filter.toLowerCase()) || (e.cnpj||'').includes(filter));
-                empresasListEl.innerHTML = '';
-                if (filtered.length === 0) {
-                    empresasListEl.innerHTML = '';
-                }
-                filtered.forEach((emp, idx) => {
-                    const card = document.createElement('div');
-                    card.className = 'flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:shadow transition';
-                    card.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-14 h-14 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
-                                <img src="${emp.logo || 'https://via.placeholder.com/56'}" alt="logo" class="w-full h-full object-cover" />
-                            </div>
-                            <div>
-                                <div class="font-semibold">${emp.nome}</div>
-                                <div class="text-sm muted">${emp.setor || '—'} • <span class="accent-text">${emp.status}</span></div>
-                                <div class="text-xs muted">${emp.cnpj || ''}</div>
-                            </div>
-                        </div>
-                        <div class="flex gap-2">
-                            <button data-idx="${idx}" class="previewBtn px-3 py-1 bg-indigo-50 text-indigo-700 rounded-md">Visualizar</button>
-                            <button data-idx="${idx}" class="editBtn px-3 py-1 bg-yellow-50 text-yellow-700 rounded-md">Editar</button>
-                            <button data-idx="${idx}" class="delBtn px-3 py-1 bg-red-50 text-red-700 rounded-md">Excluir</button>
-                        </div>
-                    `;
-                    empresasListEl.appendChild(card);
-                });
-                totalEmpresasEl.textContent = empresas.length;
-                updateEmptyState();
-                attachListActions();
-            }
-
-            function attachListActions() {
-                document.querySelectorAll('.previewBtn').forEach(b => b.onclick = () => previewEmpresa(loadEmpresas()[b.dataset.idx]));
-                document.querySelectorAll('.editBtn').forEach(b => {
-                    b.onclick = () => {
-                        const emp = loadEmpresas()[b.dataset.idx];
-                        // preencher campos
-                        document.getElementById('nome').value = emp.nome || '';
-                        document.getElementById('cnpj').value = emp.cnpj || '';
-                        document.getElementById('setor').value = emp.setor || '';
-                        document.getElementById('endereco').value = emp.endereco || '';
-                        document.getElementById('email').value = emp.email || '';
-                        document.getElementById('telefone').value = emp.telefone || '';
-                        document.getElementById('funcionarios').value = emp.funcionarios || '';
-                        document.getElementById('status').value = emp.status || 'Ativa';
-                        document.getElementById('logo').value = emp.logo || '';
-                        editIndexInput.value = b.dataset.idx;
-                        // mostrar o formulário ao editar
-                        openForm({ mode: 'edit' });
-                    };
-                });
-                document.querySelectorAll('.delBtn').forEach(b => {
-                    b.onclick = () => {
-                        if (!confirm('Excluir empresa?')) return;
-                        const list = loadEmpresas();
-                        list.splice(b.dataset.idx, 1);
-                        saveEmpresas(list);
-                        renderList(searchInput.value);
-                    };
-                });
-            }
-
-            function previewEmpresa(emp) {
-                previewContent.innerHTML = `
-                    <div class="col-span-1 flex justify-center">
-                        <img src="${emp.logo || 'https://via.placeholder.com/160'}" class="w-40 h-40 object-cover rounded" />
-                    </div>
-                    <div class="col-span-2">
-                        <h4 class="text-xl font-bold">${emp.nome}</h4>
-                        <p class="text-sm muted">${emp.setor || ''} • <span class="accent-text">${emp.status}</span></p>
-                        <p class="mt-2"><span class="font-semibold muted">CNPJ:</span> ${emp.cnpj || '—'}</p>
-                        <p><span class="font-semibold muted">Endereço:</span> ${emp.endereco || '—'}</p>
-                        <p><span class="font-semibold muted">Contato:</span> ${emp.email || '—'} • ${emp.telefone || '—'}</p>
-                        <p class="mt-2 text-sm muted"><span class="font-semibold">Funcionários:</span> ${emp.funcionarios || 0}</p>
-                    </div>
-                `;
-                previewModal.classList.remove('hidden');
-            }
-
-            document.getElementById('closePreview').onclick = () => previewModal.classList.add('hidden');
-            previewModal.onclick = (e) => { if (e.target === previewModal) previewModal.classList.add('hidden'); };
-
-            function openForm({ mode = 'add' } = {}) {
-                form.reset();
-                formSection.classList.remove('hidden');
-                formSection.classList.add('animate-in');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                if (mode === 'edit') {
-                    submitBtn.textContent = 'Salvar';
-                    formTitle.textContent = 'Editar empresa';
-                } else {
-                    submitBtn.textContent = 'Adicionar Empresa';
-                    formTitle.textContent = 'Cadastrar nova empresa';
-                    editIndexInput.value = '';
-                }
-            }
-
-            // abrir formulário para novo cadastro
-            openFormBtn.onclick = () => openForm({ mode: 'add' });
-
-            // cancelar/fechar form
-            cancelBtn.onclick = () => {
-                formSection.classList.add('hidden');
-                editIndexInput.value = '';
-            };
-
-            // limpar form
-            document.getElementById('limparBtn').onclick = () => form.reset();
-
-            // form submit
-            form.addEventListener('submit', (ev) => {
-                ev.preventDefault();
-                const list = loadEmpresas();
-                const data = {
-                    nome: document.getElementById('nome').value.trim(),
-                    cnpj: document.getElementById('cnpj').value.trim(),
-                    setor: document.getElementById('setor').value.trim(),
-                    endereco: document.getElementById('endereco').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    telefone: document.getElementById('telefone').value.trim(),
-                    funcionarios: Number(document.getElementById('funcionarios').value) || 0,
-                    status: document.getElementById('status').value,
-                    logo: document.getElementById('logo').value.trim()
-                };
-                const editIndex = editIndexInput.value;
-                if (editIndex) {
-                    list[editIndex] = data;
-                    editIndexInput.value = '';
-                } else {
-                    list.unshift(data); // adiciona no topo
-                }
-                saveEmpresas(list);
-                form.reset();
-                // esconder formulário após salvar
-                formSection.classList.add('hidden');
-                renderList(searchInput.value);
-            });
-
-            // pesquisa / export
-            searchInput.addEventListener('input', () => renderList(searchInput.value));
-            document.getElementById('exportBtn').onclick = () => {
-                const data = JSON.stringify(loadEmpresas(), null, 2);
-                const blob = new Blob([data], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'empresas_omni.json';
-                a.click();
-                URL.revokeObjectURL(url);
-            };
-
-            // iniciar
-            renderList();*/
-        </script>
         <script src="/js/empresa.js"></script>
+        <script src="/js/front.js"></script>
     </body>
 </html>
