@@ -4,6 +4,7 @@ Changelog
 - Refatoração do Painel Principal (Dashboard)
 - Correções na Página do Cadastro de Empresas
 - Implementação do Menu do Administrador
+- Correções no menu auxiliar
 
 [0.20.4] Correções - 29 JAN 2026
 - Correções na página do Banco de Horas e Folha de Ponto
