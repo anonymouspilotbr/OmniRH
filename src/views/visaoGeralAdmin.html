@@ -134,5 +134,55 @@
         </div>
     </footer>
     <script src="/js/front.js"></script>
+    <script>
+        const notificacoes = [
+            {
+                tipo: "ferias",
+                mensagem: "Carlos Pereira — Férias em 03/12"
+            },
+            {
+                tipo: "pendente",
+                mensagem: "Documento pendente — Ana Paula"
+            }
+        ];
+
+        // Renderizar notificações
+        function renderNotificacoes() {
+            notificationList.innerHTML = "";
+
+            notificacoes.forEach(n => {
+                const li = document.createElement("li");
+
+                let icon = "";
+                if (n.tipo === "ferias") icon = "🌴";
+                if (n.tipo === "pendente") icon = "⚠️";
+
+                li.innerHTML = `
+                    <div class="px-4 py-3 hover:bg-gray-100 cursor-pointer flex items-center gap-2">
+                        <span>${icon}</span>
+                        <span class="text-sm">${n.mensagem}</span>
+                    </div>
+                `;
+
+                notificationList.appendChild(li);
+            });
+
+            notificationCount.textContent = notificacoes.length;
+        }
+
+        renderNotificacoes();
+
+        // Toggle menu
+        notificationButton.addEventListener("click", () => {
+            notificationMenu.classList.toggle("hidden");
+        });
+
+        // Fechar ao clicar fora
+        document.addEventListener("click", (e) => {
+            if (!notificationButton.contains(e.target) && !notificationMenu.contains(e.target)) {
+                notificationMenu.classList.add("hidden");
+            }
+        });
+    </script>
 </body>
 </html>
