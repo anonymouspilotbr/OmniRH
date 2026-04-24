@@ -78,16 +78,26 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                     alert("Chamado criado com sucesso!");
-
                     document.getElementById("chamadoForm").reset();
-
                     carregarMeusChamados(id_funcionario);
+                    formChamados.classList.add("hidden");
+                    listaChamados.classList.remove("hidden");
 
                 } catch (err) {
                     console.error(err);
                     alert("Erro ao criar chamado");
                 }
             });
+
+            const btnNovoChamado = document.getElementById("novoChamadoBtn");
+            const listaChamados = document.getElementById("listaChamados");
+            const formChamados = document.getElementById("formChamados");
+
+            btnNovoChamado.addEventListener("click", () => {
+                listaChamados.classList.add("hidden");
+                formChamados.classList.remove("hidden");
+            });
+
         })
     }
 })
