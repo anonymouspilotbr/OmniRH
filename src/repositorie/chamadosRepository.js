@@ -20,8 +20,8 @@ async function listarChamados() {
         t.nome AS tecnico,
         c.status
         FROM chamados c
-        JOIN empresa e ON e.id = c.empresa
-        JOIN funcionario s ON s.id = c.solicitante
+        LEFT JOIN empresa e ON e.id = c.empresa
+        LEFT JOIN funcionario s ON s.id = c.solicitante
         LEFT JOIN funcionario t ON t.id = c.id_tecnico
         ORDER BY c.data_hora DESC
     `;
