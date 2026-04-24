@@ -8,7 +8,7 @@ async function criarChamado(data, id_solicitante, desc) {
         WHERE f.id = $2
         RETURNING id
     `;
-    const result = await pool.query(query, [data, id_solicitante, id_empresa, desc]);
+    const result = await pool.query(query, [data, id_solicitante, desc]);
     return result.rows[0];
 }
 
