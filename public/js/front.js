@@ -36,7 +36,7 @@ function paginaMenuHoras(){
   window.location.href = "horas";
 }
 function paginaMenuChamados(){
-  window.location.href = "chamados";
+  window.location.href = "visao-chamados";
 }
 function paginaMenuControleRH(){
   window.location.href = "controle-rh";
