@@ -36,6 +36,18 @@ async function carregarChamados() {
         const tbody = document.querySelector("tbody");
         tbody.innerHTML = "";
 
+        if (chamados.length === 0) {
+            const tbody = document.querySelector("tbody");
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="px-4 py-6 text-center text-gray-500">
+                        Nenhum chamado encontrado
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
         chamados.forEach(c => {
             const linha = document.createElement("tr");
             linha.className = "bg-white text-center border-t";
@@ -66,6 +78,14 @@ async function carregarChamados() {
         });
 
     } catch (err) {
+        const tbody = document.querySelector("tbody");
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="px-4 py-6 text-center text-red-500">
+                    Erro ao carregar chamados
+                </td>
+            </tr>
+        `;
         console.error("Erro ao carregar chamados:", err);
     }
 }
