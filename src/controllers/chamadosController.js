@@ -22,7 +22,7 @@ async function listarChamados(req, res) {
         res.json(chamados);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Erro ao listar chamados' });
+        res.status(500).json({ error: err.message });
     }
 }
 
@@ -33,7 +33,7 @@ async function listarChamadosPorSolicitante(req, res) {
         res.json(chamados);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Erro ao listar chamados' });
+        res.status(500).json({ error: err.message });
     }
 }
 
