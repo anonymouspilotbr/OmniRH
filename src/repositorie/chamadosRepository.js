@@ -22,7 +22,7 @@ async function listarChamados() {
         FROM chamados c
         JOIN empresa e ON e.id = c.empresa
         JOIN funcionario s ON s.id = c.solicitante
-        LEFT JOIN funcionario t ON t.id = c.tecnico;
+        LEFT JOIN funcionario t ON t.id = c.tecnico
         ORDER BY c.data_hora DESC
     `;
     const result = await pool.query(query);
@@ -37,7 +37,7 @@ async function listarPorSolicitante(id_solicitante) {
         WHERE solicitante = $1
         ORDER BY data_hora DESC
     `;
-    const result = await pool.query(query, id_solicitante);
+    const result = await pool.query(query, [id_solicitante]);
     return result.rows;
 }
 
