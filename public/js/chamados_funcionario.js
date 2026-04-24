@@ -47,6 +47,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
+            function formatarData(dataISO) {
+                if (!dataISO) return "-";
+
+                const d = new Date(dataISO);
+
+                const data = d.toLocaleDateString("pt-BR");
+                const hora = d.toLocaleTimeString("pt-BR", {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                return `${data} ${hora}`;
+            }
+
+            function formatarStatus(status) {
+                if (!status) return "-";
+
+                switch (status) {
+                    case "Em andamento":
+                        return `<span class="text-gray-500">⏳ ${status}</span>`;
+                    case "Concluído":
+                        return `<span class="text-green-600">✔ ${status}</span>`;
+                    case "Aguardando Triagem":
+                        return `<span class="text-yellow-600">⌛ ${status}</span>`;
+                    default:
+                        return status;
+                }
+            }
+
             document.getElementById("chamadoForm").addEventListener("submit", async (e) => {
                 e.preventDefault();
 
