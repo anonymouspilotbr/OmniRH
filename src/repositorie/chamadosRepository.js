@@ -1,9 +1,11 @@
 const pool = require("../model/db.js");
 
-async function criarChamado(data, id_solicitante, id_empresa, desc) {
+async function criarChamado(data, id_solicitante, desc) {
     const query = `
         INSERT INTO chamados (data_hora, solicitante, empresa, descricao)
-        VALUES ($1, $2, $3, $4)
+        VALUES ($1, $2, 
+        SELECT id_empresa FROM funcionario WHERE id = $2, 
+        $3)
         RETURNING id
     `;
     const result = await pool.query(query, [data, id_solicitante, id_empresa, desc]);

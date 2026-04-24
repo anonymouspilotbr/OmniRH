@@ -1,14 +1,14 @@
 const chamadosService = require('../service/chamadosService');
 
 async function registrarChamado(req, res) {
-    const { data, id_solicitante, id_empresa, desc } = req.body;
+    const { data, id_solicitante, desc } = req.body;
 
-    if(!data || !id_solicitante || !id_empresa){
+    if(!data || !id_solicitante){
         return res.status(400).json({ error: 'Dados obrigatórios não fornecidos' });
     }
 
     try{
-        const chamado = await chamadosService.criarChamado(data, id_solicitante, id_empresa, desc);
+        const chamado = await chamadosService.criarChamado(data, id_solicitante, desc);
         res.status(201).json({ message: 'Chamado registrado com sucesso', id: chamado.id });
     } catch (err) {
         console.error(err);
