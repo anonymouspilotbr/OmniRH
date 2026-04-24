@@ -17,7 +17,7 @@ async function listarChamados() {
         s.nome AS solicitante,
         e.nome AS empresa,
         c.descricao,
-        t.id AS id_tecnico,
+        t.nome AS tecnico,
         c.status
         FROM chamados c
         JOIN empresa e ON e.id = c.empresa
