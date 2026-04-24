@@ -17,12 +17,12 @@ async function listarChamados() {
         s.nome AS solicitante,
         e.nome AS empresa,
         c.descricao,
-        t.nome AS tecnico,
+        t.id AS id_tecnico,
         c.status
         FROM chamados c
         JOIN empresa e ON e.id = c.empresa
         JOIN funcionario s ON s.id = c.solicitante
-        LEFT JOIN funcionario t ON t.id = c.tecnico
+        LEFT JOIN funcionario t ON t.id = c.id_tecnico
         ORDER BY c.data_hora DESC
     `;
     const result = await pool.query(query);
