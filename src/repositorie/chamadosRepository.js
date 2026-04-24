@@ -2,7 +2,7 @@ const pool = require("../model/db.js");
 
 async function criarChamado(data, id_solicitante, id_empresa, desc) {
     const query = `
-        INSERT INTO chamados (data-hora, solicitante, empresa, descricao)
+        INSERT INTO chamados (data_hora, solicitante, empresa, descricao)
         VALUES ($1, $2, $3, $4)
         RETURNING id
     `;
@@ -23,7 +23,7 @@ async function listarChamados() {
         JOIN empresa e ON e.id = c.empresa
         JOIN funcionario s ON s.id = c.solicitante
         LEFT JOIN funcionario t ON t.id = c.tecnico;
-        ORDER BY data-hora DESC
+        ORDER BY c.data_hora DESC
     `;
     const result = await pool.query(query);
     return result.rows;
@@ -35,7 +35,7 @@ async function listarPorSolicitante(id_solicitante) {
         SELECT *
         FROM chamados
         WHERE solicitante = $1
-        ORDER BY data-hora DESC
+        ORDER BY data_hora DESC
     `;
     const result = await pool.query(query, id_solicitante);
     return result.rows;
