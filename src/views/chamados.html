@@ -240,10 +240,21 @@
                 <button onclick="atribuirTech()" title="Atribuir Técnico" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-user-gear"></i>
                 </button><!--Atribuir Técnico-->
-                <button onclick="" class=""></button><!--Adicionar Serviço Prestado-->
-                <button onclick="" class=""></button><!--Adicionar Comentário/Discussão-->
-                <button onclick="" class=""></button><!--Voltar p/ triagem-->
-                <button onclick="" class=""></button><!--Arquivar-->
+                <button onclick="adicionarServ()" title="Adicionar serviço prestado" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                </button><!--Adicionar Serviço Prestado-->
+                <button onclick="addComment()" title="Adicionar comentário/discussão" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                    <i class="fa-solid fa-comment-dots"></i>
+                </button><!--Adicionar Comentário/Discussão-->
+                <button onclick="removerTech()" title="" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                    <i class="fa-solid fa-user-slash"></i>
+                </button><!--Voltar p/ triagem-->
+                <button onclick="arquivarOS()" title="Arquivar OS" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                    <i class="fa-solid fa-box-archive"></i>
+                </button><!--Arquivar-->
+                <button onclick="concluirOS()" title="Concluir OS" class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg">
+                    Marcar como concluído
+                </button>
             </div>
         </main>
         <footer class="bg-gray-800 text-white py-8 mt-12">
