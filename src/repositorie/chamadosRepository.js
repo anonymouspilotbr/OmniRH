@@ -96,7 +96,7 @@ async function removerTecnico(idChamado) {
         WHERE id = $1
         RETURNING *
     `;
-    const result = await pool.query(query, [id]);
+    const result = await pool.query(query, [idChamado]);
     return result.rows[0];
 }
 
