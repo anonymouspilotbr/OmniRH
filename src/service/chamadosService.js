@@ -27,6 +27,10 @@ async function adicionarComentario(idChamado, comentario) {
     return await chamadosRepository.adicionarComentario(idChamado, comentario);
 }
 
+async function removerTecnico(idChamado) {
+    return await chamadosRepository.removerTecnico(idChamado);
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
@@ -35,4 +39,5 @@ module.exports = {
     atribuirTecnico,
     adicionarServico,
     adicionarComentario,
+    removerTecnico,
 }

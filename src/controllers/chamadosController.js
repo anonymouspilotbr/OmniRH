@@ -86,6 +86,18 @@ async function adicionarComentario(req, res) {
     }
 }
 
+async function removerTecnico(req, res) {
+    try{
+        const { id } = req.params;
+
+        const chamado = await chamadosService.removerTecnico(id);
+        res.json(chamado);
+    } catch (error) {
+        console.error("Erro ao adicionar comentário: ", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     registrarChamado,
     listarChamados,
@@ -94,4 +106,5 @@ module.exports = {
     atribuirTecnico,
     adicionarServico,
     adicionarComentario,
+    removerTecnico,
 }

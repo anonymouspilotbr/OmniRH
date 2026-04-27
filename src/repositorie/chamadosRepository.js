@@ -88,6 +88,18 @@ async function adicionarComentario(idChamado, comentario) {
     return result.rows[0];
 }
 
+async function removerTecnico(idChamado) {
+    const query = `
+        UPDATE chamados
+        SET id_tecnico = NULL,
+        status = 'Aguardando triagem'
+        WHERE id = $1
+        RETURNING *
+    `;
+    const result = await pool.query(query, [id]);
+    return result.rows[0];
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
@@ -96,4 +108,5 @@ module.exports = {
     atribuirTecnico,
     adicionarServico,
     adicionarComentario,
+    removerTecnico,
 }

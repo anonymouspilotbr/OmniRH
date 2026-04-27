@@ -240,11 +240,38 @@ async function confirmarComentario() {
 
         alert("Comentário adicionado!");
         fecharModalComentarios();
+        document.getElementById("areaComentario").value = "";
         carregarChamados();
     } catch (err) {
         console.error(err);
         alert("Erro ao adicionar comentário");
     }
 }
+
+function removerTech(){
+    document.getElementById("modalRemoverTech").classList.remove("hidden");
+}
+
+function fecharModalRemoverTech(){
+    document.getElementById("modalRemoverTech").classList.add("hidden");
+}
+
+async function confirmarRemoverTech() {
+    try{
+        const response = await fetch(`/chamados/${window.chamadoAtual}/removerTech`, {
+            method: 'PUT'
+        });
+
+        if (!response.ok) throw new Error();
+
+        alert("Técnico removido com sucesso!");
+        fecharModalRemoverTech();
+        carregarChamados();
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao remover o técnico");
+    }
+}
+
 
 window.onload = carregarChamados;
