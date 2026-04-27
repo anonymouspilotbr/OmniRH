@@ -43,13 +43,32 @@ async function listarPorSolicitante(id_solicitante) {
     return result.rows;
 }
 
-async function atualizarStatus(id, status) {
-    //atualizar status
+async function buscarTecnicos() {
+    const query = `
+        SELECT *
+        FROM funcionario
+        WHERE tipo = 'ADMIN'
+    `;
+    const result = await pool.query(query)
+    return result.rows;
+}
+
+async function atribuirTecnico(idChamado, idTecnico) {
+    const query = `
+        UPDATE chamados
+        SET id_tecnico = $1, 
+        status = 'À disposição do técnico'
+        WHERE id = $2
+        RETURNING *
+    `;
+    const result = await pool.query(query, [idTecnico, idChamado]);
+    return result.rows[0];
 }
 
 module.exports = {
     criarChamado,
     listarChamados,
     listarPorSolicitante,
-    atualizarStatus,
+    buscarTecnicos,
+    atribuirTecnico,
 }

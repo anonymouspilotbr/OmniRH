@@ -1,5 +1,6 @@
 function mostrarDetalhes(id) {
     const dados = listaChamados.find(c => c.id == id);
+    window.chamadoAtual = dados.id;
 
     if (!dados) return;
 
@@ -117,6 +118,56 @@ function formatarStatus(status) {
             return `<span class="text-yellow-600"><i class="fa-solid fa-hourglass"></i> ${status}</span>`;
         default:
             return status;
+    }
+}
+
+async function atribuirTech() {
+    try{
+        const res = await fetch('/tecnicos');
+        const tecnicos = await res.json();
+
+        const select = document.getElementById("tecnicoSelect");
+        select.innerHTML = `<option value="">Selecione...</option>`;
+        tecnicos.forEach(t => {
+            select.innerHTML += `<option value="${t.id}">${t.nome}</option>`;
+        });
+        document.getElementById("modalTecnico").classList.remove("hidden");
+    } catch (err){
+        console.error(err);
+        alert("Erro ao carregar técnicos");
+    }
+}
+
+function fecharModalTecnico() {
+    document.getElementById("modalTecnico").classList.add("hidden");
+}
+
+async function confirmarAtribuicao() {
+    const select = document.getElementById("tecnicoSelect");
+    const id_tecnico = select.value;
+
+    if (!id_tecnico) {
+        alert("Selecione um técnico");
+        return;
+    }
+
+    try {
+        const response = await fetch(`/chamados/${window.chamadoAtual}/atribuir`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_tecnico })
+        });
+
+        if (!response.ok) throw new Error();
+
+        alert("Técnico atribuído!");
+        fecharModalTecnico();
+        carregarChamados();
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao atribuir técnico");
     }
 }
 

@@ -6,8 +6,9 @@ router.post('/', chamadosController.registrarChamado);
 
 router.get('/solicitante/:id_solicitante', chamadosController.listarChamadosPorSolicitante);
 
-//Falta os router.put para mudar o status
+router.put('/:id/atribuir', chamadosController.atribuirTecnico);
 
 router.get('/', chamadosController.listarChamados);
+router.get('/tecnicos', chamadosController.listarTecnicos);
 
 module.exports = router;

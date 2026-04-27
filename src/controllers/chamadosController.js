@@ -37,13 +37,33 @@ async function listarChamadosPorSolicitante(req, res) {
     }
 }
 
-async function atualizarStatusOS(req, res) {
-    //TBD
+async function listarTecnicos(req, res) {
+    try{
+        const tecnicos = await chamadosService.buscarTecnicos();
+        res.json(tecnicos);
+    } catch (error) {
+        console.error("Erro ao buscar técnicos:", error);
+        res.status(500).json({ error: "Erro ao buscar técnicos" });
+    }
+}
+
+async function atribuirTecnico(req, res) {
+    try{
+        const { id } = req.params;
+        const { id_tecnico } = req.body;
+
+        const chamado = await chamadosService.atribuirTecnico(id, id_tecnico);
+        res.json(chamado);
+    } catch (error) {
+        console.error("Erro ao atribuir técnico: ", error);
+        res.status(500).json({ error: "Erro ao atribuir técnico" });
+    }
 }
 
 module.exports = {
     registrarChamado,
     listarChamados,
     listarChamadosPorSolicitante,
-    atualizarStatusOS,
+    listarTecnicos,
+    atribuirTecnico,
 }

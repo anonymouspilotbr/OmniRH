@@ -11,13 +11,18 @@ async function listarPorSolicitante(id_solicitante) {
     return await chamadosRepository.listarPorSolicitante(id_solicitante);
 }
 
-async function atualizarStatus(id, status) {
-    return await chamadosRepository.atualizarStatus(id, status);
+async function buscarTecnicos(){
+    return await chamadosRepository.buscarTecnicos();
+}
+
+async function atribuirTecnico(idChamado, idTecnico) {
+    return await chamadosRepository.atribuirTecnico(idChamado, idTecnico);
 }
 
 module.exports = {
     criarChamado,
     listarChamados,
     listarPorSolicitante,
-    atualizarStatus,
+    buscarTecnicos,
+    atribuirTecnico,
 }
