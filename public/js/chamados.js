@@ -114,7 +114,7 @@ function formatarStatus(status) {
             return `<span class="text-gray-500"><i class="fa-solid fa-clock"></i> ${status}</span>`;
         case "Concluído":
             return `<span class="text-green-600"><i class="fa-solid fa-check"></i> ${status}</span>`;
-        case "Aguardando Triagem":
+        case "Aguardando triagem":
             return `<span class="text-yellow-600"><i class="fa-solid fa-hourglass"></i> ${status}</span>`;
         case "À disposição do técnico":
             return `<span class="text-black"><i class="fa-solid fa-user-clock"></i> ${status}</span>`
@@ -208,6 +208,41 @@ async function confirmarServico(){
     } catch (err) {
         console.error(err);
         alert("Erro ao atribuir serviço");
+    }
+}
+
+function addComment(){
+    document.getElementById("modalComentarios").classList.remove("hidden");
+}
+
+function fecharModalComentarios(){
+    document.getElementById("modalComentarios").classList.add("hidden");
+}
+
+async function confirmarComentario() {
+    const comment = document.getElementById("areaComentario").value;
+
+    if(!comment){
+        fecharModalComentarios();
+    }
+
+    try{
+        const response = await fetch(`/chamados/${window.chamadoAtual}/addComentario`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ comment })
+        });
+
+        if (!response.ok) throw new Error();
+
+        alert("Comentário adicionado!");
+        fecharModalComentarios();
+        carregarChamados();
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao adicionar comentário");
     }
 }
 

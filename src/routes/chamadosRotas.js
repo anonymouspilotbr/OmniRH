@@ -8,6 +8,7 @@ router.get('/solicitante/:id_solicitante', chamadosController.listarChamadosPorS
 
 router.put('/:id/atribuir', chamadosController.atribuirTecnico);
 router.put('/:id/addServico', chamadosController.adicionarServico);
+router.put('/:id/addComentario', chamadosController.adicionarComentario);
 
 router.get('/', chamadosController.listarChamados);
 router.get('/tecnicos', chamadosController.listarTecnicos);

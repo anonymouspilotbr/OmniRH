@@ -77,6 +77,17 @@ async function adicionarServico(idChamado, servico) {
     return result.rows[0];
 }
 
+async function adicionarComentario(idChamado, comentario) {
+    const query = `
+        UPDATE chamados
+        SET comentarios = array_append(COALESCE(comentarios, '{}'), $1)
+        WHERE id = $2
+        RETURNING *
+    `;
+    const result = await pool.query(query, [comentario, idChamado]);
+    return result.rows[0];
+}
+
 module.exports = {
     criarChamado,
     listarChamados,

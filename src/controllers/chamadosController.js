@@ -73,6 +73,19 @@ async function adicionarServico(req, res) {
     }
 }
 
+async function adicionarComentario(req, res) {
+    try{
+        const { id } = req.params;
+        const { comentario } = req.body;
+
+        const chamado = await chamadosService.adicionarComentario(id, comentario);
+        res.json(chamado);
+    } catch (error) {
+        console.error("Erro ao adicionar comentário: ", error);
+        res.status(500).json({ error: "Erro ao adicionar comentário" });
+    }
+}
+
 module.exports = {
     registrarChamado,
     listarChamados,
@@ -80,4 +93,5 @@ module.exports = {
     listarTecnicos,
     atribuirTecnico,
     adicionarServico,
+    adicionarComentario,
 }

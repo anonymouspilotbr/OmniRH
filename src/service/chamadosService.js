@@ -23,6 +23,10 @@ async function adicionarServico(idChamado, servico) {
     return await chamadosRepository.adicionarServico(idChamado, servico);
 }
 
+async function adicionarComentario(idChamado, comentario) {
+    return await chamadosRepository.adicionarComentario(idChamado, comentario);
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
@@ -30,4 +34,5 @@ module.exports = {
     buscarTecnicos,
     atribuirTecnico,
     adicionarServico,
+    adicionarComentario,
 }
