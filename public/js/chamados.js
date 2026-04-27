@@ -171,4 +171,42 @@ async function confirmarAtribuicao() {
     }
 }
 
+function adicionarServ() {
+    document.getElementById("modalServico").classList.remove("hidden");
+}
+
+function fecharModalServico(){
+    document.getElementById("modalServico").classList.add("hidden");
+}
+
+async function confirmarServico(){
+    const select = document.getElementById("servicoSelect");
+    const servico = select.value;
+
+    if(!servico){
+        alert("Selecione um serviço");
+        return;
+    }
+
+    try{
+        const response = await fetch(`/chamados/${window.chamadoAtual}/addServico`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ servico })
+        });
+
+        if (!response.ok) throw new Error();
+
+        alert("Serviço cadastrado!");
+        fecharModalServico();
+        carregarChamados();
+
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao atribuir serviço");
+    }
+}
+
 window.onload = carregarChamados;

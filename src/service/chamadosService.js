@@ -19,10 +19,15 @@ async function atribuirTecnico(idChamado, idTecnico) {
     return await chamadosRepository.atribuirTecnico(idChamado, idTecnico);
 }
 
+async function adicionarServico(idChamado, servico) {
+    return await chamadosRepository.adicionarServico(idChamado, servico);
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
     listarPorSolicitante,
     buscarTecnicos,
     atribuirTecnico,
+    adicionarServico,
 }

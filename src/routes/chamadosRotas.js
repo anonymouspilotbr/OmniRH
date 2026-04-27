@@ -7,6 +7,7 @@ router.post('/', chamadosController.registrarChamado);
 router.get('/solicitante/:id_solicitante', chamadosController.listarChamadosPorSolicitante);
 
 router.put('/:id/atribuir', chamadosController.atribuirTecnico);
+router.put('/:id/addServico', chamadosController.adicionarServico);
 
 router.get('/', chamadosController.listarChamados);
 router.get('/tecnicos', chamadosController.listarTecnicos);

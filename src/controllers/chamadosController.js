@@ -60,10 +60,24 @@ async function atribuirTecnico(req, res) {
     }
 }
 
+async function adicionarServico(req, res) {
+    try{
+        const { id } = req.params;
+        const { servico } = req.body;
+
+        const chamado = await chamadosService.adicionarServico(id, servico);
+        res.json(chamado);
+    } catch (error) {
+        console.error("Erro ao adicionar serviço: ", error);
+        res.status(500).json({ error: "Erro ao adicionar serviço" });
+    }
+}
+
 module.exports = {
     registrarChamado,
     listarChamados,
     listarChamadosPorSolicitante,
     listarTecnicos,
     atribuirTecnico,
+    adicionarServico,
 }

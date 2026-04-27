@@ -220,7 +220,7 @@
                         <!-- DESCRIÇÃO DA OS -->
                     </div>
                 </div>
-                <div id="modalTecnico" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center">
+                <div id="modalTecnico" class="fixed inset-0 bg-black bg-opacity-40 hidden flex items-center justify-center">
                     <div class="bg-white p-6 rounded-lg shadow-lg w-80">
                         <h2 class="text-lg font-semibold mb-4">Atribuir Técnico</h2>
                         <select id="tecnicoSelect" class="w-full border p-2 rounded mb-4"></select>
@@ -229,6 +229,20 @@
                                 Cancelar
                             </button>
                             <button onclick="confirmarAtribuicao()" class="px-3 py-1 bg-blue-600 text-white rounded">
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="modalServico" class="fixed inset-0 bg-black bg-opacity-40 hidden flex items-center justify-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+                        <h2 class="text-lg font-semibold mb-4">Adicionar Serviço</h2>
+                        <select id="servicoSelect" class="w-full border p-2 rounded mb-4"></select>
+                        <div class="flex justify-end gap-2">
+                            <button onclick="fecharModalServico()" class="px-3 py-1 bg-gray-300 rounded">
+                                Cancelar
+                            </button>
+                            <button onclick="confirmarServico()" class="px-3 py-1 bg-blue-600 text-white rounded">
                                 Confirmar
                             </button>
                         </div>
@@ -246,7 +260,7 @@
                 <button onclick="addComment()" title="Adicionar comentário/discussão" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-comment-dots"></i>
                 </button><!--Adicionar Comentário/Discussão-->
-                <button onclick="removerTech()" title="" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                <button onclick="removerTech()" title="Remover Técnico" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-user-slash"></i>
                 </button><!--Voltar p/ triagem-->
                 <button onclick="arquivarOS()" title="Arquivar OS" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">

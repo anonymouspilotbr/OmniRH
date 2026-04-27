@@ -21,6 +21,7 @@ async function listarChamados() {
         c.descricao,
         t.nome AS tecnico,
         c.status
+        c.servicos
         FROM chamados c
         LEFT JOIN empresas e ON e.id = c.empresa
         LEFT JOIN funcionario s ON s.id = c.solicitante
@@ -65,10 +66,22 @@ async function atribuirTecnico(idChamado, idTecnico) {
     return result.rows[0];
 }
 
+async function adicionarServico(idChamado, servico) {
+    const query = `
+        UPDATE chamados
+        SET servicos = array_append(COALESCE(servicos, '{}'), $1)
+        WHERE id = $2
+        RETURNING *
+    `;
+    const result = await pool.query(query, [servico, idChamado]);
+    return result.rows[0];
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
     listarPorSolicitante,
     buscarTecnicos,
     atribuirTecnico,
+    adicionarServico,
 }
