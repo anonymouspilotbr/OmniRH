@@ -32,6 +32,7 @@ async function carregarChamados() {
     try {
         const response = await fetch('/chamados');
         const chamados = await response.json();
+        listaChamados = chamados;
 
         const tbody = document.querySelector("tbody");
         tbody.innerHTML = "";
