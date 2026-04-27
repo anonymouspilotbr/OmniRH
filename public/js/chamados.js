@@ -116,6 +116,8 @@ function formatarStatus(status) {
             return `<span class="text-green-600"><i class="fa-solid fa-check"></i> ${status}</span>`;
         case "Aguardando Triagem":
             return `<span class="text-yellow-600"><i class="fa-solid fa-hourglass"></i> ${status}</span>`;
+        case "À disposição do técnico":
+            return `<span class="text-black"><i class="fa-solid fa-user-clock"></i> ${status}</span>`
         default:
             return status;
     }

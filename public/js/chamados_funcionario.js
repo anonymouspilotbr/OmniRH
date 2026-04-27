@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <td>${c.id}</td>
                                 <td>${formatarData(c.data_hora)}</td>
                                 <td>${c.descricao}</td>
-                                <td>${c.id_tecnico || '-'}</td>
+                                <td>${c.tecnico || '-'}</td>
                                 <td>${formatarStatus(c.status)}</td>
                             </tr>
                         `;
@@ -66,11 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 switch (status) {
                     case "Em andamento":
-                        return `<span class="text-gray-500">⏳ ${status}</span>`;
+                        return `<span class="text-gray-500"><i class="fa-solid fa-clock"></i> ${status}</span>`;
                     case "Concluído":
-                        return `<span class="text-green-600">✔ ${status}</span>`;
+                        return `<span class="text-green-600"><i class="fa-solid fa-check"></i> ${status}</span>`;
                     case "Aguardando Triagem":
-                        return `<span class="text-yellow-600">⌛ ${status}</span>`;
+                        return `<span class="text-yellow-600"><i class="fa-solid fa-hourglass"></i> ${status}</span>`;
+                    case "À disposição do técnico":
+                        return `<span class="text-black"><i class="fa-solid fa-user-clock"></i> ${status}</span>`
                     default:
                         return status;
                 }
