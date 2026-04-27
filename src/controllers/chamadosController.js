@@ -82,7 +82,7 @@ async function adicionarComentario(req, res) {
         res.json(chamado);
     } catch (error) {
         console.error("Erro ao adicionar comentário: ", error);
-        res.status(500).json({ error: "Erro ao adicionar comentário" });
+        res.status(500).json({ error: error.message });
     }
 }
 
