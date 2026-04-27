@@ -223,7 +223,8 @@ async function confirmarComentario() {
     const comment = document.getElementById("areaComentario").value;
 
     if(!comment){
-        fecharModalComentarios();
+        alert("Digite um comentário");
+        return;
     }
 
     try{
