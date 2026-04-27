@@ -95,4 +95,5 @@ module.exports = {
     buscarTecnicos,
     atribuirTecnico,
     adicionarServico,
+    adicionarComentario,
 }
