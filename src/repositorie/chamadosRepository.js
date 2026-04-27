@@ -68,7 +68,8 @@ async function atribuirTecnico(idChamado, idTecnico) {
 async function adicionarServico(idChamado, servico) {
     const query = `
         UPDATE chamados
-        SET servicos = array_append(COALESCE(servicos, '{}'), $1)
+        SET servicos = array_append(COALESCE(servicos, '{}'), $1),
+        status = 'Em andamento'
         WHERE id = $2
         RETURNING *
     `;

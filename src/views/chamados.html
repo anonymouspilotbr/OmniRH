@@ -237,11 +237,12 @@
                 <div id="modalServico" class="fixed inset-0 bg-black bg-opacity-40 hidden flex items-center justify-center">
                     <div class="bg-white p-6 rounded-lg shadow-lg w-80">
                         <h2 class="text-lg font-semibold mb-4">Adicionar Serviço</h2>
-                        <select id="servicoSelect" class="w-full border p-2 rounded mb-4"></select>
-                        <option value="PlatformConfig">Configuração da Plataforma</option>
-                        <option value="ProfileConfig">Configuração de Perfil do Usuário</option>
-                        <option value="UserPCConfig">Configuração na Máquina do Usuário</option>
-                        <option value="Maintenance">Manutenção de Infraestrutura</option>
+                        <select id="servicoSelect" class="w-full border p-2 rounded mb-4">
+                            <option value="PlatformConfig">Configuração da Plataforma</option>
+                            <option value="ProfileConfig">Configuração de Perfil do Usuário</option>
+                            <option value="UserPCConfig">Configuração na Máquina do Usuário</option>
+                            <option value="Maintenance">Manutenção de Infraestrutura</option>
+                        </select>
                         <div class="flex justify-end gap-2">
                             <button onclick="fecharModalServico()" class="px-3 py-1 bg-gray-300 rounded">
                                 Cancelar
@@ -273,6 +274,19 @@
                 <button onclick="concluirOS()" title="Concluir OS" class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg">
                     Marcar como concluído
                 </button>
+                <h2 class="text-xl font-bold mb-4">
+                    <i class="fa-solid fa-clock-rotate-left text-blue-500"></i>
+                    Histórico
+                </h2>
+                <div class="bg-white shadow-md rounded-2xl">
+                    <div id="log_eventos" class="w-full p-6 mt-2 overflow-x-auto">
+                        <!-- LOG -->
+                         27/04/2026 16:02:01 Exemplo Exemplo Exemplo
+                         27/04/2026 16:02:01 Exemplo Exemplo Exemplo
+                         27/04/2026 16:02:01 Exemplo Exemplo Exemplo
+                         27/04/2026 16:02:01 Exemplo Exemplo Exemplo
+                    </div>
+                </div>
             </div>
         </main>
         <footer class="bg-gray-800 text-white py-8 mt-12">
