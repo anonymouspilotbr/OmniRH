@@ -26,6 +26,11 @@ function mostrarDetalhes(id) {
     document.getElementById("detalhes-os").classList.remove("hidden");
 }
 
+function voltarLista(){
+    document.getElementById("lista-chamados").classList.remove("hidden");
+    document.getElementById("detalhes-os").classList.add("hidden");
+}
+
 let listaChamados = [];
 
 async function carregarChamados() {
@@ -97,7 +102,7 @@ function formatarData(dataISO) {
     const data = d.toLocaleDateString("pt-BR");
     const hora = d.toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' });
 
-    return `${data}<br>${hora}`;
+    return `${data} ${hora}`;
 }
 
 function formatarStatus(status) {
