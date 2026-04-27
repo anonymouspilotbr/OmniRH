@@ -1,8 +1,8 @@
 function mostrarDetalhes(id) {
     const dados = listaChamados.find(c => c.id == id);
-    window.chamadoAtual = dados.id;
 
     if (!dados) return;
+    window.chamadoAtual = dados.id;
 
     document.getElementById("conteudo-detalhes").innerHTML = `
         <div>
@@ -123,7 +123,7 @@ function formatarStatus(status) {
 
 async function atribuirTech() {
     try{
-        const res = await fetch('/tecnicos');
+        const res = await fetch('/chamados/tecnicos');
         const tecnicos = await res.json();
 
         const select = document.getElementById("tecnicoSelect");
