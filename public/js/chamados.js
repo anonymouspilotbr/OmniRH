@@ -239,6 +239,7 @@ async function confirmarServico(){
         alert("Serviço cadastrado!");
         fecharModalServico();
         await carregarChamados();
+        mostrarDetalhes(window.chamadoAtual);
         atualizarBotoes(window.chamadoAtual);
     } catch (err) {
         console.error(err);
@@ -277,6 +278,7 @@ async function confirmarComentario() {
         fecharModalComentarios();
         document.getElementById("areaComentario").value = "";
         await carregarChamados();
+        mostrarDetalhes(window.chamadoAtual);
         atualizarBotoes(window.chamadoAtual);
     } catch (err) {
         console.error(err);
@@ -303,6 +305,7 @@ async function confirmarRemoverTech() {
         alert("Técnico removido com sucesso!");
         fecharModalRemoverTech();
         await carregarChamados();
+        mostrarDetalhes(window.chamadoAtual);
         atualizarBotoes(window.chamadoAtual);
     } catch (err) {
         console.error(err);
@@ -335,6 +338,7 @@ async function confirmarConcluirOS() {
 
         fecharModalConcluirOS();
         await carregarChamados();
+        mostrarDetalhes(window.chamadoAtual);
         atualizarBotoes(window.chamadoAtual);
         voltarLista();
     } catch (err) {
