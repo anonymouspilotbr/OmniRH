@@ -98,6 +98,24 @@ async function removerTecnico(req, res) {
     }
 }
 
+async function concluirChamado(req, res) {
+    try{
+        const { id } = req.params;
+        const chamado = await chamadosService.concluirChamado(id);
+
+        if (!chamado) {
+            return res.status(400).json({
+                error: "Não é possível concluir este chamado"
+            });
+        }
+        
+        res.json(chamado);
+    } catch (error) {
+        console.error("Erro ao concluir chamado: ", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     registrarChamado,
     listarChamados,
@@ -107,4 +125,5 @@ module.exports = {
     adicionarServico,
     adicionarComentario,
     removerTecnico,
+    concluirChamado,
 }

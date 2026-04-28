@@ -10,6 +10,7 @@ router.put('/:id/atribuir', chamadosController.atribuirTecnico);
 router.put('/:id/addServico', chamadosController.adicionarServico);
 router.put('/:id/addComentario', chamadosController.adicionarComentario);
 router.put('/:id/removerTech', chamadosController.removerTecnico);
+router.put('/:id/concluirOS', chamadosController.concluirChamado);
 
 router.get('/', chamadosController.listarChamados);
 router.get('/tecnicos', chamadosController.listarTecnicos);

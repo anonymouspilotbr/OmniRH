@@ -280,25 +280,46 @@
                         </div>
                     </div>
                 </div>
+                <div id="modalConcluirOS" class="fixed inset-0 bg-black bg-opacity-40 hidden flex items-center justify-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+                        <h2 class="text-lg font-semibold mb-4">Tem certeza que deseja concluir o chamado?</h2>
+                        <div class="flex justify-end gap-2">
+                            <button onclick="fecharModalConcluirOS()" class="px-3 py-1 bg-gray-300 rounded">
+                                Cancelar
+                            </button>
+                            <button onclick="confirmarConcluirOS()" class="px-3 py-1 bg-blue-600 text-white rounded">
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <button onclick="voltarLista()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">
                     Voltar para lista
                 </button>
-                <button onclick="atribuirTech()" title="Atribuir Técnico" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                <button onclick="atribuirTech()" 
+                ${isConcluido ? 'disabled' : ''} title="Atribuir Técnico" 
+                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg ${isConcluido ? 'opacity-50 cursor-not-allowed' : ''}">
                     <i class="fa-solid fa-user-gear"></i>
                 </button><!--Atribuir Técnico-->
-                <button onclick="adicionarServ()" title="Adicionar serviço prestado" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                <button onclick="adicionarServ()" 
+                ${isConcluido ? 'disabled' : ''} title="Adicionar serviço prestado" 
+                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg ${isConcluido ? 'opacity-50 cursor-not-allowed' : ''}">
                     <i class="fa-solid fa-file-circle-plus"></i>
                 </button><!--Adicionar Serviço Prestado-->
                 <button onclick="addComment()" title="Adicionar comentário/discussão" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-comment-dots"></i>
                 </button><!--Adicionar Comentário/Discussão-->
-                <button onclick="removerTech()" title="Remover Técnico" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                <button onclick="removerTech()" 
+                ${isConcluido ? 'disabled' : ''} title="Remover Técnico" 
+                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg ${isConcluido ? 'opacity-50 cursor-not-allowed' : ''}">
                     <i class="fa-solid fa-user-slash"></i>
                 </button><!--Voltar p/ triagem-->
                 <button onclick="arquivarOS()" title="Arquivar OS" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-box-archive"></i>
                 </button><!--Arquivar-->
-                <button onclick="concluirOS()" title="Concluir OS" class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg">
+                <button onclick="concluirOS()" 
+                ${!podeConcluir ? 'disabled' : ''} title="Concluir OS" 
+                class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg ${!podeConcluir ? 'opacity-50 cursor-not-allowed' : ''}">
                     Marcar como concluído
                 </button>
                 <h2 class="text-xl font-bold mb-2 mt-4">

@@ -100,6 +100,19 @@ async function removerTecnico(idChamado) {
     return result.rows[0];
 }
 
+async function concluirOS(idChamado) {
+    const query = `
+        UPDATE chamados
+        SET status = 'Concluído'
+        WHERE id = $1
+        AND status = 'Em andamento'
+        AND array_length(servicos, 1) > 0
+        RETURNING *
+    `;
+    const result = await pool.query(query, [idChamado]);
+    return result.rows[0];
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
@@ -109,4 +122,5 @@ module.exports = {
     adicionarServico,
     adicionarComentario,
     removerTecnico,
+    concluirOS,
 }

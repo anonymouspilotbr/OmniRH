@@ -1,5 +1,9 @@
 function mostrarDetalhes(id) {
     const dados = listaChamados.find(c => c.id == id);
+    const isConcluido = dados.status === "Concluído";
+    const emAndamento = dados.status === "Em andamento";
+    const temServicos = dados.servico && dados.servico.length > 0;
+    const podeConcluir = emAndamento && temServicos;
 
     if (!dados) return;
     window.chamadoAtual = dados.id;
@@ -270,6 +274,38 @@ async function confirmarRemoverTech() {
     } catch (err) {
         console.error(err);
         alert("Erro ao remover o técnico");
+    }
+}
+
+function concluirOS(){
+    document.getElementById("modalConcluirOS").classList.remove("hidden");
+}
+
+function fecharModalConcluirOS(){
+    document.getElementById("modalConcluirOS").classList.add("hidden");
+}
+
+async function confirmarConcluirOS() {
+    try{
+        const response = await fetch(`/chamados/${window.chamadoAtual}/concluirOS`, {
+            method: 'PUT'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.error || "Não foi possível concluir");
+            return;
+        }
+
+        alert("Chamado concluído com sucesso!");
+
+        fecharModalConcluirOS();
+        carregarChamados();
+        voltarLista();
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao concluir o chamado");
     }
 }
 
