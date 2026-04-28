@@ -112,6 +112,7 @@ async function carregarChamados() {
 
             tbody.appendChild(linha);
         });
+        return chamados;
 
     } catch (err) {
         const tbody = document.querySelector("tbody");
@@ -123,6 +124,7 @@ async function carregarChamados() {
             </tr>
         `;
         console.error("Erro ao carregar chamados:", err);
+        return [];
     }
 }
 
@@ -195,7 +197,7 @@ async function confirmarAtribuicao() {
 
         alert("Técnico atribuído!");
         fecharModalTecnico();
-        carregarChamados();
+        await carregarChamados();
         atualizarBotoes(window.chamadoAtual);
     } catch (err) {
         console.error(err);
@@ -233,8 +235,8 @@ async function confirmarServico(){
 
         alert("Serviço cadastrado!");
         fecharModalServico();
+        await carregarChamados();
         atualizarBotoes(window.chamadoAtual);
-        carregarChamados();
     } catch (err) {
         console.error(err);
         alert("Erro ao atribuir serviço");
@@ -271,8 +273,8 @@ async function confirmarComentario() {
         alert("Comentário adicionado!");
         fecharModalComentarios();
         document.getElementById("areaComentario").value = "";
+        await carregarChamados();
         atualizarBotoes(window.chamadoAtual);
-        carregarChamados();
     } catch (err) {
         console.error(err);
         alert("Erro ao adicionar comentário");
@@ -297,8 +299,8 @@ async function confirmarRemoverTech() {
 
         alert("Técnico removido com sucesso!");
         fecharModalRemoverTech();
+        await carregarChamados();
         atualizarBotoes(window.chamadoAtual);
-        carregarChamados();
     } catch (err) {
         console.error(err);
         alert("Erro ao remover o técnico");
@@ -329,8 +331,8 @@ async function confirmarConcluirOS() {
         alert("Chamado concluído com sucesso!");
 
         fecharModalConcluirOS();
+        await carregarChamados();
         atualizarBotoes(window.chamadoAtual);
-        carregarChamados();
         voltarLista();
     } catch (err) {
         console.error(err);
