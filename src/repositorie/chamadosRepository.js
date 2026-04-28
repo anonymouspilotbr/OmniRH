@@ -20,17 +20,22 @@ async function listarChamados() {
         e.nome AS empresa,
         c.descricao,
         t.nome AS tecnico,
-        c.status
-        (
-            SELECT json_agg(serv)
-            FROM servicos serv
-            WHERE serv.chamado_id = c.id
+        c.status,
+        
+        COALESCE(
+            (
+                SELECT json_agg(serv)
+                FROM servicos serv
+                WHERE serv.chamado_id = c.id
+            ), '[]'
         ) AS servicos,
 
-        (
-            SELECT json_agg(com)
-            FROM comentarios com
-            WHERE com.chamado_id = c.id
+        COALESCE(
+            (
+                SELECT json_agg(com)
+                FROM comentarios com
+                WHERE com.chamado_id = c.id
+            ), '[]'
         ) AS comentarios
 
         FROM chamados c
