@@ -35,6 +35,7 @@ function atualizarBotoes(id){
     const isConcluido = dados.status === "Concluído";
     const emAndamento = dados.status === "Em andamento";
     const temServicos = dados.servicos && dados.servicos.length > 0;
+    const temTecnico = dados.tecnico; 
     const podeConcluir = emAndamento && temServicos;
 
     const btnAtribuirTech = document.getElementById("btnAtribuirTech");
@@ -42,17 +43,17 @@ function atualizarBotoes(id){
     const btnRemoverTech = document.getElementById("btnRemoverTech");
     const btnConcluirOS = document.getElementById("btnConcluirOS");
 
-    btnAtribuirTech.disabled = isConcluido;
-    btnAtribuirTech.classList.toggle("opacity-50", isConcluido);
-    btnAtribuirTech.classList.toggle("cursor-not-allowed", isConcluido);
+    btnAtribuirTech.disabled = isConcluido || temTecnico;
+    btnAtribuirTech.classList.toggle("opacity-50", isConcluido || temTecnico);
+    btnAtribuirTech.classList.toggle("cursor-not-allowed", isConcluido || temTecnico);
 
     btnAdicionarServ.disabled = isConcluido;
     btnAdicionarServ.classList.toggle("opacity-50", isConcluido);
     btnAdicionarServ.classList.toggle("cursor-not-allowed", isConcluido);
 
-    btnRemoverTech.disabled = isConcluido;
-    btnRemoverTech.classList.toggle("opacity-50", isConcluido);
-    btnRemoverTech.classList.toggle("cursor-not-allowed", isConcluido);
+    btnRemoverTech.disabled = isConcluido || !temTecnico;
+    btnRemoverTech.classList.toggle("opacity-50", isConcluido || !temTecnico);
+    btnRemoverTech.classList.toggle("cursor-not-allowed", isConcluido || !temTecnico);
 
     btnConcluirOS.disabled = !podeConcluir;
     btnConcluirOS.classList.toggle("opacity-50", !podeConcluir);
