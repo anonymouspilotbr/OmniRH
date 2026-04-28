@@ -296,30 +296,25 @@
                 <button onclick="voltarLista()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">
                     Voltar para lista
                 </button>
-                <button onclick="atribuirTech()" 
-                ${isConcluido ? 'disabled' : ''} title="Atribuir Técnico" 
-                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg ${isConcluido ? 'opacity-50 cursor-not-allowed' : ''}">
+                <button onclick="atribuirTech()" id="btnAtribuirTech" title="Atribuir Técnico" 
+                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-user-gear"></i>
                 </button><!--Atribuir Técnico-->
-                <button onclick="adicionarServ()" 
-                ${isConcluido ? 'disabled' : ''} title="Adicionar serviço prestado" 
-                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg ${isConcluido ? 'opacity-50 cursor-not-allowed' : ''}">
+                <button onclick="adicionarServ()" id="btnAdicionarServico" title="Adicionar serviço prestado" 
+                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-file-circle-plus"></i>
                 </button><!--Adicionar Serviço Prestado-->
                 <button onclick="addComment()" title="Adicionar comentário/discussão" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-comment-dots"></i>
                 </button><!--Adicionar Comentário/Discussão-->
-                <button onclick="removerTech()" 
-                ${isConcluido ? 'disabled' : ''} title="Remover Técnico" 
-                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg ${isConcluido ? 'opacity-50 cursor-not-allowed' : ''}">
+                <button onclick="removerTech()" id="btnRemoverTech" title="Remover Técnico" 
+                class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-user-slash"></i>
                 </button><!--Voltar p/ triagem-->
                 <button onclick="arquivarOS()" title="Arquivar OS" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-box-archive"></i>
                 </button><!--Arquivar-->
-                <button onclick="concluirOS()" 
-                ${!podeConcluir ? 'disabled' : ''} title="Concluir OS" 
-                class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg ${!podeConcluir ? 'opacity-50 cursor-not-allowed' : ''}">
+                <button onclick="concluirOS()" id="btnConcluirOS" title="Concluir OS" class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg">
                     Marcar como concluído
                 </button>
                 <h2 class="text-xl font-bold mb-2 mt-4">

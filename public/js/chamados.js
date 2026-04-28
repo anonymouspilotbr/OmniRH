@@ -1,9 +1,5 @@
 function mostrarDetalhes(id) {
     const dados = listaChamados.find(c => c.id == id);
-    const isConcluido = dados.status === "Concluído";
-    const emAndamento = dados.status === "Em andamento";
-    const temServicos = dados.servico && dados.servico.length > 0;
-    const podeConcluir = emAndamento && temServicos;
 
     if (!dados) return;
     window.chamadoAtual = dados.id;
@@ -29,6 +25,35 @@ function mostrarDetalhes(id) {
 
     document.getElementById("lista-chamados").classList.add("hidden");
     document.getElementById("detalhes-os").classList.remove("hidden");
+}
+
+function atualizarBotoes(id){
+    const dados = listaChamados.find(c => c.id == id);
+    const isConcluido = dados.status === "Concluído";
+    const emAndamento = dados.status === "Em andamento";
+    const temServicos = dados.servicos && dados.servicos.length > 0;
+    const podeConcluir = emAndamento && temServicos;
+
+    const btnAtribuirTech = document.getElementById("btnAtribuirTech");
+    const btnAdicionarServ = document.getElementById("btnAdicionarServico");
+    const btnRemoverTech = document.getElementById("btnRemoverTech");
+    const btnConcluirOS = document.getElementById("btnConcluirOS");
+
+    btnAtribuirTech.disabled = isConcluido;
+    btnAtribuirTech.classList.toggle("opacity-50", isConcluido);
+    btnAtribuirTech.classList.toggle("cursor-not-allowed", isConcluido);
+
+    btnAdicionarServ.disabled = isConcluido;
+    btnAdicionarServ.classList.toggle("opacity-50", isConcluido);
+    btnAdicionarServ.classList.toggle("cursor-not-allowed", isConcluido);
+
+    btnRemoverTech.disabled = isConcluido;
+    btnRemoverTech.classList.toggle("opacity-50", isConcluido);
+    btnRemoverTech.classList.toggle("cursor-not-allowed", isConcluido);
+
+    btnConcluirOS.disabled = !podeConcluir;
+    btnConcluirOS.classList.toggle("opacity-50", !podeConcluir);
+    btnConcluirOS.classList.toggle("cursor-not-allowed", !podeConcluir);
 }
 
 function voltarLista(){
@@ -171,6 +196,7 @@ async function confirmarAtribuicao() {
         alert("Técnico atribuído!");
         fecharModalTecnico();
         carregarChamados();
+        atualizarBotoes(window.chamadoAtual);
     } catch (err) {
         console.error(err);
         alert("Erro ao atribuir técnico");
@@ -207,8 +233,8 @@ async function confirmarServico(){
 
         alert("Serviço cadastrado!");
         fecharModalServico();
+        atualizarBotoes(window.chamadoAtual);
         carregarChamados();
-
     } catch (err) {
         console.error(err);
         alert("Erro ao atribuir serviço");
@@ -245,6 +271,7 @@ async function confirmarComentario() {
         alert("Comentário adicionado!");
         fecharModalComentarios();
         document.getElementById("areaComentario").value = "";
+        atualizarBotoes(window.chamadoAtual);
         carregarChamados();
     } catch (err) {
         console.error(err);
@@ -270,6 +297,7 @@ async function confirmarRemoverTech() {
 
         alert("Técnico removido com sucesso!");
         fecharModalRemoverTech();
+        atualizarBotoes(window.chamadoAtual);
         carregarChamados();
     } catch (err) {
         console.error(err);
@@ -301,6 +329,7 @@ async function confirmarConcluirOS() {
         alert("Chamado concluído com sucesso!");
 
         fecharModalConcluirOS();
+        atualizarBotoes(window.chamadoAtual);
         carregarChamados();
         voltarLista();
     } catch (err) {
