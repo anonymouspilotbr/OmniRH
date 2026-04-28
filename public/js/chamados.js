@@ -25,6 +25,9 @@ function mostrarDetalhes(id) {
 
     document.getElementById("lista-chamados").classList.add("hidden");
     document.getElementById("detalhes-os").classList.remove("hidden");
+
+    await carregarChamados();
+    atualizarBotoes(id);
 }
 
 function atualizarBotoes(id){
