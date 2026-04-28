@@ -202,6 +202,7 @@ async function confirmarAtribuicao() {
         alert("Técnico atribuído!");
         fecharModalTecnico();
         await carregarChamados();
+        mostrarDetalhes(window.chamadoAtual);
         atualizarBotoes(window.chamadoAtual);
     } catch (err) {
         console.error(err);
