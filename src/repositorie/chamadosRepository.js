@@ -144,7 +144,7 @@ async function listarHistorico(idChamado) {
         ORDER BY data_hora ASC
     `;
     const result = await pool.query(query, [idChamado]);
-    return result.rows[0];
+    return result.rows;
 }
 
 module.exports = {

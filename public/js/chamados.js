@@ -354,6 +354,11 @@ async function carregarHistorico(id) {
     const res = await fetch(`/chamados/${id}/historico`);
     const historico = await res.json();
 
+    if(!res.ok){
+        console.error(historico);
+        return;
+    }
+
     const container = document.getElementById("log_eventos");
     container.innerHTML = "";
 
