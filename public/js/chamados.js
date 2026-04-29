@@ -28,6 +28,7 @@ function mostrarDetalhes(id) {
 
     carregarChamados();
     atualizarBotoes(id);
+    carregarHistorico(id);
 }
 
 function atualizarBotoes(id){
@@ -347,6 +348,22 @@ async function confirmarConcluirOS() {
         console.error(err);
         alert("Erro ao concluir o chamado");
     }
+}
+
+async function carregarHistorico(id) {
+    const res = await fetch(`/chamados/${id}/historico`);
+    const historico = await res.json();
+
+    const container = document.getElementById("log_eventos");
+    container.innerHTML = "";
+
+    historico.forEach(h => {
+        container.innerHTML += `
+            <p>
+                ${formatarData(h.data_hora)} ${h.descricao}
+            </p>
+        `;
+    });
 }
 
 

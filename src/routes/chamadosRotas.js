@@ -14,5 +14,6 @@ router.put('/:id/concluirOS', chamadosController.concluirChamado);
 
 router.get('/', chamadosController.listarChamados);
 router.get('/tecnicos', chamadosController.listarTecnicos);
+router.get('/:id/historico', chamadosController.carregarHistorico);
 
 module.exports = router;

@@ -116,6 +116,24 @@ async function concluirChamado(req, res) {
     }
 }
 
+async function carregarHistorico(req, res) {
+    try{
+        const { id } = req.params;
+        const chamado = await chamadosService.carregarHistorico(id);
+
+        if(!chamado){
+            return res.status(400).json({
+                error: "Não é possível buscar o histórico do chamado"
+            });
+        }
+
+        res.json(chamado);
+    } catch (error) {
+        console.error("Erro ao carregar histórico do chamado: ", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     registrarChamado,
     listarChamados,
@@ -126,4 +144,5 @@ module.exports = {
     adicionarComentario,
     removerTecnico,
     concluirChamado,
+    carregarHistorico,
 }

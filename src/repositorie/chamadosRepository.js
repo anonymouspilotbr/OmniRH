@@ -1,3 +1,4 @@
+const res = require("express/lib/response.js");
 const pool = require("../model/db.js");
 
 async function criarChamado(data, id_solicitante, desc) {
@@ -53,6 +54,16 @@ async function buscarTecnicos() {
         WHERE tipo = 'ADMIN'
     `;
     const result = await pool.query(query)
+    return result.rows;
+}
+
+async function buscarTecnicoPorID(idTecnico) {
+    const query = `
+        SELECT nome
+        FROM funcionario
+        WHERE id = $1 AND tipo = 'ADMIN'
+    `;
+    const result = await pool.query(query, [idTecnico]);
     return result.rows;
 }
 
@@ -116,14 +127,37 @@ async function concluirOS(idChamado) {
     return result.rows[0];
 }
 
+async function registrarHistorico(idChamado, descricao) {
+    const query = `
+        INSERT INTO historico_chamados (chamado_id, descricao)
+        VALUES ($1, $2)
+    `;
+    const result = await pool.query(query, [idChamado, descricao]);
+    return result.rows[0];
+}
+
+async function listarHistorico(idChamado) {
+    const query = `
+        SELECT data_hora, descricao
+        FROM historico_chamados
+        WHERE chamado_id = $1
+        ORDER BY data_hora ASC
+    `;
+    const result = await pool.query(query, [idChamado]);
+    return result.rows[0];
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
     listarPorSolicitante,
     buscarTecnicos,
+    buscarTecnicoPorID,
     atribuirTecnico,
     adicionarServico,
     adicionarComentario,
     removerTecnico,
     concluirOS,
+    registrarHistorico,
+    listarHistorico,
 }
