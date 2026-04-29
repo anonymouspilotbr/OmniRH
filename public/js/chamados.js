@@ -362,6 +362,14 @@ async function carregarHistorico(id) {
     const container = document.getElementById("log_eventos");
     container.innerHTML = "";
 
+    const dados = listaChamados.find(c => c.id == id);
+    const dataHora = dados.data_hora;
+    container.innerHTML = `
+        <p>
+            ${formatarData(dataHora)} Chamado criado
+        </p>
+    `;
+
     historico.forEach(h => {
         container.innerHTML += `
             <p>
