@@ -25,10 +25,10 @@ async function atribuirTecnico(idChamado, idTecnico) {
 
 async function adicionarServico(idChamado, servico) {
     await chamadosRepository.adicionarServico(idChamado, servico);
-    const idtecnico = await chamadosRepository.buscarTecnicoPorChamado(idChamado);
-    const nomeTecnico = await chamadosRepository.buscarTecnicoPorID(idtecnico);
+    const tecnico = await chamadosRepository.buscarTecnicoPorChamado(idChamado);
+    const nomeTecnico = await chamadosRepository.buscarTecnicoPorID(tecnico.id_tecnico);
 
-    const regServico = "";
+    let regServico = "";
     if(servico === "PlatformConfig"){
         regServico = "Configuração da Plataforma";
     } else if(servico === "ProfileConfig"){
@@ -39,7 +39,7 @@ async function adicionarServico(idChamado, servico) {
         regServico = "Manutenção de Infraestrutura"
     }
         
-    await chamadosRepository.registrarHistorico(idChamado, `${nomeTecnico} realizou o serviço ${regServico}`);
+    await chamadosRepository.registrarHistorico(idChamado, `${nomeTecnico.nome} realizou o serviço ${regServico}`);
 }
 
 async function adicionarComentario(idChamado, comentario, idUsuario) {

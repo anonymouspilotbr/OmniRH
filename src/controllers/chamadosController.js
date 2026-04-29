@@ -43,7 +43,7 @@ async function listarTecnicos(req, res) {
         res.json(tecnicos);
     } catch (error) {
         console.error("Erro ao buscar técnicos:", error);
-        res.status(500).json({ error: "Erro ao buscar técnicos" });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -56,7 +56,7 @@ async function atribuirTecnico(req, res) {
         res.json(chamado);
     } catch (error) {
         console.error("Erro ao atribuir técnico: ", error);
-        res.status(500).json({ error: "Erro ao atribuir técnico" });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -69,7 +69,7 @@ async function adicionarServico(req, res) {
         res.json(chamado);
     } catch (error) {
         console.error("Erro ao adicionar serviço: ", error);
-        res.status(500).json({ error: "Erro ao adicionar serviço" });
+        res.status(500).json({ error: error.message });
     }
 }
 
