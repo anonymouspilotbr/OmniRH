@@ -45,8 +45,12 @@ async function adicionarServico(idChamado, servico) {
 async function adicionarComentario(idChamado, comentario, idUsuario) {
     await chamadosRepository.adicionarComentario(idChamado, comentario);
 
-    const nomeUsuario = await chamadosRepository.buscarUsuarioPorID(idUsuario);
-    await chamadosRepository.registrarHistorico(idChamado, `${nomeUsuario} adicionou um comentário: ${comentario}`);
+    const usuario = await chamadosRepository.buscarUsuarioPorID(idUsuario);
+    if (!usuario) {
+        throw new Error("Usuário não encontrado");
+    }
+
+    await chamadosRepository.registrarHistorico(idChamado, `${usuario.nome} adicionou um comentário: ${comentario}`);
 }
 
 async function removerTecnico(idChamado) {
