@@ -28,7 +28,7 @@ async function adicionarServico(idChamado, servico) {
     const idtecnico = await chamadosRepository.buscarTecnicoPorChamado(idChamado);
     const nomeTecnico = await chamadosRepository.buscarTecnicoPorID(idtecnico);
 
-    const regServico
+    const regServico = "";
     if(servico === "PlatformConfig"){
         regServico = "Configuração da Plataforma";
     } else if(servico === "ProfileConfig"){
