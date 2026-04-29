@@ -1,7 +1,7 @@
 const chamadosRepository = require('../repositorie/chamadosRepository');
 
 async function criarChamado(data, id_solicitante, desc) {
-    await chamadosRepository.criarChamado(data, id_solicitante, desc);
+    return await chamadosRepository.criarChamado(data, id_solicitante, desc);
 }
 async function listarChamados() {
     return await chamadosRepository.listarChamados();
