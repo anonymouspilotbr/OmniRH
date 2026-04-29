@@ -1,5 +1,8 @@
 Changelog
  
+[0.20.8] Desenvolvimento Sistema de Chamados III - 29 ABR 2026
+- Implementado o histórico de eventos dos chamados 
+
 [0.20.7] Desenvolvimento Sistema de Chamados II - 28 ABR 2026
 - Implementação dos botões no modal dos detalhes do chamado
 - Funções de atribuir técnico, adicionar serviço, comentários, remover técnico e concluir chamado adicionadas
