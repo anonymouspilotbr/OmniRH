@@ -260,6 +260,7 @@ function fecharModalComentarios(){
 
 async function confirmarComentario() {
     const comment = document.getElementById("areaComentario").value;
+    const token = localStorage.getItem('token');
 
     if(!comment){
         alert("Digite um comentário");
@@ -270,7 +271,8 @@ async function confirmarComentario() {
         const response = await fetch(`/chamados/${window.chamadoAtual}/addComentario`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ comment })
         });
