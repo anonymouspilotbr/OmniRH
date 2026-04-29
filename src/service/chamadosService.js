@@ -24,11 +24,29 @@ async function atribuirTecnico(idChamado, idTecnico) {
 }
 
 async function adicionarServico(idChamado, servico) {
-    return await chamadosRepository.adicionarServico(idChamado, servico);
+    await chamadosRepository.adicionarServico(idChamado, servico);
+    const idtecnico = await chamadosRepository.buscarTecnicoPorChamado(idChamado);
+    const nomeTecnico = await chamadosRepository.buscarTecnicoPorID(idtecnico);
+
+    const regServico
+    if(servico === "PlatformConfig"){
+        regServico = "Configuração da Plataforma";
+    } else if(servico === "ProfileConfig"){
+        regServico = "Configuração de Perfil do Usuário";
+    } else if(servico === "UserPCConfig"){
+        regServico = "Configuração na Máquina do Usuário";
+    } else if(servico === "Maintenance"){
+        regServico = "Manutenção de Infraestrutura"
+    }
+        
+    await chamadosRepository.registrarHistorico(idChamado, `${nomeTecnico} realizou o serviço ${regServico}`);
 }
 
-async function adicionarComentario(idChamado, comentario) {
-    return await chamadosRepository.adicionarComentario(idChamado, comentario);
+async function adicionarComentario(idChamado, comentario, idUsuario) {
+    await chamadosRepository.adicionarComentario(idChamado, comentario);
+
+    const nomeUsuario = await chamadosRepository.buscarUsuarioPorID(idUsuario);
+    await chamadosRepository.registrarHistorico(idChamado, `${nomeUsuario} adicionou um comentário: ${comentario}`);
 }
 
 async function removerTecnico(idChamado) {

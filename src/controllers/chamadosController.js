@@ -78,7 +78,7 @@ async function adicionarComentario(req, res) {
         const { id } = req.params;
         const { comment } = req.body;
 
-        const chamado = await chamadosService.adicionarComentario(id, comment);
+        const chamado = await chamadosService.adicionarComentario(id, comment, req.user.id);
         res.json(chamado);
     } catch (error) {
         console.error("Erro ao adicionar comentário: ", error);

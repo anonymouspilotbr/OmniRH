@@ -64,7 +64,27 @@ async function buscarTecnicoPorID(idTecnico) {
         WHERE id = $1 AND tipo = 'ADMIN'
     `;
     const result = await pool.query(query, [idTecnico]);
-    return result.rows;
+    return result.rows[0];
+}
+
+async function buscarTecnicoPorChamado(idChamado) {
+    const query = `
+        SELECT id_tecnico
+        FROM chamados
+        WHERE id = $1
+    `;
+    const result = await pool.query(query, [idChamado]);
+    return result.rows[0];
+}
+
+async function buscarUsuarioPorID(idUsuario) {
+    const query = `
+        SELECT nome
+        FROM funcionario
+        WHERE id = $1
+    `;
+    const result = await pool.query(query, [idUsuario]);
+    return result.rows[0];
 }
 
 async function atribuirTecnico(idChamado, idTecnico) {
@@ -153,6 +173,8 @@ module.exports = {
     listarPorSolicitante,
     buscarTecnicos,
     buscarTecnicoPorID,
+    buscarTecnicoPorChamado,
+    buscarUsuarioPorID,
     atribuirTecnico,
     adicionarServico,
     adicionarComentario,
