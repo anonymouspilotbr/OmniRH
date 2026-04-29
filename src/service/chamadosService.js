@@ -59,8 +59,14 @@ async function removerTecnico(idChamado) {
 }
 
 async function concluirChamado(idChamado) {
-    await chamadosRepository.concluirOS(idChamado);
+    const chamado = await chamadosRepository.concluirOS(idChamado);
+    if(!chamado){
+        return null;
+    }
+
     await chamadosRepository.registrarHistorico(idChamado, `Chamado concluído`);
+
+    return chamado;
 }
 
 async function carregarHistorico(idChamado) {
