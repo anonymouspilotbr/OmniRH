@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         tbody.innerHTML += `
                             <tr class="text-center border-t">
                                 <td class="px-4 py-2">
-                                    <span onclick="mostrarDetalhes(${c.id})" class="text-blue-600 hover:underline cursor-pointer">
+                                    <span class="text-blue-600 hover:underline cursor-pointer">
                                         ${c.id}
                                     </span>
                                 </td>
@@ -83,6 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <td class="px-4 py-2">${formatarStatus(c.status)}</td>
                             </tr>
                         `;
+                    });
+
+                    tr.querySelector("span").addEventListener("click", () => {
+                        mostrarDetalhes(c.id);
                     });
 
                 } catch (err) {
@@ -209,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert("Comentário adicionado!");
                     fecharModalComentarios();
                     document.getElementById("areaComentario").value = "";
-                    await carregarChamados();
+                    await carregarMeusChamados(id_funcionario);
                     mostrarDetalhes(window.chamadoAtual);
                     atualizarBotoes(window.chamadoAtual);
                 } catch (err) {
