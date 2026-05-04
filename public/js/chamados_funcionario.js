@@ -173,6 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 formChamados.classList.remove("hidden");
             });
 
+            window.onload = carregarMeusChamados(id_funcionario);
+
         })
     }
 })
@@ -252,5 +254,4 @@ async function carregarHistorico(id) {
     });
 }
 
-window.onload = carregarMeusChamados(id_funcionario);
 
