@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const id_funcionario = data.id;
 
             function mostrarDetalhes(id){
+                window.mostrarDetalhes = mostrarDetalhes;
                 const dados = listaChamados.find(c => c.id == id);
 
                 if (!dados) return;
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         tbody.innerHTML += `
                             <tr class="text-center border-t">
                                 <td class="px-4 py-2">
-                                    <span class="text-blue-600 hover:underline cursor-pointer">
+                                    <span onclick="mostrarDetalhes(${c.id}) class="text-blue-600 hover:underline cursor-pointer">
                                         ${c.id}
                                     </span>
                                 </td>
@@ -83,10 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <td class="px-4 py-2">${formatarStatus(c.status)}</td>
                             </tr>
                         `;
-                    });
-
-                    tr.querySelector("span").addEventListener("click", () => {
-                        mostrarDetalhes(c.id);
                     });
 
                 } catch (err) {
