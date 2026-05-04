@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const id_funcionario = data.id;
 
             function mostrarDetalhes(id){
-                window.mostrarDetalhes = mostrarDetalhes;
                 const dados = listaChamados.find(c => c.id == id);
 
                 if (!dados) return;
@@ -44,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 atualizarBotoes(id);
                 carregarHistorico(id);
             }
+            window.mostrarDetalhes = mostrarDetalhes;
 
             let listaChamados = [];
             async function carregarMeusChamados(id) {
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            window.onload = carregarMeusChamados(id_funcionario);
+            window.onload = () => carregarMeusChamados(id_funcionario);
 
         })
     }
