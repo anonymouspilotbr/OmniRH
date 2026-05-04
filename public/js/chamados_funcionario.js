@@ -44,140 +44,139 @@ document.addEventListener("DOMContentLoaded", () => {
                 carregarHistorico(id);
             }
             window.mostrarDetalhes = mostrarDetalhes;
-
-            let listaChamados = [];
-            async function carregarMeusChamados(id) {
-                try {
-                    const res = await fetch(`/chamados/solicitante/${id}`);
-                    const chamados = await res.json();
-                    listaChamados = chamados;
-
-                    const tbody = document.getElementById("corpoTabelaChamados");
-                    tbody.innerHTML = "";
-
-                    if (chamados.length === 0) {
-                        tbody.innerHTML = `
-                            <tr>
-                                <td colspan="5" class="p-4 text-gray-500">
-                                    Você ainda não abriu nenhum chamado
-                                </td>
-                            </tr>
-                        `;
-                        return;
-                    }
-
-                    chamados.forEach(c => {
-                        tbody.innerHTML += `
-                            <tr class="text-center border-t">
-                                <td class="px-4 py-2">
-                                    <span onclick="mostrarDetalhes(${c.id})" class="text-blue-600 hover:underline cursor-pointer">
-                                        ${c.id}
-                                    </span>
-                                </td>
-                                <td class="px-4 py-2">${formatarData(c.data_hora)}</td>
-                                <td class="px-4 py-2 align-top">
-                                    <div class="multiline-truncate text-left">
-                                        ${c.descricao}
-                                    </div>
-                                </td>
-                                <td class="px-4 py-2">${c.tecnico || '-'}</td>
-                                <td class="px-4 py-2">${formatarStatus(c.status)}</td>
-                            </tr>
-                        `;
-                    });
-
-                } catch (err) {
-                    console.error("Erro ao carregar chamados:", err);
-                }
-            }
-
-            function formatarData(dataISO) {
-                if (!dataISO) return "-";
-
-                const d = new Date(dataISO);
-
-                const data = d.toLocaleDateString("pt-BR");
-                const hora = d.toLocaleTimeString("pt-BR", {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-
-                return `${data} ${hora}`;
-            }
-
-            function formatarStatus(status) {
-                if (!status) return "-";
-
-                switch (status) {
-                    case "Em andamento":
-                        return `<span class="text-gray-500"><i class="fa-solid fa-clock"></i> ${status}</span>`;
-                    case "Concluído":
-                        return `<span class="text-green-600"><i class="fa-solid fa-check"></i> ${status}</span>`;
-                    case "Aguardando Triagem":
-                        return `<span class="text-yellow-600"><i class="fa-solid fa-hourglass"></i> ${status}</span>`;
-                    case "À disposição do técnico":
-                        return `<span class="text-black"><i class="fa-solid fa-user-clock"></i> ${status}</span>`
-                    default:
-                        return status;
-                }
-            }
-
-            document.getElementById("chamadoForm").addEventListener("submit", async (e) => {
-                e.preventDefault();
-
-                const descricao = document.getElementById("descricao").value;
-
-                if (!descricao) {
-                    alert("Preencha a descrição");
-                    return;
-                }
-
-                try {
-                    const res = await fetch("/chamados", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            data: new Date(),
-                            id_solicitante: id_funcionario,
-                            desc: descricao
-                        })
-                    });
-
-                    const data = await res.json();
-
-                    if (!res.ok) {
-                        alert(data.error);
-                        return;
-                    }
-
-                    alert("Chamado criado com sucesso!");
-                    document.getElementById("chamadoForm").reset();
-                    carregarMeusChamados(id_funcionario);
-                    formChamados.classList.add("hidden");
-                    telaChamados.classList.remove("hidden");
-
-                } catch (err) {
-                    console.error(err);
-                    alert("Erro ao criar chamado");
-                }
-            });
-
-            const btnNovoChamado = document.getElementById("novoChamadoBtn");
-            const telaChamados = document.getElementById("listaChamados");
-            const formChamados = document.getElementById("formChamados");
-
-            btnNovoChamado.addEventListener("click", () => {
-                telaChamados.classList.add("hidden");
-                formChamados.classList.remove("hidden");
-            });
-
             window.onload = carregarMeusChamados(id_funcionario);
 
         })
     }
 })
+
+let listaChamados = [];
+async function carregarMeusChamados(id) {
+    try {
+        const res = await fetch(`/chamados/solicitante/${id}`);
+        const chamados = await res.json();
+        listaChamados = chamados;
+
+        const tbody = document.getElementById("corpoTabelaChamados");
+        tbody.innerHTML = "";
+
+        if (chamados.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="p-4 text-gray-500">
+                        Você ainda não abriu nenhum chamado
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        chamados.forEach(c => {
+            tbody.innerHTML += `
+                <tr class="text-center border-t">
+                    <td class="px-4 py-2">
+                        <span onclick="mostrarDetalhes(${c.id})" class="text-blue-600 hover:underline cursor-pointer">
+                            ${c.id}
+                        </span>
+                    </td>
+                    <td class="px-4 py-2">${formatarData(c.data_hora)}</td>
+                    <td class="px-4 py-2 align-top">
+                        <div class="multiline-truncate text-left">
+                            ${c.descricao}
+                        </div>
+                    </td>
+                    <td class="px-4 py-2">${c.tecnico || '-'}</td>
+                    <td class="px-4 py-2">${formatarStatus(c.status)}</td>
+                </tr>
+            `;
+        });
+
+    } catch (err) {
+        console.error("Erro ao carregar chamados:", err);
+    }
+}
+
+function formatarData(dataISO) {
+    if (!dataISO) return "-";
+
+    const d = new Date(dataISO);
+
+    const data = d.toLocaleDateString("pt-BR");
+    const hora = d.toLocaleTimeString("pt-BR", {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    return `${data} ${hora}`;
+}
+
+function formatarStatus(status) {
+    if (!status) return "-";
+
+    switch (status) {
+        case "Em andamento":
+            return `<span class="text-gray-500"><i class="fa-solid fa-clock"></i> ${status}</span>`;
+        case "Concluído":
+            return `<span class="text-green-600"><i class="fa-solid fa-check"></i> ${status}</span>`;
+        case "Aguardando Triagem":
+            return `<span class="text-yellow-600"><i class="fa-solid fa-hourglass"></i> ${status}</span>`;
+        case "À disposição do técnico":
+            return `<span class="text-black"><i class="fa-solid fa-user-clock"></i> ${status}</span>`
+        default:
+            return status;
+    }
+}
+
+document.getElementById("chamadoForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const descricao = document.getElementById("descricao").value;
+
+    if (!descricao) {
+        alert("Preencha a descrição");
+        return;
+    }
+
+    try {
+        const res = await fetch("/chamados", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                data: new Date(),
+                id_solicitante: id_funcionario,
+                desc: descricao
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.error);
+            return;
+        }
+
+        alert("Chamado criado com sucesso!");
+        document.getElementById("chamadoForm").reset();
+        carregarMeusChamados(id_funcionario);
+        formChamados.classList.add("hidden");
+        telaChamados.classList.remove("hidden");
+
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao criar chamado");
+    }
+});
+
+const btnNovoChamado = document.getElementById("novoChamadoBtn");
+const telaChamados = document.getElementById("listaChamados");
+const formChamados = document.getElementById("formChamados");
+
+btnNovoChamado.addEventListener("click", () => {
+    telaChamados.classList.add("hidden");
+    formChamados.classList.remove("hidden");
+});
 
 function atualizarBotoes(id){
     const dados = listaChamados.find(c => c.id == id);
