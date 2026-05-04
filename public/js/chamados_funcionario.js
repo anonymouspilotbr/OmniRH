@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         tbody.innerHTML += `
                             <tr class="text-center border-t">
                                 <td class="px-4 py-2">
-                                    <span onclick="mostrarDetalhes(${c.id}) class="text-blue-600 hover:underline cursor-pointer">
+                                    <span onclick="mostrarDetalhes(${c.id})" class="text-blue-600 hover:underline cursor-pointer">
                                         ${c.id}
                                     </span>
                                 </td>
