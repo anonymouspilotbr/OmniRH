@@ -39,13 +39,16 @@ async function listarPorSolicitante(id_solicitante) {
     const query = `
         SELECT c.id,
         c.data_hora,
+        s.nome AS solicitante,
+        e.nome AS empresa,
         c.descricao,
         t.nome AS tecnico,
         c.status,
         COALESCE(c.servicos, '{}') AS servicos,
         COALESCE(c.comentarios, '{}') AS comentarios
-
         FROM chamados c
+        LEFT JOIN empresas e ON e.id = c.empresa
+        LEFT JOIN funcionario s ON s.id = c.solicitante
         LEFT JOIN funcionario t ON t.id = c.id_tecnico
         WHERE solicitante = $1
         ORDER BY data_hora DESC

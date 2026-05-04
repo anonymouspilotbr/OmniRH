@@ -173,84 +173,84 @@ document.addEventListener("DOMContentLoaded", () => {
                 formChamados.classList.remove("hidden");
             });
 
-            function atualizarBotoes(id){
-                const dados = listaChamados.find(c => c.id == id);
-                //BOTOES + CONDICIONAIS
-            }
-
-            function addComment(){
-                document.getElementById("modalComentarios").classList.remove("hidden");
-            }
-
-            function fecharModalComentarios(){
-                document.getElementById("modalComentarios").classList.add("hidden");
-            }
-
-            async function confirmarComentario() {
-                const comment = document.getElementById("areaComentario").value;
-                const token = localStorage.getItem('token');
-
-                if(!comment){
-                    alert("Digite um comentário");
-                    return;
-                }
-
-                try{
-                    const response = await fetch(`/chamados/${window.chamadoAtual}/addComentario`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({ comment })
-                    });
-
-                    if (!response.ok) throw new Error();
-
-                    alert("Comentário adicionado!");
-                    fecharModalComentarios();
-                    document.getElementById("areaComentario").value = "";
-                    await carregarMeusChamados(id_funcionario);
-                    mostrarDetalhes(window.chamadoAtual);
-                    atualizarBotoes(window.chamadoAtual);
-                } catch (err) {
-                    console.error(err);
-                    alert("Erro ao adicionar comentário");
-                }
-            }
-
-            async function carregarHistorico(id) {
-                const res = await fetch(`/chamados/${id}/historico`);
-                const historico = await res.json();
-
-                if(!res.ok){
-                    console.error(historico);
-                    return;
-                }
-
-                const container = document.getElementById("log_eventos");
-                container.innerHTML = "";
-
-                const dados = listaChamados.find(c => c.id == id);
-                const dataHora = dados.data_hora;
-                container.innerHTML = `
-                    <p>
-                        ${formatarData(dataHora)} Chamado criado
-                    </p>
-                `;
-
-                historico.forEach(h => {
-                    container.innerHTML += `
-                        <p>
-                            ${formatarData(h.data_hora)} ${h.descricao}
-                        </p>
-                    `;
-                });
-            }
-
-            window.onload = carregarMeusChamados(id_funcionario);
-
         })
     }
 })
+
+function atualizarBotoes(id){
+    const dados = listaChamados.find(c => c.id == id);
+    //BOTOES + CONDICIONAIS
+}
+
+function addComment(){
+    document.getElementById("modalComentarios").classList.remove("hidden");
+}
+
+function fecharModalComentarios(){
+    document.getElementById("modalComentarios").classList.add("hidden");
+}
+
+async function confirmarComentario() {
+    const comment = document.getElementById("areaComentario").value;
+    const token = localStorage.getItem('token');
+
+    if(!comment){
+        alert("Digite um comentário");
+        return;
+    }
+
+    try{
+        const response = await fetch(`/chamados/${window.chamadoAtual}/addComentario`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ comment })
+        });
+
+        if (!response.ok) throw new Error();
+
+        alert("Comentário adicionado!");
+        fecharModalComentarios();
+        document.getElementById("areaComentario").value = "";
+        await carregarMeusChamados(id_funcionario);
+        mostrarDetalhes(window.chamadoAtual);
+        atualizarBotoes(window.chamadoAtual);
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao adicionar comentário");
+    }
+}
+
+async function carregarHistorico(id) {
+    const res = await fetch(`/chamados/${id}/historico`);
+    const historico = await res.json();
+
+    if(!res.ok){
+        console.error(historico);
+        return;
+    }
+
+    const container = document.getElementById("log_eventos");
+    container.innerHTML = "";
+
+    const dados = listaChamados.find(c => c.id == id);
+    const dataHora = dados.data_hora;
+    container.innerHTML = `
+        <p>
+            ${formatarData(dataHora)} Chamado criado
+        </p>
+    `;
+
+    historico.forEach(h => {
+        container.innerHTML += `
+            <p>
+                ${formatarData(h.data_hora)} ${h.descricao}
+            </p>
+        `;
+    });
+}
+
+window.onload = carregarMeusChamados(id_funcionario);
 
