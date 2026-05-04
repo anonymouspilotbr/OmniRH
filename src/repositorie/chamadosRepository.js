@@ -36,10 +36,17 @@ async function listarChamados() {
 }
 
 async function listarPorSolicitante(id_solicitante) { 
-    //talvez precise de revisões
     const query = `
-        SELECT *
-        FROM chamados
+        SELECT c.id,
+        c.data_hora,
+        c.descricao,
+        t.nome AS tecnico,
+        c.status,
+        COALESCE(c.servicos, '{}') AS servicos,
+        COALESCE(c.comentarios, '{}') AS comentarios
+
+        FROM chamados c
+        LEFT JOIN funcionario t ON t.id = c.id_tecnico
         WHERE solicitante = $1
         ORDER BY data_hora DESC
     `;

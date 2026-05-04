@@ -11,10 +11,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const id_funcionario = data.id;
 
+            function mostrarDetalhes(id){
+                const dados = listaChamados.find(c => c.id == id);
+
+                if (!dados) return;
+                window.chamadoAtual = dados.id;
+
+                document.getElementById("conteudo-detalhes").innerHTML = `
+                    <div>
+                        <p><b>Nº OS:</b> ${dados.id}</p>
+                        <p><b>Data e Hora:</b> ${formatarData(dados.data_hora)}</p>
+                    </div>
+                    <div>
+                        <p><b>Solicitante:</b> ${dados.solicitante}</p>
+                        <p><b>Empresa:</b> ${dados.empresa}</p>
+                    </div>
+                    <div>
+                        <p><b>Técnico:</b> ${dados.tecnico || '-'}</p>
+                        <p><b>Status:</b> ${formatarStatus(dados.status)}</p>
+                    </div>
+                `;
+
+                document.getElementById("descricao").innerHTML = `
+                    <p><b>Descrição:</b> ${dados.descricao}</p>
+                `;
+
+                document.getElementById("listaChamados").classList.add("hidden");
+                document.getElementById("detalhes-os").classList.remove("hidden");
+
+                carregarMeusChamados(id_funcionario);
+                atualizarBotoes(id);
+                carregarHistorico(id);
+            }
+
+            let listaChamados = [];
             async function carregarMeusChamados(id) {
                 try {
                     const res = await fetch(`/chamados/solicitante/${id}`);
                     const chamados = await res.json();
+                    listaChamados = chamados;
 
                     const tbody = document.getElementById("corpoTabelaChamados");
                     tbody.innerHTML = "";
@@ -120,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById("chamadoForm").reset();
                     carregarMeusChamados(id_funcionario);
                     formChamados.classList.add("hidden");
-                    listaChamados.classList.remove("hidden");
+                    telaChamados.classList.remove("hidden");
 
                 } catch (err) {
                     console.error(err);
@@ -129,13 +164,88 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const btnNovoChamado = document.getElementById("novoChamadoBtn");
-            const listaChamados = document.getElementById("listaChamados");
+            const telaChamados = document.getElementById("listaChamados");
             const formChamados = document.getElementById("formChamados");
 
             btnNovoChamado.addEventListener("click", () => {
-                listaChamados.classList.add("hidden");
+                telaChamados.classList.add("hidden");
                 formChamados.classList.remove("hidden");
             });
+
+            function atualizarBotoes(id){
+                const dados = listaChamados.find(c => c.id == id);
+                //BOTOES + CONDICIONAIS
+            }
+
+            function addComment(){
+                document.getElementById("modalComentarios").classList.remove("hidden");
+            }
+
+            function fecharModalComentarios(){
+                document.getElementById("modalComentarios").classList.add("hidden");
+            }
+
+            async function confirmarComentario() {
+                const comment = document.getElementById("areaComentario").value;
+                const token = localStorage.getItem('token');
+
+                if(!comment){
+                    alert("Digite um comentário");
+                    return;
+                }
+
+                try{
+                    const response = await fetch(`/chamados/${window.chamadoAtual}/addComentario`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ comment })
+                    });
+
+                    if (!response.ok) throw new Error();
+
+                    alert("Comentário adicionado!");
+                    fecharModalComentarios();
+                    document.getElementById("areaComentario").value = "";
+                    await carregarChamados();
+                    mostrarDetalhes(window.chamadoAtual);
+                    atualizarBotoes(window.chamadoAtual);
+                } catch (err) {
+                    console.error(err);
+                    alert("Erro ao adicionar comentário");
+                }
+            }
+
+            async function carregarHistorico(id) {
+                const res = await fetch(`/chamados/${id}/historico`);
+                const historico = await res.json();
+
+                if(!res.ok){
+                    console.error(historico);
+                    return;
+                }
+
+                const container = document.getElementById("log_eventos");
+                container.innerHTML = "";
+
+                const dados = listaChamados.find(c => c.id == id);
+                const dataHora = dados.data_hora;
+                container.innerHTML = `
+                    <p>
+                        ${formatarData(dataHora)} Chamado criado
+                    </p>
+                `;
+
+                historico.forEach(h => {
+                    container.innerHTML += `
+                        <p>
+                            ${formatarData(h.data_hora)} ${h.descricao}
+                        </p>
+                    `;
+                });
+            }
 
             window.onload = carregarMeusChamados(id_funcionario);
 
