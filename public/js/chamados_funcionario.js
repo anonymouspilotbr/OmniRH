@@ -33,11 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     chamados.forEach(c => {
                         tbody.innerHTML += `
                             <tr class="border-t">
-                                <td>${c.id}</td>
-                                <td>${formatarData(c.data_hora)}</td>
-                                <td>${c.descricao}</td>
-                                <td>${c.tecnico || '-'}</td>
-                                <td>${formatarStatus(c.status)}</td>
+                                <td class="px-4 py-2">
+                                    <span onclick="mostrarDetalhes(${c.id})" class="text-blue-600 hover:underline cursor-pointer">
+                                        ${c.id}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-2">${formatarData(c.data_hora)}</td>
+                                <td class="px-4 py-2">${c.descricao}</td>
+                                <td class="px-4 py-2">${c.tecnico || '-'}</td>
+                                <td class="px-4 py-2">${formatarStatus(c.status)}</td>
                             </tr>
                         `;
                     });

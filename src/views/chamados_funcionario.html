@@ -81,20 +81,29 @@
                     <i class="fas fa-plus mr-2"></i>Abrir novo chamado
                     </button>
                 </div>
-                <table id="tabelaLicencas" class="w-full border border-gray-300 rounded-lg text-center">
+                <table id="tabelaChamados" class="table-auto table-fixed w-full border-collapse border-gray-400 shadow-lg rounded-lg">
+                    <colgroup>
+                        <col style="width: 90px;">
+                        <col style="width: 130px;">
+                        <col style="width: 140px;">
+                        <col style="width: 170px;">
+                        <col>
+                        <col style="width: 150px;">
+                        <col style="width: 160px;">
+                    </colgroup>
                     <thead class="bg-gray-100">
-                    <tr>
-                        <th class="p-3">Nº OS</th>
-                        <th class="p-3">Data e hora</th>
-                        <th class="p-3">Descrição</th>
-                        <th class="p-3">Técnico</th>
-                        <th class="p-3">Status</th>
-                    </tr>
+                        <tr class="text-center font-bold">
+                            <th class="p-3">Nº OS</th>
+                            <th class="p-3">Data e hora</th>
+                            <th class="p-3">Descrição</th>
+                            <th class="p-3">Técnico</th>
+                            <th class="p-3">Status</th>
+                        </tr>
                     </thead>
                     <tbody id="corpoTabelaChamados">
-                    <tr>
-                        <td colspan="4" class="text-center p-4 text-gray-500">Carregando...</td>
-                    </tr>
+                        <tr class="bg-white text-center border-t">
+                            <td colspan="4" class="text-center p-4 text-gray-500">Carregando...</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
