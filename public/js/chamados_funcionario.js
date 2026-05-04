@@ -1,57 +1,62 @@
-document.addEventListener("DOMContentLoaded", () => {
+async function retornarID(){
     const token = localStorage.getItem("token");
 
-    if (token) {
-        fetch("https://omnirh.onrender.com/me", {
-            headers: { "Authorization": `Bearer ${token}` }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (!data || !data.nome) return console.warn("Usuário não encontrado.");
+    if (!token) return null;
 
-            const id_funcionario = data.id;
+    const res = await fetch("https://omnirh.onrender.com/me", {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
 
-            function mostrarDetalhes(id){
-                const dados = listaChamados.find(c => c.id == id);
+    const data = await res.json();
 
-                if (!dados) return;
-                window.chamadoAtual = dados.id;
-
-                document.getElementById("conteudo-detalhes").innerHTML = `
-                    <div>
-                        <p><b>Nº OS:</b> ${dados.id}</p>
-                        <p><b>Data e Hora:</b> ${formatarData(dados.data_hora)}</p>
-                    </div>
-                    <div>
-                        <p><b>Solicitante:</b> ${dados.solicitante}</p>
-                        <p><b>Empresa:</b> ${dados.empresa}</p>
-                    </div>
-                    <div>
-                        <p><b>Técnico:</b> ${dados.tecnico || '-'}</p>
-                        <p><b>Status:</b> ${formatarStatus(dados.status)}</p>
-                    </div>
-                `;
-
-                document.getElementById("descricao").innerHTML = `
-                    <p><b>Descrição:</b> ${dados.descricao}</p>
-                `;
-
-                document.getElementById("listaChamados").classList.add("hidden");
-                document.getElementById("detalhes-os").classList.remove("hidden");
-
-                carregarMeusChamados(id_funcionario);
-                atualizarBotoes(id);
-                carregarHistorico(id);
-            }
-            window.mostrarDetalhes = mostrarDetalhes;
-            window.onload = carregarMeusChamados(id_funcionario);
-
-        })
+    if (!data || !data.nome) {
+        console.warn("Usuário não encontrado.");
+        return null;
     }
-})
+
+    return data.id;
+}
+
+const id_funcionario = await retornarID();
+
+function mostrarDetalhes(id){
+    const dados = listaChamados.find(c => c.id == id);
+
+    if (!dados) return;
+    window.chamadoAtual = dados.id;
+
+    document.getElementById("conteudo-detalhes").innerHTML = `
+        <div>
+            <p><b>Nº OS:</b> ${dados.id}</p>
+            <p><b>Data e Hora:</b> ${formatarData(dados.data_hora)}</p>
+        </div>
+        <div>
+            <p><b>Solicitante:</b> ${dados.solicitante}</p>
+            <p><b>Empresa:</b> ${dados.empresa}</p>
+        </div>
+        <div>
+            <p><b>Técnico:</b> ${dados.tecnico || '-'}</p>
+            <p><b>Status:</b> ${formatarStatus(dados.status)}</p>
+        </div>
+    `;
+
+    document.getElementById("descricao").innerHTML = `
+        <p><b>Descrição:</b> ${dados.descricao}</p>
+    `;
+
+    document.getElementById("listaChamados").classList.add("hidden");
+    document.getElementById("detalhes-os").classList.remove("hidden");
+
+    carregarMeusChamados(id_funcionario);
+    atualizarBotoes(id);
+    carregarHistorico(id);
+}
+
+window.onload = carregarMeusChamados(id_funcionario);
+
 
 let listaChamados = [];
-async function carregarMeusChamados(id) {
+async function carregarMeusChamados(id_funcionario) {
     try {
         const res = await fetch(`/chamados/solicitante/${id}`);
         const chamados = await res.json();
@@ -118,7 +123,7 @@ function formatarStatus(status) {
             return `<span class="text-gray-500"><i class="fa-solid fa-clock"></i> ${status}</span>`;
         case "Concluído":
             return `<span class="text-green-600"><i class="fa-solid fa-check"></i> ${status}</span>`;
-        case "Aguardando Triagem":
+        case "Aguardando triagem":
             return `<span class="text-yellow-600"><i class="fa-solid fa-hourglass"></i> ${status}</span>`;
         case "À disposição do técnico":
             return `<span class="text-black"><i class="fa-solid fa-user-clock"></i> ${status}</span>`
@@ -172,6 +177,11 @@ document.getElementById("chamadoForm").addEventListener("submit", async (e) => {
 const btnNovoChamado = document.getElementById("novoChamadoBtn");
 const telaChamados = document.getElementById("listaChamados");
 const formChamados = document.getElementById("formChamados");
+
+function voltarLista(){
+    document.getElementById("lista-chamados").classList.remove("hidden");
+    document.getElementById("detalhes-os").classList.add("hidden");
+}
 
 btnNovoChamado.addEventListener("click", () => {
     telaChamados.classList.add("hidden");
