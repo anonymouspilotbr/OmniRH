@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            window.onload = () => carregarMeusChamados(id_funcionario);
+            window.onload = carregarMeusChamados(id_funcionario);
 
         })
     }
