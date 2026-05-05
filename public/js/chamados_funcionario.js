@@ -51,7 +51,7 @@ function mostrarDetalhes(id){
         </div>
     `;
 
-    document.getElementById("descricao").innerHTML = `
+    document.getElementById("descricao-os").innerHTML = `
         <p><b>Descrição:</b> ${dados.descricao}</p>
     `;
 
