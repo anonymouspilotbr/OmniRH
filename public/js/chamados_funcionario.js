@@ -63,9 +63,6 @@ function mostrarDetalhes(id){
     carregarHistorico(id);
 }
 
-window.onload = carregarMeusChamados(id_funcionario);
-
-
 let listaChamados = [];
 async function carregarMeusChamados(id) {
     try {
@@ -190,7 +187,7 @@ const telaChamados = document.getElementById("listaChamados");
 const formChamados = document.getElementById("formChamados");
 
 function voltarLista(){
-    document.getElementById("lista-chamados").classList.remove("hidden");
+    document.getElementById("listaChamados").classList.remove("hidden");
     document.getElementById("detalhes-os").classList.add("hidden");
 }
 
