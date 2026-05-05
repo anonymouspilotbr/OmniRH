@@ -17,7 +17,18 @@ async function retornarID(){
     return data.id;
 }
 
-const id_funcionario = await retornarID();
+let id_funcionario;
+
+window.onload = async () => {
+    id_funcionario = await retornarID();
+
+    if (!id_funcionario) {
+        console.warn("ID não encontrado");
+        return;
+    }
+
+    await carregarMeusChamados(id_funcionario);
+};
 
 function mostrarDetalhes(id){
     const dados = listaChamados.find(c => c.id == id);
@@ -56,7 +67,7 @@ window.onload = carregarMeusChamados(id_funcionario);
 
 
 let listaChamados = [];
-async function carregarMeusChamados(id_funcionario) {
+async function carregarMeusChamados(id) {
     try {
         const res = await fetch(`/chamados/solicitante/${id}`);
         const chamados = await res.json();
