@@ -250,7 +250,7 @@ async function confirmarComentario() {
 
 function avaliarServico(){
     const tecnico = window.chamadoAtual.tecnico;
-    const campoTecnico = document.querySelector("nomeTecnicoAv");
+    const campoTecnico = document.getElementById("nomeTecnicoAv");
     campoTecnico.innerHTML += `${tecnico}`;
     document.getElementById("modalAvaliacao").classList.remove("hidden");
 }
