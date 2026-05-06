@@ -249,9 +249,14 @@ async function confirmarComentario() {
 }
 
 function avaliarServico(){
-    const tecnico = window.chamadoAtual.tecnico;
+    const id = window.chamadoAtual;
+    const response = await fetch(`/chamados/${id}`);
+
+    const chamado = await response.json();
+    const tecnico = chamado.tecnico;
+    
     const campoTecnico = document.getElementById("nomeTecnicoAv");
-    campoTecnico.innerHTML += `${tecnico}`;
+    campoTecnico.innerText = tecnico;
     document.getElementById("modalAvaliacao").classList.remove("hidden");
 }
 
@@ -259,7 +264,7 @@ function fecharModalAvaliacao(){
     document.getElementById("modalAvaliacao").classList.add("hidden");
 }
 
-let servAvaliado;
+let servAvaliado = false;
 
 async function confirmarAvaliacao(){
     const token = localStorage.getItem('token');
