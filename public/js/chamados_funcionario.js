@@ -262,7 +262,7 @@ function fecharModalAvaliacao(){
 
 let servAvaliado;
 
-function confirmarAvaliacao(){
+async function confirmarAvaliacao(){
     const token = localStorage.getItem('token');
     const opcaoSelecionada = document.querySelector('input[name="avaliacao"]:checked');
 
@@ -292,7 +292,7 @@ function confirmarAvaliacao(){
         mostrarDetalhes(window.chamadoAtual);
         atualizarBotoes(window.chamadoAtual);
     } catch (error){
-        console.error(err);
+        console.error(error);
         alert("Erro ao registrar avaliação");
     }
 }
