@@ -45,7 +45,8 @@ async function listarPorSolicitante(id_solicitante) {
         t.nome AS tecnico,
         c.status,
         COALESCE(c.servicos, '{}') AS servicos,
-        COALESCE(c.comentarios, '{}') AS comentarios
+        COALESCE(c.comentarios, '{}') AS comentarios,
+        c.avaliacao
         FROM chamados c
         LEFT JOIN empresas e ON e.id = c.empresa
         LEFT JOIN funcionario s ON s.id = c.solicitante

@@ -18,7 +18,6 @@ async function retornarID(){
 }
 
 let id_funcionario;
-let servAvaliado = false;
 
 window.onload = async () => {
     id_funcionario = await retornarID();
@@ -201,6 +200,7 @@ btnNovoChamado.addEventListener("click", () => {
 function atualizarBotoes(id){
     const dados = listaChamados.find(c => c.id == id);
     const isConcluido = dados.status === "Concluído";
+    const servAvaliado = !!dados.avaliacao;
 
     const btnAvaliarServico = document.getElementById("btnAvaliarServico");
 
@@ -285,7 +285,6 @@ async function confirmarAvaliacao(){
         if (!response.ok) throw new Error();
 
         alert("Avaliação registrada com sucesso.");
-        servAvaliado = true;
         fecharModalAvaliacao();
         await carregarMeusChamados(id_funcionario);
         mostrarDetalhes(window.idChamadoAtual);
