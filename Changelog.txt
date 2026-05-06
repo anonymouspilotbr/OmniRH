@@ -1,5 +1,9 @@
 Changelog
  
+[0.21.0] Sistema de chamados completo - 06 MAI 2026
+- Implementação completa do sistema de chamados, tanto do ponto de vista do técnico quanto do solicitante
+- FEATURES: Abrir chamado, atribuir ou remover técnico, adicionar serviço prestado, adicionar comentários, concluir chamado e avaliar serviço.
+
 [0.20.8] Desenvolvimento Sistema de Chamados III - 29 ABR 2026
 - Implementado o histórico de eventos dos chamados 
 
