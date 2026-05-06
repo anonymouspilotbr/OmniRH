@@ -128,6 +128,19 @@ async function carregarHistorico(req, res) {
     }
 }
 
+async function avaliarAtendimento(req, res) {
+    try{
+        const { id } = req.params;
+        const { avaliacao } = req.body;
+
+        const chamado = await chamadosService.avaliarAtendimento(id, avaliacao, req.user.id);
+        res.json(chamado);
+    } catch (error) {
+        console.error("Erro ao registrar avaliação: ", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     registrarChamado,
     listarChamados,
@@ -139,4 +152,5 @@ module.exports = {
     removerTecnico,
     concluirChamado,
     carregarHistorico,
+    avaliarAtendimento,
 }

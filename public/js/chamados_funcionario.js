@@ -198,7 +198,13 @@ btnNovoChamado.addEventListener("click", () => {
 
 function atualizarBotoes(id){
     const dados = listaChamados.find(c => c.id == id);
-    //BOTOES + CONDICIONAIS
+    const isConcluido = dados.status === "Concluído";
+
+    const btnAvaliarServico = document.getElementById("btnAvaliarServico");
+
+    btnAvaliarServico.disabled = !isConcluido || servAvaliado;
+    btnAvaliarServico.classList.toggle("opacity-50", !isConcluido || servAvaliado);
+    btnAvaliarServico.classList.toggle("cursor-not-allowed", !isConcluido || servAvaliado);
 }
 
 function addComment(){
@@ -239,6 +245,53 @@ async function confirmarComentario() {
     } catch (err) {
         console.error(err);
         alert("Erro ao adicionar comentário");
+    }
+}
+
+function avaliarServico(){
+    const dados = listaChamados.find(c => c.id == id);
+    const tecnico = dados.tecnico;
+    const campoTecnico = document.querySelector("nomeTecnicoAv");
+    campoTecnico.innerHTML += `${tecnico}`;
+    document.getElementById("modalAvaliacao").classList.remove("hidden");
+}
+
+function fecharModalAvaliacao(){
+    document.getElementById("modalAvaliacao").classList.add("hidden");
+}
+
+let servAvaliado;
+
+function confirmarAvaliacao(){
+    const opcaoSelecionada = document.querySelector('input[name="avaliacao"]:checked');
+
+    if (!opcaoSelecionada) {
+        alert("Selecione uma opção!");
+        return;
+    }
+
+    const avaliacao = opcaoSelecionada.value;
+
+    try{
+        const response = await fetch(`/chamados/${window.chamadoAtual}/avaliar`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ avaliacao })
+        });
+        if (!response.ok) throw new Error();
+
+        alert("Avaliação registrada com sucesso.");
+        servAvaliado = true;
+        fecharModalAvaliacao();
+        await carregarMeusChamados(id_funcionario);
+        mostrarDetalhes(window.chamadoAtual);
+        atualizarBotoes(window.chamadoAtual);
+    } catch (error){
+        console.error(err);
+        alert("Erro ao registrar avaliação");
     }
 }
 

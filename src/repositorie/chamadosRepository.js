@@ -177,6 +177,17 @@ async function listarHistorico(idChamado) {
     return result.rows;
 }
 
+async function registrarAvaliacao(idChamado, avaliacao) {
+    const query = `
+        UPDATE chamados
+        SET avaliacao = $1
+        WHERE id = $2
+        RETURNING *
+    `;
+    const result = await pool.query(query, [avaliacao, idChamado]);
+    return result.rows[0];
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
@@ -192,4 +203,5 @@ module.exports = {
     concluirOS,
     registrarHistorico,
     listarHistorico,
+    registrarAvaliacao,
 }

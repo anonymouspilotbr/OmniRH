@@ -73,6 +73,17 @@ async function carregarHistorico(idChamado) {
     return await chamadosRepository.listarHistorico(idChamado);
 }
 
+async function avaliarAtendimento(idChamado, avaliacao, idUsuario) {
+    await chamadosRepository.registrarAvaliacao(idChamado, avaliacao);
+
+    const usuario = await chamadosRepository.buscarUsuarioPorID(idUsuario);
+    if (!usuario) {
+        throw new Error("Usuário não encontrado");
+    }
+
+    await chamadosRepository.registrarHistorico(idChamado, `${usuario.nome} avaliou o serviço como "${avaliacao}"`);
+}
+
 module.exports = {
     criarChamado,
     listarChamados,
@@ -84,4 +95,5 @@ module.exports = {
     removerTecnico,
     concluirChamado,
     carregarHistorico,
+    avaliarAtendimento,
 }

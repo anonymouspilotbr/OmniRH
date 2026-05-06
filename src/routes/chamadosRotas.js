@@ -12,6 +12,7 @@ router.put('/:id/addServico', chamadosController.adicionarServico);
 router.put('/:id/addComentario', authController.autenticarToken, chamadosController.adicionarComentario);
 router.put('/:id/removerTech', chamadosController.removerTecnico);
 router.put('/:id/concluirOS', chamadosController.concluirChamado);
+router.put('/:id/avaliar', authController.autenticarToken, chamadosController.avaliarAtendimento);
 
 router.get('/', chamadosController.listarChamados);
 router.get('/tecnicos', chamadosController.listarTecnicos);

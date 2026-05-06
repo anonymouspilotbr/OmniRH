@@ -159,13 +159,35 @@
                         </div>
                     </div>
                 </div>
+                <div id="modalAvaliacao" class="fixed inset-0 bg-black bg-opacity-40 hidden flex items-center justify-center z-50">
+                    <div class="bg-white p-6 rounded-lg shadow-lg w-100 relative z-50">
+                        <h2 class="text-lg font-semibold mb-4">Avalie o atendimento</h2>
+                        <p>Como você avalia o serviço prestado por <span class="nomeTecnicoAv"></span>?</p>
+                        <input type="radio" id="avOpcao1" name="avaliacao" value="otimo" />
+                        <label for="avOpcao1">Ótimo</label>
+                        <input type="radio" id="avOpcao2" name="avaliacao" value="bom" />
+                        <label for="avOpcao2">Bom</label>
+                        <input type="radio" id="avOpcao3" name="avaliacao" value="regular" />
+                        <label for="avOpcao3">Regular</label>
+                        <input type="radio" id="avOpcao4" name="avaliacao" value="ruim" />
+                        <label for="avOpcao4">Ruim</label>
+                        <div class="flex justify-end gap-2">
+                            <button onclick="fecharModalAvaliacao()" class="px-3 py-1 bg-gray-300 rounded">
+                                Cancelar
+                            </button>
+                            <button onclick="confirmarAvaliacao()" class="px-3 py-1 bg-blue-600 text-white rounded">
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <button onclick="voltarLista()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">
                     Voltar para lista
                 </button>
                 <button onclick="addComment()" title="Adicionar comentário/discussão" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-comment-dots"></i>
                 </button><!--Adicionar Comentário/Discussão-->
-                <button onclick="avaliarServico()" title="Avaliar serviço prestado" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
+                <button id="btnAvaliarServico" onclick="avaliarServico()" title="Avaliar serviço prestado" class="mt-4 px-4 py-2 bg-gray-300 text-black rounded-lg">
                     <i class="fa-solid fa-star"></i>
                 </button>
                 <h2 class="text-xl font-bold mb-2 mt-4">
