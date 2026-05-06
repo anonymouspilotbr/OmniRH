@@ -18,6 +18,7 @@ async function retornarID(){
 }
 
 let id_funcionario;
+let servAvaliado = false;
 
 window.onload = async () => {
     id_funcionario = await retornarID();
@@ -259,8 +260,6 @@ function avaliarServico(){
 function fecharModalAvaliacao(){
     document.getElementById("modalAvaliacao").classList.add("hidden");
 }
-
-let servAvaliado = false;
 
 async function confirmarAvaliacao(){
     const token = localStorage.getItem('token');
