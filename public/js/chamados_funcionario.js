@@ -263,6 +263,7 @@ function fecharModalAvaliacao(){
 let servAvaliado;
 
 function confirmarAvaliacao(){
+    const token = localStorage.getItem('token');
     const opcaoSelecionada = document.querySelector('input[name="avaliacao"]:checked');
 
     if (!opcaoSelecionada) {
@@ -281,6 +282,7 @@ function confirmarAvaliacao(){
             },
             body: JSON.stringify({ avaliacao })
         });
+
         if (!response.ok) throw new Error();
 
         alert("Avaliação registrada com sucesso.");
