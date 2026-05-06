@@ -248,13 +248,13 @@ async function confirmarComentario() {
     }
 }
 
-function avaliarServico(){
+async function avaliarServico(){
     const id = window.chamadoAtual;
     const response = await fetch(`/chamados/${id}`);
 
     const chamado = await response.json();
     const tecnico = chamado.tecnico;
-    
+
     const campoTecnico = document.getElementById("nomeTecnicoAv");
     campoTecnico.innerText = tecnico;
     document.getElementById("modalAvaliacao").classList.remove("hidden");
