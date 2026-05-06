@@ -249,8 +249,7 @@ async function confirmarComentario() {
 }
 
 function avaliarServico(){
-    const dados = listaChamados.find(c => c.id == id);
-    const tecnico = dados.tecnico;
+    const tecnico = window.chamadoAtual.tecnico;
     const campoTecnico = document.querySelector("nomeTecnicoAv");
     campoTecnico.innerHTML += `${tecnico}`;
     document.getElementById("modalAvaliacao").classList.remove("hidden");
