@@ -34,7 +34,8 @@ function mostrarDetalhes(id){
     const dados = listaChamados.find(c => c.id == id);
 
     if (!dados) return;
-    window.chamadoAtual = dados.id;
+    window.idChamadoAtual = dados.id;
+    window.chamadoAtual = dados;
 
     document.getElementById("conteudo-detalhes").innerHTML = `
         <div>
@@ -225,7 +226,7 @@ async function confirmarComentario() {
     }
 
     try{
-        const response = await fetch(`/chamados/${window.chamadoAtual}/addComentario`, {
+        const response = await fetch(`/chamados/${window.idChamadoAtual}/addComentario`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -240,21 +241,16 @@ async function confirmarComentario() {
         fecharModalComentarios();
         document.getElementById("areaComentario").value = "";
         await carregarMeusChamados(id_funcionario);
-        mostrarDetalhes(window.chamadoAtual);
-        atualizarBotoes(window.chamadoAtual);
+        mostrarDetalhes(window.idChamadoAtual);
+        atualizarBotoes(window.idChamadoAtual);
     } catch (err) {
         console.error(err);
         alert("Erro ao adicionar comentário");
     }
 }
 
-async function avaliarServico(){
-    const id = window.chamadoAtual;
-    const response = await fetch(`/chamados/${id}`);
-
-    const chamado = await response.json();
-    const tecnico = chamado.tecnico;
-
+function avaliarServico(){
+    const tecnico = window.chamadoAtual.tecnico;
     const campoTecnico = document.getElementById("nomeTecnicoAv");
     campoTecnico.innerText = tecnico;
     document.getElementById("modalAvaliacao").classList.remove("hidden");
@@ -278,7 +274,7 @@ async function confirmarAvaliacao(){
     const avaliacao = opcaoSelecionada.value;
 
     try{
-        const response = await fetch(`/chamados/${window.chamadoAtual}/avaliar`, {
+        const response = await fetch(`/chamados/${window.idChamadoAtual}/avaliar`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -293,8 +289,8 @@ async function confirmarAvaliacao(){
         servAvaliado = true;
         fecharModalAvaliacao();
         await carregarMeusChamados(id_funcionario);
-        mostrarDetalhes(window.chamadoAtual);
-        atualizarBotoes(window.chamadoAtual);
+        mostrarDetalhes(window.idChamadoAtual);
+        atualizarBotoes(window.idChamadoAtual);
     } catch (error){
         console.error(error);
         alert("Erro ao registrar avaliação");
